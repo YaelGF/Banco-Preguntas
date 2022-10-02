@@ -1,25 +1,25 @@
 function PostPreguntas(){
 
-    var pregunta = document.getElementById("pregunta").value;
-    var imagen = document.getElementById("imagen").value;
-    var opc1 = document.getElementById("opc1").value;
-    var opc2 = document.getElementById("opc2").value;
-    var opc3 = document.getElementById("opc3").value;
-    var respuesta = document.getElementById("respuesta").value;
-    var materia = document.getElementById("materia").value;
-    var carrera = document.getElementById("carrera").value;
+    var pregunta    = document.getElementById("pregunta").value;
+    var imagen      = document.getElementById("imagen").value;
+    var opc1        = document.getElementById("opc1").value;
+    var opc2        = document.getElementById("opc2").value;
+    var opc3        = document.getElementById("opc3").value;
+    var respuesta   = document.getElementById("respuesta").value;
+    var materia     = document.getElementById("materia").value;
+    var carrera     = document.getElementById("carrera").value;
 
 
     payload = {
-        "pregunta": pregunta,
-        "imagen": imagen,
-        "opcion1": opc1,
-        "opcion2": opc2,
-        "opcion3": opc3,
-        "respuesta": respuesta,
-        "materia": materia,
-        "carrera": carrera
-    }
+        "pregunta":     pregunta,
+        "imagen":       imagen,
+        "opcion1":      opc1,
+        "opcion2":      opc2,
+        "opcion3":      opc3,
+        "respuesta":    respuesta,
+        "materia":      materia,
+        "carrera":      carrera
+    }   
 
     console.log(payload);
 
