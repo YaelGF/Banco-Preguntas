@@ -4,14 +4,44 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Banco de preguntas</title>
-
-        <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        <title>Banco de preguntas</title>
+        <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
+        <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    
+        <style>
+        body {font-family: Arial, Helvetica, sans-serif;}
+
+        .navbar {
+        width: 100%;
+        background-color: #555;
+        overflow: auto;
+        }
+
+        .navbar a {
+        float: left;
+        padding: 12px;
+        color: white;
+        text-decoration: none;
+        font-size: 17px;
+        }
+
+        .navbar a:hover {
+        background-color: #000;
+        }
+
+        .active {
+        background-color: #04AA6D;
+        }
+
+        @media screen and (max-width: 500px) {
+        .navbar a {
+            float: none;
+            display: block;
+        }
+        }
+        </style>
     </head>
 
     <body>
@@ -23,22 +53,25 @@
                     <input type="text" id="pregunta" name="pregunta" placeholder="Pregunta">
                 </div>
                 <div class="form-group">
-                    <input type="text"  name="opcion1" placeholder="Opcion 1">
+                    <input type="text" id="imagen" name="imagen" placeholder="Imagen">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="opcion2" placeholder="Opcion 2">
+                    <input type="text" id="opc1" name="opc1" placeholder="Opcion 1">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="opcion3" placeholder="Opcion 3">
+                    <input type="text" id="opc2" name="opc2" placeholder="Opcion 2">
                 </div>
                 <div class="form-group">
-                    <input type="text" name="respuesta" placeholder="Respuesta">
+                    <input type="text" id="opc3" name="opc3" placeholder="Opcion 3">
                 </div>
                 <div class="form-group">
-                    <input type="number" name="materia" placeholder="materia">
+                    <input type="text" id="respuesta" name="respuesta" placeholder="Respuesta">
                 </div>
                 <div class="form-group">
-                    <input type="number" name="carrera" placeholder="carrera">
+                    <input type="number" id="materia" name="materia" placeholder="materia">
+                </div>
+                <div class="form-group">
+                    <input type="number" id="carrera" name="carrera" placeholder="carrera">
                 </div>
                 <input type="button" value="Guardar" onclick="PostPreguntas()" class="btn btn-success btn-block btn-lg">
             </form>

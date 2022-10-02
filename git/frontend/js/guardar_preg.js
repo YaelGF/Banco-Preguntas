@@ -1,38 +1,35 @@
 function PostPreguntas(){
 
+    var pregunta = document.getElementById("pregunta").value;
+    var imagen = document.getElementById("imagen").value;
+    var opc1 = document.getElementById("opc1").value;
+    var opc2 = document.getElementById("opc2").value;
+    var opc3 = document.getElementById("opc3").value;
+    var respuesta = document.getElementById("respuesta").value;
+    var materia = document.getElementById("materia").value;
+    var carrera = document.getElementById("carrera").value;
+
+
     payload = {
-        "pregunta": $("#pregunta").val(),
-        "imagen": $("#imagen").val(),
-        "opc1" : $("#opc1").val(),
-        "opc2" : $("#opc2").val(),
-        "opc3" : $("#opc3").val(),
-        "respuesta" : $("#respuesta").val(),
-        "materia" : $("#materia").val(),
-        "carrera" : $("#carrera").val(),
-        
+        "pregunta": pregunta,
+        "imagen": imagen,
+        "opcion1": opc1,
+        "opcion2": opc2,
+        "opcion3": opc3,
+        "respuesta": respuesta,
+        "materia": materia,
+        "carrera": carrera
     }
 
-    /*$.ajax({
-        url: "http://localhost:3000/api/preguntas",
-        type: "POST",
-        data: JSON.stringify(payload),
-        contentType: "application/json",
-        success: function(data){
-            alert("Pregunta guardada");
-            console.log(data);
-        },
-        error: function(error){
-            alert("Error al guardar pregunta");
-            console.log(error);
-        }
-    });*/
-
+    console.log(payload);
 
     var request = new XMLHttpRequest(); 
-    request.open('POST', "http://0.0.0.0:8000//preguntas/",true);
+    request.open('POST', "http://0.0.0.0:8000/preguntas/",true);
     request.setRequestHeader("accept", "application/json");
+    //request.setRequestHeader("Authorization", "Bearer " + btoa(token));
     request.setRequestHeader("Content-Type", "application/json");
 
+    
     request.onload = () => {
         
         const response  = request.responseText;
@@ -52,13 +49,14 @@ function PostPreguntas(){
 
             Swal.fire({
                 title: json.message,
-                text: "Regresar a la lista de clientes ",
+                text: "Pregunta guardada correctamente",
                 type: "success"
             }).then(function() {
-                window.location = "";
+                window.location = "/templates/get_preguntas.html";
             });
             
         }
     };
     request.send(JSON.stringify(payload));
+
 };

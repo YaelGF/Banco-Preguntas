@@ -21,10 +21,10 @@ DATABASE_URL = os.path.join("sql/preguntas.sqlite") # Path to the database file
 
 origins = [
     "http://0.0.0.0:8000/",
-    "http://127.0.0.1:8000/",
+    "http://0.0.0.0:8080/",
     "*",   
-            
-    ]
+]
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
@@ -34,7 +34,6 @@ app.add_middleware(
 )
 
 class Pregunta(BaseModel):
-
     pregunta    : str
     imagen      : str
     opcion1     : str
@@ -43,14 +42,7 @@ class Pregunta(BaseModel):
     respuesta   : str
     materia     : int
     carrera     : int
-    
-class PreguntaIn(BaseModel):
-    pregunta    : str
-    imagen      : str
-    opcion1     : str
-    opcion2     : str
-    opcion3     : str
-    respuesta   : str
+
 
 
 
