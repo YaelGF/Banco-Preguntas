@@ -2,35 +2,35 @@
 CREATE TABLE IF NOT EXISTS preguntas(
     id_preg	 		INTEGER		    PRIMARY KEY AUTOINCREMENT NOT NULL,
     pregunta	 	VARCHAR(255) 	NOT NULL,
-    imagen          VARCHAR(200)	NULL,
-    opc1			VARCHAR(75)		NOT NULL,
-    opc2			VARCHAR(75)		NOT NULL,
-    opc3			VARCHAR(75)		NOT NULL,
-    respuesta		VARCHAR(75) 	NOT NULL,
-    materia         INTEGER         NOT NULL,
-    carrera         INTEGER         NOT NULL,
-    FOREIGN KEY (materia) REFERENCES materias(id_mat),
-    FOREIGN KEY (carrera) REFERENCES carreras(id_car)
+    opcion1			VARCHAR(75)		NOT NULL,
+    opcion2			VARCHAR(75)		NOT NULL,
+    opcion3			VARCHAR(75)		NOT NULL,
+    opcionc 		VARCHAR(75) 	NOT NULL,
+    id_materia      INTEGER         NOT NULL,
+    id_carrera      INTEGER         NOT NULL,
+    FOREIGN KEY (id_materia) REFERENCES materias(id_materia),
+    FOREIGN KEY (id_carrera) REFERENCES carreras(id_carrera)
 );
 
-CREATE TABLE IF NOT EXISTS respuestas(
-    id_res	 		INTEGER		    PRIMARY KEY AUTOINCREMENT NOT NULL,
-    id_preg	 		INTEGER		    NOT NULL,
-    id_alum	 		INTEGER		    NOT NULL,
-    respuesta		VARCHAR(75) 	NOT NULL,
-    FOREIGN KEY (id_preg) REFERENCES preguntas(id_preg),
-    FOREIGN KEY (id_alum) REFERENCES alumnos(id_alum)
+CREATE TABLE IF NOT EXISTS preguntas_imagenes(
+    id_preg_imagenes	INTEGER		        PRIMARY KEY AUTOINCREMENT NOT NULL,
+    id_preg			    INTEGER			    NOT NULL,
+    imagen			    VARCHAR(250)		NOT NULL,
+    FOREIGN KEY (id_preg) REFERENCES preguntas(id_preg)
 );
+
 
 CREATE TABLE IF NOT EXISTS materias(
-    id_mat	 		INTEGER		    PRIMARY KEY AUTOINCREMENT NOT NULL,
-    materia	 		VARCHAR(75) 	NOT NULL
+    id_materia	 		INTEGER		    PRIMARY KEY AUTOINCREMENT NOT NULL,
+    materia	 		VARCHAR(75) 	    NOT NULL,
+    id_carrera      INTEGER, 
+    FOREIGN KEY (id_carrera) REFERENCES carrera (id_carrera)
 );
 
 insert into materias(materia) values('Matematicas');
 
 CREATE TABLE IF NOT EXISTS carreras(
-    id_car	 		INTEGER		    PRIMARY KEY AUTOINCREMENT NOT NULL,
+    id_carrera	 		INTEGER		    PRIMARY KEY AUTOINCREMENT NOT NULL,
     carrera	 		VARCHAR(75) 	NOT NULL
 );
 
@@ -41,16 +41,25 @@ CREATE TABLE IF NOT EXISTS alumnos(
     nombre	 		VARCHAR(75) 	NOT NULL,
     apellido		VARCHAR(75) 	NOT NULL,
     matricula		VARCHAR(75) 	NOT NULL,
-    carrera         INTEGER         NOT NULL,
-    FOREIGN KEY (carrera) REFERENCES carreras(id_car)
+    id_carrera         INTEGER         NOT NULL,
+    FOREIGN KEY (id_carrera) REFERENCES carreras(id_carrera)
 );
 
 CREATE TABLE IF NOT EXISTS profesores(
     id_prof	 		INTEGER		    PRIMARY KEY AUTOINCREMENT NOT NULL,
     nombre	 		VARCHAR(75) 	NOT NULL,
     apellido		VARCHAR(75) 	NOT NULL,
-    matricula		VARCHAR(75) 	NOT NULL,
-    carrera         INTEGER         NOT NULL,
-    FOREIGN KEY (carrera) REFERENCES carreras(id_car)
+    matricula		VARCHAR(75) 	NOT NULL
+    
 );
+
+CREATE TABLE IF NOT EXISTS Asignacion_P_M(
+    id_asignacion	INTEGER		    PRIMARY KEY AUTOINCREMENT NOT NULL,
+    id_prof	 		INTEGER		    NOT NULL,
+    id_materia		INTEGER		    NOT NULL,
+    FOREIGN KEY (id_prof) REFERENCES profesores(id_prof),
+    FOREIGN KEY (id_materia) REFERENCES materias(id_materia)
+);
+
+
 

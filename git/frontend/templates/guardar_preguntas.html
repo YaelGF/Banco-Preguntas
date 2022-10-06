@@ -1,84 +1,104 @@
-<!DOCTYPE html>
 
-<!-- Path: git/frontend/index.html -->
+<!DOCTYPE html>
 <html>
     <head>
+        <title>Insertar Preguntas</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Banco de preguntas</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        
         <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
         <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <style>
-        body {font-family: Arial, Helvetica, sans-serif;}
-
-        .navbar {
-        width: 100%;
-        background-color: #555;
-        overflow: auto;
-        }
-
-        .navbar a {
-        float: left;
-        padding: 12px;
-        color: white;
-        text-decoration: none;
-        font-size: 17px;
-        }
-
-        .navbar a:hover {
-        background-color: #000;
-        }
-
-        .active {
-        background-color: #04AA6D;
-        }
-
-        @media screen and (max-width: 500px) {
-        .navbar a {
-            float: none;
-            display: block;
-        }
-        }
-        </style>
     </head>
-
     <body>
-        <div class="container">
-            <h1 class="titulo">Banco de preguntas</h1>
-            <hr class="border">
-            <form action="" method="POST">
-                <div class="form-group">
-                    <input type="text" id="pregunta" name="pregunta" placeholder="Pregunta">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a href="../../index.php" class="navbar-brand">
+                <img src="../imagenes/" height="60" alt="Banco_Preguntas">
+                </a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <a href="../../index.php" class="nav-item nav-link active"><i class="fa fa-fw fa-home"></i>Home</a>
+                <a href="listar_preguntas.php" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i>Listar preguntas</a>
+                <div class="navbar-nav">
+                    <a href="#" class="nav-item nav-link">Login</a>
                 </div>
-                <div class="form-group">
-                    <input type="text" id="imagen" name="imagen" placeholder="Imagen">
-                </div>
-                <div class="form-group">
-                    <input type="text" id="opc1" name="opc1" placeholder="Opcion 1">
-                </div>
-                <div class="form-group">
-                    <input type="text" id="opc2" name="opc2" placeholder="Opcion 2">
-                </div>
-                <div class="form-group">
-                    <input type="text" id="opc3" name="opc3" placeholder="Opcion 3">
-                </div>
-                <div class="form-group">
-                    <input type="text" id="respuesta" name="respuesta" placeholder="Respuesta">
-                </div>
-                <div class="form-group">
-                    <input type="number" id="materia" name="materia" placeholder="materia">
-                </div>
-                <div class="form-group">
-                    <input type="number" id="carrera" name="carrera" placeholder="carrera">
-                </div>
-                <input type="button" value="Guardar" onclick="PostPreguntas()" class="btn btn-success btn-block btn-lg">
-            </form>
-            <p class="texto-registrate">
-                <a href="index.html">Volver</a>
-            </p>
+                <br>
+                <br>
+            </div>
+        </nav>
+        <div class="container mt-3">
+        <div class="jumbtron">
+            <h1 class="display-4">Insertar Preguntas</h1>
+            <p class="lead">Inserta las preguntas de la materia: </p>
+            <hr class="my-4">
         </div>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <form action="" method="POST">
+                                <!--<div class="form-group">
+                                    <form name="subida-imagenes" type="POST" enctype="multipart/formdata" ></form>
+                                    <input type="file" id="imagen" name="imagen" placeholder="Imagen">
+                                </div>-->
+                                <div class="form-group">
+                                    <label for="pregunta">Pregunta</label>
+                                    <input type="text" class="form-control" id="pregunta" name="pregunta" placeholder="Inserta la pregunta">
+                                </div>
+                                <div class="form-group">
+                                    <label for="opcion1">Opcion 1</label>
+                                    <input type="text" class="form-control" id="opcion1" name="opcion1" placeholder="Inserta la opcion 1">
+                                </div>
+                                <div class="form-group">
+                                    <label for="opcion2">Opcion 2</label>
+                                    <input type="text" class="form-control" id="opcion2" name="opcion2" placeholder="Ingresa la opcion 2">
+                                </div>
+                                <div class="form-group">
+                                    <label for="opcion3">Opcion 3</label>
+                                    <input type="text" class="form-control" id="opcion3" name="opcion3" placeholder="ingresa la opcion 3">
+                                </div>
+                                <div class="form-group">
+                                    <label for="opcionc">Opcion correcta</label>
+                                    <input type="text" class="form-control" id="opcionc" name="opcionc" placeholder="Ingresa la opcion correcta">
+                                </div>
+                                <div class="form-group">
+                                    <select name="materia" id="materia">
+                                        <option value="0">Selecciona una materia</option>
+                                        <option value="1">Matematicas</option>
+                                        <option value="2">Español</option>
+                                        <option value="3">Ciencias</option>
+                                        <option value="4">Historia</option>
+                                        <option value="5">Geografia</option>
+                                     </select>
+                                 </div>
+                                 <div class="form-group">
+                                     <select name="carrera" id="carrera">
+                                         <option value="0">Selecciona una carrera</option>
+                                         <option value="1">Ingenieria en sistemas computacionales</option>
+                                         <option value="2">Ingenieria en mecatronica</option>
+                                         <option value="3">Ingenieria en electronica</option>
+                                         <option value="4">Ingenieria en industrial</option>
+                                         <option value="5">Ingenieria en gestion empresarial</option>
+                                     </select>
+                                 </div>
+                                <center><input type="button" value="Guardar" onclick="PostPreguntas()" class="btn btn-success btn-block btn-lg"></center>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <footer class="footer mt-auto py-3">
+            <div class="container">
+                <span class="text-muted">Banco de preguntas</span>
+            </div>
+        </footer>
         <script type="text/javascript" src="../js/guardar_preg.js"></script>
     </body>
 </html>
