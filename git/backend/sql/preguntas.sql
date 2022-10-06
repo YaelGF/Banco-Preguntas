@@ -7,9 +7,8 @@ CREATE TABLE IF NOT EXISTS preguntas(
     opcion3			VARCHAR(75)		NOT NULL,
     opcionc 		VARCHAR(75) 	NOT NULL,
     id_materia      INTEGER         NOT NULL,
-    id_carrera      INTEGER         NOT NULL,
     FOREIGN KEY (id_materia) REFERENCES materias(id_materia),
-    FOREIGN KEY (id_carrera) REFERENCES carreras(id_carrera)
+    
 );
 
 CREATE TABLE IF NOT EXISTS preguntas_imagenes(

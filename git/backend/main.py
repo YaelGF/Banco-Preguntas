@@ -40,7 +40,7 @@ class Pregunta(BaseModel):
     opcion3     : str
     opcionc     : str
     materia     : int
-    carrera     : int
+
 
 
 
@@ -111,26 +111,6 @@ async def post_preguntas(pregunta: Pregunta):
         print(f"Error: {error}")
         return(f"Error: {error}")
 
-#calificar respuesta
-@app.post("/calificar/",
-    status_code=status.HTTP_202_ACCEPTED,
-    summary="Califica una respuesta",
-    description="Califica una respuesta",
-    tags=["auth"]
-)
-async def calificar_respuesta(id: int, respuesta: str):
-    try:
-        with sqlite3.connect(DATABASE_URL) as connection:
-            cursor = connection.cursor()
-            cursor.execute('SELECT opcionc FROM preguntas WHERE id_preg = ?', (id,))
-            response = cursor.fetchone()
-            if response == respuesta:
-                return {"message": "Respuesta correcta"}
-            else:
-                return {"message": "Respuesta incorrecta"}
-    except Exception as error:
-        print(f"Error: {error}")
-        return(f"Error: {error}")
 
 #Obtiene las preguntas de la base de datos
 @app.get(
