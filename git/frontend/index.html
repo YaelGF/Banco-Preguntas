@@ -12,6 +12,18 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        <script type="text/javascript">
+            function showContent() {
+                element = document.getElementById("imagenes");
+                check = document.getElementById("check");
+                if (check.checked) {
+                    element.style.display='block';
+                }
+                else {
+                    element.style.display='none';
+                }
+            }
+        </script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -44,14 +56,14 @@
                     <div class="card">
                         <div class="card-body">
                             <form action="" method="POST" enctype="multipart/form-data" id="uploadForm">
-                             
-                                <div class="form-group">
+                                <b>¿Desea agregar una imagen?</b>
+                                <input type="checkbox" name="check" id="check" value="1" onchange="javascript:showContent()"/>
+                                <div class="form-group" id="imagenes" name="imagenes">
                                     <label for="imagen">Selecciona la imagen de la pregunta</label>
                                     <br>
                                     <input type="file" name="imagen" id="imagen" accept=".jpg , .png,  .bmp , .tif"/>
                                     <br>
                                     <img id="blah" src="https://via.placeholder.com/150" alt="Tu imagen" />
-                                    
                                 </div>
                                 <div class="form-group">
                                     <label for="pregunta">Pregunta</label>
