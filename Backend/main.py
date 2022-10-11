@@ -1,13 +1,17 @@
-from fastapi import Depends, FastAPI, HTTPException, status
+from fastapi import Depends, FastAPI, HTTPException, status,  Security
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 from typing import Union
 from typing import List
+from .Schemas import Schemas
 import pyrebase
 import sqlite3
 import hashlib
+import os 
+
+DATABASE_URL = os.path.join("Backend/SQL/preguntas.sqlite") # Path to the database file
 
 firebaseConfig = {
   "apiKey": "AIzaSyBPmbcSj2xTLHDhrt4uTJiJOgIUyrjU0CM",
@@ -138,3 +142,93 @@ async def register(matricula:str,rol:str,credentials: HTTPBasicCredentials = Dep
     except Exception as e:
       print(f"Error: {e}")
       raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail=e)
+
+
+
+
+
+
+
+#Obtiene las preguntas de la base de datos
+@app.get(
+    "/preguntas/", 
+    status_code=status.HTTP_202_ACCEPTED,
+    summary     ="Regresa una lista de preguntas",
+    description ="Regresa una lista de preguntas",
+    tags        =["Preguntas"]
+)
+#async def get_preguntas(credentials: HTTPAuthorizationCredentials = Depends(securityBearer)):
+async def get_preguntas():
+    try:
+        with sqlite3.connect(DATABASE_URL) as connection:
+            connection.row_factory = sqlite3.Row
+            cursor = connection.cursor()
+            cursor.execute('SELECT * FROM preguntas')
+            response = cursor.fetchall()
+            return response
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al obtener las preguntas"}
+
+#Obtiene una pregunta por medio del id
+@app.get(
+    "/preguntas/{id}",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary     ="Regresa una pregunta",
+    description ="Regresa una pregunta",
+    tags=["Preguntas"]
+)
+async def get_pregunta(id: int):
+    try:
+        with sqlite3.connect(DATABASE_URL) as connection:
+            connection.row_factory = sqlite3.Row
+            cursor = connection.cursor()
+            cursor.execute('SELECT * FROM preguntas WHERE id_preg = ?', (id,))
+            response = cursor.fetchone()
+            return response
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al obtener la pregunta"}
+
+
+#Inserta una nueva pregunta a la base de datos
+@app.post("/preguntas/", 
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Inserta una nueva pregunta",
+    description="Inserta una nueva pregunta",
+    tags=["Preguntas"]
+)
+async def post_preguntas(pregunta: Schemas.Pregunta):
+    try:
+        with sqlite3.connect(DATABASE_URL) as connection:
+            cursor = connection.cursor()
+            cursor.execute('INSERT INTO preguntas (pregunta, opcion1, opcion2, opcion3, opcionc, id_materia) VALUES (?, ?, ?, ?, ?, ?)', (pregunta.pregunta, pregunta.opcion1, pregunta.opcion2, pregunta.opcion3, pregunta.opcionc, pregunta.materia))
+            connection.commit()
+            response = cursor.fetchone()
+            message = "Pregunta insertada correctamente"
+            return {"message": message}
+        
+    except Exception as error:
+        print(f"Error: {error}")
+        return(f"Error: {error}")
+
+
+#Obtiene las preguntas de la base de datos
+@app.get(
+    "/materias/",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary     ="Regresa una lista de materias",
+    description ="Regresa una lista de materias",
+    tags=["Materias"]
+)
+async def get_materias():
+    try:
+        with sqlite3.connect(DATABASE_URL) as connection:
+            connection.row_factory = sqlite3.Row
+            cursor = connection.cursor()
+            cursor.execute('SELECT * FROM materias')
+            response = cursor.fetchall()
+            return response
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al obtener las materias"}
