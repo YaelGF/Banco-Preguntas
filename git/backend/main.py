@@ -45,6 +45,7 @@ class Pregunta(BaseModel):
 
 
 
+
 @app.get("/")
 def root():
     return {"message": "Esta es una API de Banco de Preguntas"}
@@ -101,7 +102,7 @@ async def post_preguntas(pregunta: Pregunta):
     try:
         with sqlite3.connect(DATABASE_URL) as connection:
             cursor = connection.cursor()
-            cursor.execute('INSERT INTO preguntas (pregunta, opcion1, opcion2, opcion3, opcionc, id_materia, id_carrera) VALUES (?, ?, ?, ?, ?, ?, ?)', (pregunta.pregunta, pregunta.opcion1, pregunta.opcion2, pregunta.opcion3, pregunta.opcionc, pregunta.materia, pregunta.carrera))
+            cursor.execute('INSERT INTO preguntas (pregunta, opcion1, opcion2, opcion3, opcionc, id_materia) VALUES (?, ?, ?, ?, ?, ?)', (pregunta.pregunta, pregunta.opcion1, pregunta.opcion2, pregunta.opcion3, pregunta.opcionc, pregunta.materia))
             connection.commit()
             response = cursor.fetchone()
             message = "Pregunta insertada correctamente"

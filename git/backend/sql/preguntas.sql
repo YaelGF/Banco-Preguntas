@@ -7,7 +7,7 @@ CREATE TABLE IF NOT EXISTS preguntas(
     opcion3			VARCHAR(75)		NOT NULL,
     opcionc 		VARCHAR(75) 	NOT NULL,
     id_materia      INTEGER         NOT NULL,
-    FOREIGN KEY (id_materia) REFERENCES materias(id_materia),
+    FOREIGN KEY (id_materia) REFERENCES materias(id_materia)
     
 );
 
@@ -18,6 +18,18 @@ CREATE TABLE IF NOT EXISTS preguntas_imagenes(
     FOREIGN KEY (id_preg) REFERENCES preguntas(id_preg)
 );
 
+#prueba de tabla
+CREATE TABLE IF NOT EXISTS preguntas_con_imagenes(
+    id_preg_con_imagenes	INTEGER		        PRIMARY KEY AUTOINCREMENT NOT NULL,
+    imagen                  VARCHAR(250)		    NULL,
+    pregunta			    VARCHAR(255)		NOT NULL,
+    opcion1			        VARCHAR(75)		    NOT NULL,
+    opcion2			        VARCHAR(75)		    NOT NULL,
+    opcion3			        VARCHAR(75)		    NOT NULL,
+    opcionc 			     VARCHAR(75) 	    NOT NULL,
+    id_materia              INTEGER             NOT NULL,
+    FOREIGN KEY (id_materia) REFERENCES materias(id_materia)
+);
 
 CREATE TABLE IF NOT EXISTS materias(
     id_materia	 		INTEGER		    PRIMARY KEY AUTOINCREMENT NOT NULL,
@@ -59,6 +71,5 @@ CREATE TABLE IF NOT EXISTS Asignacion_P_M(
     FOREIGN KEY (id_prof) REFERENCES profesores(id_prof),
     FOREIGN KEY (id_materia) REFERENCES materias(id_materia)
 );
-
 
 

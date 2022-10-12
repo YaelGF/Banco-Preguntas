@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Insertar Preguntas</title>
+        <title>pagína principal</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -12,18 +12,7 @@
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script type="text/javascript">
-            function showContent() {
-                element = document.getElementById("imagenes");
-                check = document.getElementById("check");
-                if (check.checked) {
-                    element.style.display='block';
-                }
-                else {
-                    element.style.display='none';
-                }
-            }
-        </script>
+        
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -34,8 +23,9 @@
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
                 </button>
-                <a href="../../index.php" class="nav-item nav-link active"><i class="fa fa-fw fa-home"></i>Home</a>
-                <a href="listar_preguntas.php" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i>Listar preguntas</a>
+                <a href="templates/guardar_preguntas_cn_imagen.html" class="nav-item nav-link active"><i class="fa fa-fw fa-home"></i>Guardar preguntas con imagen</a>
+                <a href="templates/guardar_preguntas.html" class="nav-item nav-link"><i class="fa fa-fw fa-save"></i>Guardar Preguntas</a>
+                <a href="templates/mostrar_preguntas.html" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i>Mostrar Preguntas</a>
                 <div class="navbar-nav">
                     <a href="#" class="nav-item nav-link">Login</a>
                 </div>
@@ -51,57 +41,8 @@
         </div>
         </div>
         <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <form action="" method="POST" enctype="multipart/form-data" id="uploadForm">
-                                <div class="form-group">
-                                    <label for="pregunta">Pregunta</label>
-                                    <input type="text" class="form-control" id="pregunta" name="pregunta" placeholder="Inserta la pregunta">
-                                </div>
-                                <div class="form-group">
-                                    <label for="opcion1">Opcion 1</label>
-                                    <input type="text" class="form-control" id="opcion1" name="opcion1" placeholder="Inserta la opcion 1">
-                                </div>
-                                <div class="form-group">
-                                    <label for="opcion2">Opcion 2</label>
-                                    <input type="text" class="form-control" id="opcion2" name="opcion2" placeholder="Ingresa la opcion 2">
-                                </div>
-                                <div class="form-group">
-                                    <label for="opcion3">Opcion 3</label>
-                                    <input type="text" class="form-control" id="opcion3" name="opcion3" placeholder="ingresa la opcion 3">
-                                </div>
-                                <div class="form-group">
-                                    <label for="opcionc">Opcion correcta</label>
-                                    <input type="text" class="form-control" id="opcionc" name="opcionc" placeholder="Ingresa la opcion correcta">
-                                </div>
-                                <div class="form-group">
-                                    <select name="materia" id="materia">
-                                        <option value="0">Selecciona una materia</option>
-                                        <option value="1">Matematicas</option>
-                                        <option value="2">Español</option>
-                                        <option value="3">Ciencias</option>
-                                        <option value="4">Historia</option>
-                                        <option value="5">Geografia</option>
-                                     </select>
-                                </div>
-                                <b>¿Desea agregar una imagen?</b>
-                                <input type="checkbox" name="check" id="check" value="1" onchange="javascript:showContent()"/>
-                                <div class="form-group" id="imagenes" name="imagenes">
-                                    <label for="imagen">Selecciona la imagen de la pregunta</label>
-                                    <br>
-                                    <input type="file" name="imagen" id="imagen" accept=".jpg , .png,  .bmp , .tif"/>
-                                    <br>
-                                    <img id="blah" src="https://via.placeholder.com/150" alt="Tu imagen" />
-                                </div>
-                                 
-                                <center><input type="button" value="Guardar" onclick="PostPreguntas()" class="btn btn-success btn-block btn-lg"></center>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            
+                            
         </div>
         <footer class="footer mt-auto py-3">
             <div class="container">
