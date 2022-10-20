@@ -1,3 +1,4 @@
+from random import random
 from fastapi import Depends, FastAPI , HTTPException, status, Security
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -13,6 +14,7 @@ from fastapi import Depends, FastAPI, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials 
 from pydantic import BaseModel 
 from typing import Union  
+import random
 
 
 app = FastAPI()
@@ -41,6 +43,9 @@ class Pregunta(BaseModel):
     opcionc     : str
     materia     : int
 
+class Calificar_Preguntas(BaseModel):
+    id_pregunta : int
+    respuesta   : str
 
 
 
@@ -63,13 +68,28 @@ async def get_preguntas():
     try:
         with sqlite3.connect(DATABASE_URL) as connection:
             connection.row_factory = sqlite3.Row
-            cursor = connection.cursor()
-            cursor.execute('SELECT * FROM preguntas')
-            response = cursor.fetchall()
-            return response
+            cursor      = connection.cursor()
+            preguntas_p = []
+            opciones_p  = []
+            preg_opc    = {}
+            #cursor.execute('SELECT * FROM preguntas ORDER BY RANDOM() LIMIT 10')
+            cursor.execute('SELECT * FROM preguntas ORDER BY RANDOM()')
+            preguntas = cursor.fetchall()
+            for pregunta in preguntas:
+                preguntas_p.append(pregunta)
+                cursor.execute('SELECT opcion1, opcion2, opcion3, opcionc from preguntas  WHERE id_preg = ?', (pregunta['id_preg'],))
+                opciones = cursor.fetchall()
+                for opcion in opciones:
+                    opciones_p.append(opcion)
+            preg_opc['preguntas']   = preguntas_p
+            return preg_opc
+
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al obtener las preguntas"}
+
+
+
 
 #Obtiene una pregunta por medio del id
 @app.get(
@@ -132,3 +152,58 @@ async def get_materias():
         print(f"Error: {error}")
         return {"message": "Error al obtener las materias"}
 
+
+
+#calificar respuestas
+@app.post(
+    "/calificar/",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Califica las respuestas",
+    description="Califica las respuestas",
+    tags=["auth"]
+)
+async def calificar_respuestas(calificar: Calificar_Preguntas):
+    
+    try:
+        with sqlite3.connect(DATABASE_URL) as connection:
+            connection.row_factory = sqlite3.Row
+            cursor = connection.cursor()
+            correctas = 0
+            for respuesta in calificar:
+                cursor.execute('SELECT opcionc FROM preguntas WHERE id_preg = ?', (respuesta.id_pregunta,))
+                response = cursor.fetchone()
+                if response[0] == 1:
+                    correctas += 1
+                return {"correctas": correctas}
+                
+    except Exception as error:
+        print(f"Error: {error}")
+        return(f"Error: {error}")
+
+
+
+#CALIFICAR RESPUESTAS CON UNA PREGUNTA
+"""
+@app.post("/calificar/",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Califica una respuesta",
+    description="Califica una respuesta",
+    tags=["auth"]
+)
+
+async def calificar_respuesta(id: int, respuesta: str):
+    try:
+        with sqlite3.connect(DATABASE_URL) as connection:
+            connection.row_factory = sqlite3.Row
+            cursor = connection.cursor()
+            cursor.execute('SELECT * FROM preguntas WHERE id_preg = ?', (id,))
+            response = cursor.fetchone()
+            if response['opcionc'] == respuesta:
+                return {"correcta": True}
+            else:
+                return {"incorrecta": False}
+    except Exception as error:
+        print(f"Error: {error}")
+        return(f"Error: {error}")
+
+"""

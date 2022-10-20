@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html >
+
+<html>
     <head>
-        <title>Mostrar Preguntas</title>
+        <title>Calificar respuestas</title>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
         <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
-        <script type="text/javascript" src="../js/mostrar_preguntas.js"></script>
         <script type="text/javascript" src="../js/calificar.js"></script>
+
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 
@@ -30,14 +31,11 @@
                 <br>
             </div>
         </nav>
-        <form id="preguntas" name="preguntas" action="calificar_preguntas.html">
+        <div id="calificaciones">
             <script>
-                document.body.onload = mostrar_preguntas()
+                document.body.onload = calificar_preguntas()
             </script>
-        </form>
-        
+        </div>
     </body>
-    
+
 </html>
-            
-    

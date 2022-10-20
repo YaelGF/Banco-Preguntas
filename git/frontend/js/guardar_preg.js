@@ -6,8 +6,7 @@ function PostPreguntas(){
     var opc3        = document.getElementById("opcion3").value;
     var opcionc     = document.getElementById("opcionc").value;
     var materia     = document.getElementById("materia").value;
-
-
+    
 
     payload = {
         "pregunta":     pregunta,
@@ -49,7 +48,7 @@ function PostPreguntas(){
                 text: "Pregunta guardada correctamente",
                 type: "success"
             }).then(function() {
-                window.location = "/templates/get_preguntas.html";
+                window.location = "/templates/mostrar_preguntas.html";
             });
             
         }

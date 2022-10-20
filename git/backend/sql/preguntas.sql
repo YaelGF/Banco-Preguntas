@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS materias(
     id_materia	 		INTEGER		    PRIMARY KEY AUTOINCREMENT NOT NULL,
     materia	 		VARCHAR(75) 	    NOT NULL,
     id_carrera      INTEGER, 
-    FOREIGN KEY (id_carrera) REFERENCES carrera (id_carrera)
+    FOREIGN KEY (id_carrera) REFERENCES carreras (id_carrera)
 );
 
 insert into materias(materia) values('Matematicas');
