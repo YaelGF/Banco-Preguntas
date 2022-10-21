@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>pagína principal</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
+        <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script type="text/javascript" src="../js/guardar_preg.js"></script></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+        
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a href="../../index.php" class="navbar-brand">
+                <img src="../imagenes/" height="60" alt="Banco_Preguntas">
+                </a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <a href="templates/guardar_preguntas_cn_imagen.html" class="nav-item nav-link active"><i class="fa fa-fw fa-home"></i>Guardar preguntas con imagen</a>
+                <a href="templates/guardar_preguntas.html" class="nav-item nav-link"><i class="fa fa-fw fa-save"></i>Guardar Preguntas</a>
+                <a href="templates/mostrar_preguntas.html" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i>Mostrar Preguntas</a>
+                <div class="navbar-nav">
+                    <a href="#" class="nav-item nav-link">Login</a>
+                </div>
+                <br>
+                <br>
+            </div>
+        </nav>
+        <div class="container mt-3">
+        <div class="jumbtron">
+            <h1 class="display-4">Insertar Preguntas</h1>
+            <p class="lead">Inserta las preguntas de la materia: </p>
+            <hr class="my-4">
+        </div>
+        </div>
+        <div class="container">
+            
+                            
+        </div>
+        <footer class="footer mt-auto py-3">
+            <div class="container">
+                <span class="text-muted">Banco de preguntas</span>
+            </div>
+        </footer>
+        <script>
+            function readURL(input) {
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#blah')
+                            .attr('src', e.target.result)
+                            .width(500)
+                            .height(350);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            }
+            $("#imagen").change(function () {
+              readURL(this);
+            });
+        </script>
+    </body>
+</html>
