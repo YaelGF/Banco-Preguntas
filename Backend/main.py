@@ -147,25 +147,35 @@ async def register(matricula:str,rol:str,credentials: HTTPBasicCredentials = Dep
 
 
 
+# Brandon
 
-
-#Obtiene las preguntas de la base de datos
 @app.get(
     "/preguntas/", 
     status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa una lista de preguntas",
     description ="Regresa una lista de preguntas",
-    tags        =["Preguntas"]
 )
 #async def get_preguntas(credentials: HTTPAuthorizationCredentials = Depends(securityBearer)):
 async def get_preguntas():
     try:
         with sqlite3.connect(DATABASE_URL) as connection:
             connection.row_factory = sqlite3.Row
-            cursor = connection.cursor()
-            cursor.execute('SELECT * FROM preguntas')
-            response = cursor.fetchall()
-            return response
+            cursor      = connection.cursor()
+            preguntas_p = []
+            opciones_p  = []
+            preg_opc    = {}
+            #cursor.execute('SELECT * FROM preguntas ORDER BY RANDOM() LIMIT 10')
+            cursor.execute('SELECT * FROM preguntas ORDER BY RANDOM()')
+            preguntas = cursor.fetchall()
+            for pregunta in preguntas:
+                preguntas_p.append(pregunta)
+                cursor.execute('SELECT opcion1, opcion2, opcion3, opcionc from preguntas  WHERE id_preg = ?', (pregunta['id_preg'],))
+                opciones = cursor.fetchall()
+                for opcion in opciones:
+                    opciones_p.append(opcion)
+            preg_opc['preguntas']   = preguntas_p
+            return preg_opc
+
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al obtener las preguntas"}
