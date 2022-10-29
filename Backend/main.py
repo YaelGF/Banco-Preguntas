@@ -5,7 +5,6 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 from typing import Union
 from typing import List
-from .Schemas import Schemas
 import pyrebase
 import sqlite3
 import hashlib
@@ -145,7 +144,7 @@ async def register(matricula:str,rol:str,credentials: HTTPBasicCredentials = Dep
 
 
 
-
+"""
 
 # Brandon
 
@@ -242,3 +241,5 @@ async def get_materias():
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al obtener las materias"}
+
+"""
