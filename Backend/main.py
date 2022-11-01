@@ -35,7 +35,19 @@ firebase = pyrebase.initialize_app(firebaseConfig)
 auth = firebase.auth()
 db = firebase.database()
 
-app = FastAPI()
+app = FastAPI(
+    title="Banco de Preguntas",
+    description="API para el Banco de Preguntas",
+    version="1.0.0",
+    docs_url="/",
+    redoc_url=None,
+    openapi_tags=[
+        {
+            "name": "Login",
+            "description": "Operaciones sobre el login dentro de la aplicación",
+        },
+    ]
+)
 
 app.add_middleware(
     CORSMiddleware,
