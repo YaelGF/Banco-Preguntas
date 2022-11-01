@@ -70,7 +70,7 @@ def read_root():
     status_code=status.HTTP_202_ACCEPTED,
     summary="Get token for a user",
     description="Get a token for user",
-    tags=["login"]
+    tags=["Login"]
     )
 async def login(credentials: HTTPBasicCredentials = Depends(segurityBasic)):
     try:
@@ -91,7 +91,7 @@ async def login(credentials: HTTPBasicCredentials = Depends(segurityBasic)):
     status_code = status.HTTP_202_ACCEPTED,
     summary="Get user info",
     description="Get user info",
-    tags=["login"],
+    tags=["Login"],
 )
 async def get_user_info(credentials: HTTPAuthorizationCredentials = Depends(segurityBearer)):
     try:
@@ -111,7 +111,7 @@ async def get_user_info(credentials: HTTPAuthorizationCredentials = Depends(segu
     status_code = status.HTTP_202_ACCEPTED,
     summary="Logout user",
     description="Logout user",
-    tags=["login"],
+    tags=["Login"],
 )
 async def logout(credentials: HTTPAuthorizationCredentials = Depends(segurityBearer)):
     try:
@@ -131,7 +131,7 @@ async def logout(credentials: HTTPAuthorizationCredentials = Depends(segurityBea
     status_code = status.HTTP_202_ACCEPTED,
     summary="Register user",
     description="Register user",
-    tags=["login"],
+    tags=["Login"],
 )
 async def register(matricula:str,rol:str,credentials: HTTPBasicCredentials = Depends(segurityBasic)):
     try:
