@@ -64,7 +64,7 @@ async def validateToken(credentials: HTTPAuthorizationCredentials = Depends(segu
             headers={"WWW-Authenticate": "Bearer"},
         )
 
-@login.get(
+@login.post(
   "/login/singup",
   status_code=status.HTTP_202_ACCEPTED,
   summary="Singup",
