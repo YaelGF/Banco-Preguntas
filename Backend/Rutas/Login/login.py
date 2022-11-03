@@ -29,8 +29,8 @@ segurityBearer = HTTPBearer()
 @login.get(
     "/login/validate", 
     status_code=status.HTTP_202_ACCEPTED,
-    summary="Get token for a user",
-    description="Get a token for user",
+    summary="Obtener un token de acceso para el usuario mediante credenciales basicas", 
+    description="Obtener un token de acceso para el ususario mediante credenciales basicas usando el correo y contraseña del usuario",
     tags=["Login"]
     )
 async def validate(credentials: HTTPBasicCredentials = Depends(segurityBasic)):
@@ -47,8 +47,8 @@ async def validate(credentials: HTTPBasicCredentials = Depends(segurityBasic)):
 @login.get(
     "/login/validateToken",
     status_code=status.HTTP_202_ACCEPTED,
-    summary="Validate token",
-    description="Validate token",
+    summary="Validacion del token",
+    description="Valida el token sigue siendo valido y que rol pose el usuario el cual se encuentra logueado",
     tags=["Login"]
     )
 async def validateToken(credentials: HTTPAuthorizationCredentials = Depends(segurityBearer)):
@@ -67,8 +67,8 @@ async def validateToken(credentials: HTTPAuthorizationCredentials = Depends(segu
 @login.post(
   "/login/singup",
   status_code=status.HTTP_202_ACCEPTED,
-  summary="Singup",
-  description="Singup",
+  summary="Agrega un nuevo usuario",
+  description="Agrega un usuario a l sistema paraa que pueda loguearse posteriormente",
   tags=["Login"]
   )
 async def singup(matricula:str,rol:str,credentials: HTTPBasicCredentials = Depends(segurityBasic)):
