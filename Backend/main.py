@@ -1,19 +1,9 @@
-from fastapi import Depends, FastAPI, HTTPException, status,  Security
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
-from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 from Rutas.Materias.materias import materias
 from Rutas.Preguntas.preguntas import preguntas
 from Rutas.Login.login import login
-from Schemas import Schemas
-from typing import Union
-from typing import List
-import pyrebase
-
-import hashlib
-import os 
-
 
 origins = [
     "http://127.0.0.1:8000",

@@ -1,36 +1,36 @@
-# Base Model
+from typing import Optional
 from pydantic import BaseModel
 
 class Usuario(BaseModel):
     id_cliente: int
-    nombre: str
-    email: str
+    nombre      : str
+    email       : str
 
 class UsuarioNew(BaseModel):
-    nombre: str
-    email: str
+    nombre      : str
+    email       : str
 
 class UsuarioID(BaseModel):
-    id_usuario: int
+    id_usuario  : int
 
 class UsuarioUpdate(BaseModel):
-    nombre: str
-    email: str
+    nombre      : str
+    email       : str
 
 class Mensaje(BaseModel):
-    mensaje: str
+    mensaje     : str
 
 class User(BaseModel):
-    username: str
-    level: int
+    username    : str
+    level       : int
 
 class Token(BaseModel):
-    token: str
+    token       : str
 
 class UserNew(BaseModel):
-    email: str
-    password: str
-    name: str
+    email       : str
+    password    : str
+    name        : str
 
 class Pregunta(BaseModel):
     pregunta    : str
@@ -39,3 +39,12 @@ class Pregunta(BaseModel):
     opcion3     : str
     opcionc     : str
     materia     : int
+
+class Materia(BaseModel):
+    id_materia  : int
+    materia     : str
+    id_carrera  : int
+
+class MateriaNew(BaseModel):
+    materia     : str
+    id_carrera  : Optional[int]
