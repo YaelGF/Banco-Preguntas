@@ -1,8 +1,10 @@
+from Config.Conexion import Conexion
+from Schemas import Schemas
 from fastapi import APIRouter
+import sqlite3
 
 preguntas = APIRouter()
 
-#Obtiene las preguntas de la base de datos
 @preguntas.get(
     "/preguntas/", 
     #status_code=status.HTTP_202_ACCEPTED,
@@ -10,11 +12,9 @@ preguntas = APIRouter()
     description ="Regresa una lista de preguntas",
     tags        =["Preguntas"]
 )
-#async def get_preguntas(credentials: HTTPAuthorizationCredentials = Depends(securityBearer)):
 async def get_preguntas():
-    return "Hola"
-    """try:
-        with sqlite3.connect(DATABASE_URL) as connection:
+    try:
+        with sqlite3.connect(Conexion) as connection:
             connection.row_factory = sqlite3.Row
             cursor = connection.cursor()
             cursor.execute('SELECT * FROM preguntas')
@@ -24,17 +24,16 @@ async def get_preguntas():
         print(f"Error: {error}")
         return {"message": "Error al obtener las preguntas"}
 
-#Obtiene una pregunta por medio del id
 @preguntas.get(
     "/preguntas/{id}",
-    status_code=status.HTTP_202_ACCEPTED,
+    #status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa una pregunta",
     description ="Regresa una pregunta",
     tags=["Preguntas"]
 )
 async def get_pregunta(id: int):
     try:
-        with sqlite3.connect(DATABASE_URL) as connection:
+        with sqlite3.connect(Conexion) as connection:
             connection.row_factory = sqlite3.Row
             cursor = connection.cursor()
             cursor.execute('SELECT * FROM preguntas WHERE id_preg = ?', (id,))
@@ -45,16 +44,15 @@ async def get_pregunta(id: int):
         return {"message": "Error al obtener la pregunta"}
 
 
-#Inserta una nueva pregunta a la base de datos
 @preguntas.post("/preguntas/", 
-    status_code=status.HTTP_202_ACCEPTED,
+    #status_code=status.HTTP_202_ACCEPTED,
     summary="Inserta una nueva pregunta",
     description="Inserta una nueva pregunta",
     tags=["Preguntas"]
 )
 async def post_preguntas(pregunta: Schemas.Pregunta):
     try:
-        with sqlite3.connect(DATABASE_URL) as connection:
+        with sqlite3.connect(Conexion) as connection:
             cursor = connection.cursor()
             cursor.execute('INSERT INTO preguntas (pregunta, opcion1, opcion2, opcion3, opcionc, id_materia) VALUES (?, ?, ?, ?, ?, ?)', (pregunta.pregunta, pregunta.opcion1, pregunta.opcion2, pregunta.opcion3, pregunta.opcionc, pregunta.materia))
             connection.commit()
@@ -64,4 +62,4 @@ async def post_preguntas(pregunta: Schemas.Pregunta):
         
     except Exception as error:
         print(f"Error: {error}")
-        return(f"Error: {error}")"""
+        return(f"Error: {error}")
