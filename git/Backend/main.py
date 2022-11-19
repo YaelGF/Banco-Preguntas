@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 from typing import Union
 from typing import List
-from .Schemas import Schemas
+from Schemas import Schemas
 import pyrebase
 import sqlite3
 import hashlib
@@ -154,9 +154,11 @@ async def register(matricula:str,rol:str,credentials: HTTPBasicCredentials = Dep
     status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa una lista de preguntas",
     description ="Regresa una lista de preguntas",
+    tags        =["preguntas"]
 )
-#async def get_preguntas(credentials: HTTPAuthorizationCredentials = Depends(securityBearer)):
-async def get_preguntas():
+
+#async def get_preguntas():
+async def get_preguntas(credentials: HTTPAuthorizationCredentials = Depends(segurityBearer)):
     try:
         with sqlite3.connect(DATABASE_URL) as connection:
             connection.row_factory = sqlite3.Row
@@ -186,9 +188,9 @@ async def get_preguntas():
     status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa una pregunta",
     description ="Regresa una pregunta",
-    tags=["Preguntas"]
+    tags=["Preguntas por id"]
 )
-async def get_pregunta(id: int):
+async def get_pregunta(id: int, credentials: HTTPAuthorizationCredentials = Depends(segurityBearer)):
     try:
         with sqlite3.connect(DATABASE_URL) as connection:
             connection.row_factory = sqlite3.Row
@@ -208,7 +210,7 @@ async def get_pregunta(id: int):
     description="Inserta una nueva pregunta",
     tags=["Preguntas"]
 )
-async def post_preguntas(pregunta: Schemas.Pregunta):
+async def post_preguntas(pregunta: Schemas.Pregunta, credentials: HTTPAuthorizationCredentials = Depends(segurityBearer)):
     try:
         with sqlite3.connect(DATABASE_URL) as connection:
             cursor = connection.cursor()
@@ -223,7 +225,7 @@ async def post_preguntas(pregunta: Schemas.Pregunta):
         return(f"Error: {error}")
 
 
-#Obtiene las preguntas de la base de datos
+#Obtiene las materia de la base de datos
 @app.get(
     "/materias/",
     status_code=status.HTTP_202_ACCEPTED,
@@ -231,7 +233,7 @@ async def post_preguntas(pregunta: Schemas.Pregunta):
     description ="Regresa una lista de materias",
     tags=["Materias"]
 )
-async def get_materias():
+async def get_materias(credentials: HTTPAuthorizationCredentials = Depends(segurityBearer)):
     try:
         with sqlite3.connect(DATABASE_URL) as connection:
             connection.row_factory = sqlite3.Row
