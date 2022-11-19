@@ -7,8 +7,10 @@ class Usuario(BaseModel):
     email       : str
 
 class UsuarioNew(BaseModel):
-    nombre      : str
     email       : str
+    password    : str
+    matricula   : str
+    rol         : str
 
 class UsuarioID(BaseModel):
     id_usuario  : int

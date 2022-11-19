@@ -1,24 +1,11 @@
 from fastapi import APIRouter
+from Config.ConexionFirebase import auth
+from Config.ConexionFirebase import db
+from Schemas import Schemas
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
-import pyrebase
 
-firebaseConfig = {
-  "apiKey": "AIzaSyBPmbcSj2xTLHDhrt4uTJiJOgIUyrjU0CM",
-  "authDomain": "banco-de-preguntas-3f964.firebaseapp.com",
-  "databaseURL": "https://banco-de-preguntas-3f964-default-rtdb.firebaseio.com",
-  "projectId": "banco-de-preguntas-3f964",
-  "storageBucket": "banco-de-preguntas-3f964.appspot.com",
-  "messagingSenderId": "718216060964",
-  "appId": "1:718216060964:web:10190eb3cb95eeaaa5f8b1",
-  "measurementId": "G-BMJZZM42NF"
-};
-
-firebase = pyrebase.initialize_app(firebaseConfig)
-
-auth = firebase.auth()
-db = firebase.database()
 
 login = APIRouter()
 
@@ -71,12 +58,12 @@ async def validateToken(credentials: HTTPAuthorizationCredentials = Depends(segu
   description="Agrega un usuario a l sistema paraa que pueda loguearse posteriormente",
   tags=["Login"]
   )
-async def singup(matricula:str,rol:str,credentials: HTTPBasicCredentials = Depends(segurityBasic)):
+async def singup(newUser: Schemas.UsuarioNew):
   try:
-    user = auth.create_user_with_email_and_password(credentials.username, credentials.password)
-    data = {"matricula":matricula,"rol":rol}
+    user = auth.create_user_with_email_and_password(newUser.email, newUser.password)
+    data = {"matricula":newUser.matricula, "rol":newUser.rol}
     db.child("users").child(user['localId']).set(data)
-    return {"token": user['idToken']}
+    return {"mensaje": "Usuario agregado correctamente"}
   except:
     raise HTTPException(
       status_code=status.HTTP_401_UNAUTHORIZED,
