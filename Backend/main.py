@@ -4,6 +4,10 @@ from starlette.responses import RedirectResponse
 from Rutas.Materias.materias import materias
 from Rutas.Preguntas.preguntas import preguntas
 from Rutas.Login.login import login
+#from Config.Conexion import database
+#from Modelos.BasedeDatos import tipoUsuario# usuario, materia, pregunta, respuesta, preguntaUsuario, respuestaUsuario
+
+from sqlalchemy import select, insert, update, delete
 
 origins = [
     "http://127.0.0.1:8000",
