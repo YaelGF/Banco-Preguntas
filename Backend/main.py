@@ -2,10 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 from Rutas.Materias.materias import materias
-from Rutas.Preguntas.preguntas import preguntas
+#from Rutas.Preguntas.preguntas import preguntas
 from Rutas.Login.login import login
-#from Config.Conexion import database
-#from Modelos.BasedeDatos import tipoUsuario# usuario, materia, pregunta, respuesta, preguntaUsuario, respuestaUsuario
 
 from sqlalchemy import select, insert, update, delete
 
@@ -50,5 +48,5 @@ def read_root():
     return RedirectResponse(url="/docs")
 
 app.include_router(login)
-app.include_router(preguntas)
+#app.include_router(preguntas)
 app.include_router(materias)
