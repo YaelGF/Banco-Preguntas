@@ -57,3 +57,4 @@ typing-extensions==4.3.0
 urllib3==1.26.11
 uvicorn==0.17.6
 web.py==0.62
+Footer
