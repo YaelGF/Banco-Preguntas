@@ -1,7 +1,9 @@
 from fastapi import APIRouter
 from Config.ConexionFirebase import auth
 from Config.ConexionFirebase import db
-from Schemas import Schemas
+from typing import List
+from Modelos.BasedeDatos import usuarios as usuariosModel
+from Schemas.Usuarios import S_Usuarios
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBasic, HTTPBasicCredentials
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -58,7 +60,7 @@ async def validateToken(credentials: HTTPAuthorizationCredentials = Depends(segu
   description="Agrega un usuario a l sistema paraa que pueda loguearse posteriormente",
   tags=["Login"]
   )
-async def singup(newUser: Schemas.UsuarioNew):
+async def singup(newUser: S_Usuarios.UsuarioNew):
   try:
     user = auth.create_user_with_email_and_password(newUser.email, newUser.password)
     data = {"matricula":newUser.matricula, "rol":newUser.rol}

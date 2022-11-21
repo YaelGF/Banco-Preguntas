@@ -8,8 +8,10 @@ Column('tipoUsuario', String(50)))
 usuarios = Table('usuarios', meta,
 Column('id_Usuario', Integer, primary_key=True),
 Column('nombre', String(50)),
-Column('apellido', String(50)),
-Column('correo', String(50)),
+Column('uid', String),
+Column('apellidoPaterno', String(50)),
+Column('apellidoMaterno', String(50)),
+Column('email', String(50)),
 Column('matricula', String(50)),
 Column('id_TipoUsuario', String(50), ForeignKey('tipoUsuarios.id_TipoUsuario')))
 
@@ -20,7 +22,7 @@ Column('id_Grupo', Integer, ForeignKey('grupos.id_Grupo')))
 
 grupos = Table('grupos', meta,
 Column('id_Grupo', Integer, primary_key=True),
-Column('nombre', String(50)),
+Column('grupo', String(50)),
 Column('semestre', String(50)),
 Column('id_Carrera', Integer, ForeignKey('carreras.id_Carrera')))
 
