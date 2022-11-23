@@ -3,7 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 from Rutas.Materias.materias import materias
 from Rutas.Preguntas.preguntas import preguntas
+from Rutas.Resultados.resultados import resultados
+from Rutas.Usuarios.usuarios import usuarios
+from Rutas.Examenes.examenes import examenes
+from Rutas.Carreras.carreras import carreras
 from Rutas.Login.login import login
+from Rutas.Teams.teams import groups
+
+from sqlalchemy import select, insert, update, delete
 
 origins = [
     "http://127.0.0.1:8000",
@@ -29,7 +36,23 @@ app = FastAPI(
         {
             "name": "Materias",
             "description": "Operaciones sobre las materias dentro de la aplicación",
-        }
+        },
+        {
+            "name": "Resultados",
+            "description": "Operaciones sobre los resultados dentro de la aplicación",
+        },
+        {
+            "name": "Usuarios",
+            "description": "Operaciones sobre los usuarios dentro de la aplicación",
+        },
+        {
+            "name": "Examenes",
+            "description": "Operaciones sobre los examenes dentro de la aplicación",
+        },
+        {
+            "name": "Carreras",
+            "description": "Operaciones sobre las carreras dentro de la aplicación",
+        },
     ]
 )
 
@@ -48,3 +71,8 @@ def read_root():
 app.include_router(login)
 app.include_router(preguntas)
 app.include_router(materias)
+app.include_router(resultados)
+app.include_router(usuarios)
+app.include_router(groups)
+app.include_router(examenes)
+app.include_router(carreras)

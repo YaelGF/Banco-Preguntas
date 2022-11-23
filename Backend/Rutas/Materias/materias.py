@@ -1,7 +1,10 @@
-from Config.Conexion import Conexion
-from Schemas import Schemas
+from Schemas.Materias import S_Materias
 from fastapi import APIRouter, status
-import sqlite3
+from Config.Conexion import database
+from typing import List
+from Modelos.BasedeDatos import materias as materiasModel
+from Modelos.BasedeDatos import n_materias as n_materiasModel
+from sqlalchemy import select, insert, update, delete
 
 materias = APIRouter()
 
@@ -14,12 +17,8 @@ materias = APIRouter()
 )
 async def get_materias():
     try:
-        with sqlite3.connect(Conexion) as connection:
-            connection.row_factory = sqlite3.Row
-            cursor = connection.cursor()
-            cursor.execute('SELECT * FROM materias')
-            response = cursor.fetchall()
-            return response
+        query = select(materiasModel)
+        return await database.fetch_all(query)
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al obtener las materias"}
@@ -33,12 +32,8 @@ async def get_materias():
 )
 async def get_materia(id: int):
     try:
-        with sqlite3.connect(Conexion) as connection:
-            connection.row_factory = sqlite3.Row
-            cursor = connection.cursor()
-            cursor.execute('SELECT * FROM materias WHERE id_materia = ?', (id,))
-            response = cursor.fetchone()
-            return response
+        query = select(materiasModel).where(materiasModel.c.id == id)
+        return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al obtener la materia"}
@@ -50,14 +45,129 @@ async def get_materia(id: int):
     description="Inserta una nueva materia",
     tags=["Materias"]
 )
-async def post_materias(materia: Schemas.MateriaNew):
+async def post_materias(materia: List[S_Materias.MateriaNew]):
     try:
-        with sqlite3.connect(Conexion) as connection:
-            cursor = connection.cursor()
-            cursor.execute('INSERT INTO materias (materia,id_carrera) VALUES (?,?)', ( materia.materia, materia.id_carrera))
-            connection.commit()
-            message = "Materia insertada correctamente"
-            return {"message": message}
+        for i in materia:
+            query = insert(materiasModel).values(
+                profesor=i.profesor,id_Grupo=i.id_Grupo, id_N_Materia=i.id_N_Materia
+            )
+            await database.execute(query)
+        return {"message": "Materia insertada correctamente"}
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al insertar la materia"}
+
+@materias.put(
+    "/materias/{id}",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Actualiza una materia",
+    description="Actualiza una materia",
+    tags=["Materias"]
+)
+async def put_materias(id: int, materia: S_Materias.MateriaUpdate):
+    try:
+        query = update(materiasModel).where(materiasModel.c.id_Materia == id).values(
+            profesor=materia.profesor,id_Grupo=materia.id_Grupo, id_N_Materia=materia.id_N_Materia)
+        await database.execute(query)
+        return {"message": "Materia actualizada correctamente"}
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al actualizar la materia"}
+
+@materias.delete(
+    "/materias/{id}",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Elimina una materia",
+    description="Elimina una materia",
+    tags=["Materias"]
+)
+async def delete_materias(id: int):
+    try:
+        query = delete(materiasModel).where(materiasModel.c.id_Materia == id)
+        await database.execute(query)
+        return {"message": "Materia eliminada correctamente"}
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al eliminar la materia"}
+
+@materias.get(
+    "/nombre_materias/",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary     ="Regresa una lista de Nombres de materias",
+    description ="Regresa una lista de Nombres de materias",
+    tags=["N_Materias"]
+)
+async def get_n_materias():
+    try:
+        query = select(n_materiasModel)
+        return await database.fetch_all(query)
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al obtener las materias"}
+
+@materias.get(
+    "/nombre_materias/{id}",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary     ="Regresa una materia",
+    description ="Regresa una materia",
+    tags=["N_Materias"]
+)
+async def get_n_materia(id: int):
+    try:
+        query = select(n_materiasModel).where(n_materiasModel.c.id_N_Materia == id)
+        return await database.fetch_one(query)
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al obtener la materia"}
+    
+@materias.post(
+    "/nombre_materias/",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Inserta una nueva materia",
+    description="Inserta una nueva materia",
+    tags=["N_Materias"]
+)
+async def post_n_materias(materia:List[S_Materias.N_MateriaNew]):
+    try:
+        for i in materia:
+            query = insert(n_materiasModel).values(
+                 materia=i.materia
+            )
+            await database.execute(query)
+        return {"message": "Materias insertada correctamente"}
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al insertar la materia"}
+    
+@materias.put(
+    "/nombre_materias/{id}",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Actualiza una materia",
+    description="Actualiza una materia",
+    tags=["N_Materias"]
+)
+async def put_n_materias(id: int, materia: S_Materias.N_MateriaUpdate):
+    try:
+        query = update(n_materiasModel).wheren(n_materiasModel.c.id_N_Materia == id).values(
+            materia=materia.materia)
+        await database.execute(query)
+        return {"message": "Materia actualizada correctamente"}
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al actualizar la materia"}
+
+@materias.delete(
+    "/nombre_materias/{id}",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Elimina una materia",
+    description="Elimina una materia",
+    tags=["N_Materias"]
+)
+async def delete_n_materias(id: int):
+    try:
+        query = delete(n_materiasModel).where(n_materiasModel.c.id_N_Materia == id)
+        await database.execute(query)
+        return {"message": "Materia eliminada correctamente"}
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al eliminar la materia"}
