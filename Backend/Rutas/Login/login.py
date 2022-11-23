@@ -60,12 +60,13 @@ async def validateToken(credentials: HTTPAuthorizationCredentials = Depends(segu
   description="Agrega un usuario a l sistema paraa que pueda loguearse posteriormente",
   tags=["Login"]
   )
-async def singup(newUser: S_Usuarios.UsuarioNew):
+async def singup(newUser: List[S_Usuarios.Login]):
   try:
-    user = auth.create_user_with_email_and_password(newUser.email, newUser.password)
-    data = {"matricula":newUser.matricula, "rol":newUser.rol}
-    db.child("users").child(user['localId']).set(data)
-    return {"mensaje": "Usuario agregado correctamente"}
+    for i in newUser:
+      user = auth.create_user_with_email_and_password(i.email, i.password)
+      data = {"rol":i.rol}
+      db.child("users").child(user['localId']).set(data)
+    return {"mensaje": "Usuarios agregado correctamente"}
   except:
     raise HTTPException(
       status_code=status.HTTP_401_UNAUTHORIZED,

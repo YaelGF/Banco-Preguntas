@@ -49,7 +49,7 @@ async def post_materias(materia: List[S_Materias.MateriaNew]):
     try:
         for i in materia:
             query = insert(materiasModel).values(
-                profesor=materia.profesor,id_Grupo=materia.id_Grupo, id_N_Materia=materia.id_N_Materia
+                profesor=i.profesor,id_Grupo=i.id_Grupo, id_N_Materia=i.id_N_Materia
             )
             await database.execute(query)
         return {"message": "Materia insertada correctamente"}

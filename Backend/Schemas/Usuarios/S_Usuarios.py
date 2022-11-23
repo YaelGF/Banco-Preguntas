@@ -16,7 +16,7 @@ class UsuarioNew(BaseModel):
     apellidoPaterno: str
     apellidoMaterno: str
     email: str
-    password: str
+    uid: str
     matricula: str
     id_TipoUsuario: int
 
@@ -50,3 +50,9 @@ class AlumnoNew(BaseModel):
 class AlumnoUpdate(BaseModel):
     id_Usuario: Optional[int]
     id_Grupo: Optional[int]
+
+
+class Login(BaseModel):
+    email: str
+    password: str
+    rol: str

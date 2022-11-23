@@ -28,8 +28,8 @@ Column('id_Carrera', Integer, ForeignKey('carreras.id_Carrera')))
 
 carreras = Table('carreras', meta,
 Column('id_Carrera', Integer, primary_key=True),
-Column('carrera', String(50)))
-Column('coordinador', Integer, ForeignKey('usuarios.id_Usuario'))
+Column('carrera', String(50)),
+Column('coordinador', Integer, ForeignKey('usuarios.id_Usuario')))
 
 materias = Table('materias', meta,
 Column('id_Materia', Integer, primary_key=True),
