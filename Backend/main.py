@@ -83,7 +83,7 @@ app = FastAPI(
         },
         {
             "name": "Preguntas Con Imagenes",
-            "description": "Operaciones sobre las preguntas con imagenes dentro de la aplicación",
+            "description": "Operaciones sobre las preguntas con imagenes dentro de la aplicación"
         }
     ]
 )
