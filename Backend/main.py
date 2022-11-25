@@ -53,6 +53,34 @@ app = FastAPI(
             "name": "Carreras",
             "description": "Operaciones sobre las carreras dentro de la aplicación",
         },
+        {
+            "name": "Respuestas",
+            "description": "Operaciones sobre las respuestas dentro de la aplicación",
+        },
+        {     
+            "name": "Imagenes",
+            "description": "Operaciones sobre las imagenes dentro de la aplicación",
+        },
+        {  
+            "name": "Alumnos",
+            "description": "Operaciones sobre los alumnos dentro de la aplicación",
+        },
+        {
+            "name": "Grupos",
+            "description": "Operaciones sobre los grupos dentro de la aplicación",
+        },
+        {
+            "name": "Tipos de usuarios",
+            "description": "Operaciones sobre los tipos de usuarios dentro de la aplicación",
+        },
+        {
+            "name": "Configuracion Examen",
+            "description": "Operaciones sobre la configuracion de examen dentro de la aplicación",
+        },
+        {
+            "name": "Nombre Materias",
+            "description": "Operaciones sobre los nombres de materias dentro de la aplicación",
+        }
     ]
 )
 
