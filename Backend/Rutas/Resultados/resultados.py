@@ -31,7 +31,7 @@ async def get_resultados():
 )
 async def get_resultado(id: int):
     try:
-        query = select(resulModel).where(resulModel.c.id == id)
+        query = select(resulModel).where(resulModel.c.id_Resultado == id)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -47,11 +47,7 @@ async def get_resultado(id: int):
 async def post_resultados(resultado: List[S_Examenes.ResultadoNew]):
     try:
         for i in resultado:
-            query = insert(resulModel).values(
-                id_Examen=i.id_Examen,
-                id_Alumno=i.id_Alumno,
-                calificacion=i.calificacion
-            )
+            query = insert(resulModel).values(i.dict())
             await database.execute(query)
         return {"message": "Resultado insertado correctamente"}
     except Exception as error:
@@ -67,13 +63,25 @@ async def post_resultados(resultado: List[S_Examenes.ResultadoNew]):
 )
 async def put_resultados(id: int, resultado: S_Examenes.ResultadoUpdate):
     try:
-        query = update(resulModel).where(resulModel.c.id == id).values(
-            id_Examen=resultado.id_Examen,
-            id_Alumno=resultado.id_Alumno,
-            calificacion=resultado.calificacion
-        )
+        query = update(resulModel).where(resulModel.c.id_Resultado == id).values(resultado.dict(exclude_unset=True))
         await database.execute(query)
         return {"message": "Resultado actualizado correctamente"}
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al actualizar el resultado"}
+
+@resultados.delete(
+    "/resultados/{id}",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Elimina un resultado",
+    description="Elimina un resultado",
+    tags=["Resultados"]
+)
+async def delete_resultados(id: int):
+    try:
+        query = delete(resulModel).where(resulModel.c.id_Resultado == id)
+        await database.execute(query)
+        return {"message": "Resultado eliminado correctamente"}
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al eliminar el resultado"}
