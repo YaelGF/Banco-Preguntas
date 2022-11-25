@@ -95,7 +95,7 @@ async def delete_materias(id: int):
     status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa una lista de Nombres de materias",
     description ="Regresa una lista de Nombres de materias",
-    tags=["N_Materias"]
+    tags=["Nombre Materias"]
 )
 async def get_n_materias():
     try:
@@ -110,7 +110,7 @@ async def get_n_materias():
     status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa una materia",
     description ="Regresa una materia",
-    tags=["N_Materias"]
+    tags=["Nombre Materias"]
 )
 async def get_n_materia(id: int):
     try:
@@ -125,7 +125,7 @@ async def get_n_materia(id: int):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Inserta una nueva materia",
     description="Inserta una nueva materia",
-    tags=["N_Materias"]
+    tags=["Nombre Materias"]
 )
 async def post_n_materias(materia:List[S_Materias.N_MateriaNew]):
     try:
@@ -144,7 +144,7 @@ async def post_n_materias(materia:List[S_Materias.N_MateriaNew]):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Actualiza una materia",
     description="Actualiza una materia",
-    tags=["N_Materias"]
+    tags=["Nombre Materias"]
 )
 async def put_n_materias(id: int, materia: S_Materias.N_MateriaUpdate):
     try:
@@ -161,7 +161,7 @@ async def put_n_materias(id: int, materia: S_Materias.N_MateriaUpdate):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Elimina una materia",
     description="Elimina una materia",
-    tags=["N_Materias"]
+    tags=["Nombre Materias"]
 )
 async def delete_n_materias(id: int):
     try:
