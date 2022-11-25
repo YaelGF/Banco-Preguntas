@@ -31,7 +31,7 @@ async def get_carreras():
 )
 async def get_carrera(id: int):
     try:
-        query = select(carrerasModel).where(carrerasModel.c.id == id)
+        query = select(carrerasModel).where(carrerasModel.c.id_Carrera == id)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -47,9 +47,8 @@ async def get_carrera(id: int):
 async def post_carreras(carrera: List[S_Carreras.CarreraNew]):
     try:
         for i in carrera:
-            query = insert(carrerasModel).values(
-                carrera=i.carrera, coordinador=i.coordinador
-            )
+            carreraNew = i.dict()
+            query = insert(carrerasModel).values(carreraNew)
             await database.execute(query)
         return {"message": "Carrera insertada correctamente"}
     except Exception as error:
@@ -65,9 +64,7 @@ async def post_carreras(carrera: List[S_Carreras.CarreraNew]):
 )
 async def put_carreras(id: int, carrera: S_Carreras.CarreraUpdate):
     try:
-        query = update(carrerasModel).where(carrerasModel.c.id == id).values(
-            carrera=carrera.carrera, coordinador=carrera.coordinador
-        )
+        query = update(carrerasModel).where(carrerasModel.c.id_Carrera == id).values(carrera.dict(exclude_unset=True))
         await database.execute(query)
         return {"message": "Carrera actualizada correctamente"}
     except Exception as error:
@@ -83,7 +80,7 @@ async def put_carreras(id: int, carrera: S_Carreras.CarreraUpdate):
 )
 async def delete_carreras(id: int):
     try:
-        query = delete(carrerasModel).where(carrerasModel.c.id == id)
+        query = delete(carrerasModel).where(carrerasModel.c.id_carrera == id)
         await database.execute(query)
         return {"message": "Carrera eliminada correctamente"}
     except Exception as error:

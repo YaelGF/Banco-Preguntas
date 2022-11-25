@@ -3,6 +3,7 @@ from fastapi import APIRouter, status
 from Config.Conexion import database
 from typing import List
 from Modelos.BasedeDatos import grupos as gruposModel
+from Modelos.BasedeDatos import carreras as carrerasModel
 from sqlalchemy import select, insert, update, delete
 
 groups = APIRouter()
@@ -16,6 +17,7 @@ groups = APIRouter()
 )
 async def get_grupos():
     try:
+        #select([gruposModel.c.grupo,gruposModel.c.semestre, carrerasModel.c.carrera]).where(gruposModel.c.id_Carrera == carrerasModel.c.id_Carrera)
         query = select(gruposModel)
         return await database.fetch_all(query)
     except Exception as error:
@@ -47,11 +49,8 @@ async def get_grupo(id_Grupo: int):
 async def post_grupo(grupo: List[S_Grupos.GrupoNew]):
     try:
         for i in grupo:
-            query = insert(gruposModel).values(
-                grupo     = i.grupo,
-                semestre  = i.semestre,
-                id_Carrera= i.id_Carrera
-            )
+            grupoNew = i.dict()
+            query = insert(gruposModel).values(grupoNew)
             await database.execute(query)
         return {"message": "Grupos creado correctamente"}
     except Exception as error:
@@ -67,11 +66,8 @@ async def post_grupo(grupo: List[S_Grupos.GrupoNew]):
 )
 async def put_grupo(id_Grupo: int, grupo: S_Grupos.GrupoUpdate):
     try:
-        query = update(gruposModel).where(gruposModel.c.id_Grupo == id_Grupo).values(
-            grupo     = grupo.grupo,
-            semestre  = grupo.semestre,
-            id_Carrera= grupo.id_Carrera
-        )
+        grupoUpdate = grupo.dict(exclude_unset=True)
+        query = update(gruposModel).where(gruposModel.c.id_Grupo == id_Grupo).values(grupoUpdate)
         await database.execute(query)
         return {"message": "Grupo actualizado correctamente"}
     except Exception as error:

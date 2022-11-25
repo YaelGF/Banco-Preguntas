@@ -13,7 +13,7 @@ Column('apellidoPaterno', String(50)),
 Column('apellidoMaterno', String(50)),
 Column('email', String(50)),
 Column('matricula', String(50)),
-Column('id_TipoUsuario', String(50), ForeignKey('tipoUsuarios.id_TipoUsuario')))
+Column('id_TipoUsuario', Integer, ForeignKey('tipoUsuarios.id_TipoUsuario')))
 
 alumnos = Table('alumnos', meta,
 Column('id_Alumno', Integer, primary_key=True),
@@ -71,7 +71,7 @@ Column('opcion1', Integer, ForeignKey('respuestas.id_Respuesta')),
 Column('opcion2', Integer, ForeignKey('respuestas.id_Respuesta')),
 Column('opcion3', Integer, ForeignKey('respuestas.id_Respuesta')),
 Column('opcion4', Integer, ForeignKey('respuestas.id_Respuesta')),
-Column('opcionCorrecta', String(50)),
+Column('opcionCorrecta', Integer, ForeignKey('respuestas.id_Respuesta')),
 Column('id_materia', Integer, ForeignKey('materias.id_Materia')))
 
 respuestas = Table('respuestas', meta,

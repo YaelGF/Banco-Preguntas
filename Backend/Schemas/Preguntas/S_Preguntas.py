@@ -7,7 +7,7 @@ class Pregunta(BaseModel):
     opcion2: int
     opcion3: int
     opcion4: int
-    opcionCorrecta: str
+    opcionCorrecta: int
     id_materia: int
 
 class PreguntaNew(BaseModel):
@@ -15,7 +15,7 @@ class PreguntaNew(BaseModel):
     opcion2: int
     opcion3: int
     opcion4: int
-    opcionCorrecta: str
+    opcionCorrecta: int
     id_materia: int
 
 class PreguntaUpdate(BaseModel):
@@ -23,7 +23,7 @@ class PreguntaUpdate(BaseModel):
     opcion2: Optional[int]
     opcion3: Optional[int]
     opcion4: Optional[int]
-    opcionCorrecta: Optional[str]
+    opcionCorrecta: Optional[int]
     id_materia: Optional[int]
 
 class Respuesta(BaseModel):
@@ -37,7 +37,7 @@ class RespuestaUpdate(BaseModel):
     respuesta: Optional[str]
 
 class Pregunta_Imagenes(BaseModel):
-    id_Pregunta_Imagenes: int
+    id_Pregunta_Imagen: int
     id_Pregunta: int
     id_Imagen: int
 

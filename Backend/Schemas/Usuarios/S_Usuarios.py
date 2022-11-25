@@ -56,3 +56,6 @@ class Login(BaseModel):
     email: str
     password: str
     rol: str
+
+class UserLogin(BaseModel):
+    uid: str

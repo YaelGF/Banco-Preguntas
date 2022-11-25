@@ -32,7 +32,7 @@ async def get_materias():
 )
 async def get_materia(id: int):
     try:
-        query = select(materiasModel).where(materiasModel.c.id == id)
+        query = select(materiasModel).where(materiasModel.c.id_Materia == id)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -48,9 +48,8 @@ async def get_materia(id: int):
 async def post_materias(materia: List[S_Materias.MateriaNew]):
     try:
         for i in materia:
-            query = insert(materiasModel).values(
-                profesor=i.profesor,id_Grupo=i.id_Grupo, id_N_Materia=i.id_N_Materia
-            )
+            materiaNew = i.dict()
+            query = insert(materiasModel).values(materiaNew)
             await database.execute(query)
         return {"message": "Materia insertada correctamente"}
     except Exception as error:
@@ -66,8 +65,7 @@ async def post_materias(materia: List[S_Materias.MateriaNew]):
 )
 async def put_materias(id: int, materia: S_Materias.MateriaUpdate):
     try:
-        query = update(materiasModel).where(materiasModel.c.id_Materia == id).values(
-            profesor=materia.profesor,id_Grupo=materia.id_Grupo, id_N_Materia=materia.id_N_Materia)
+        query = update(materiasModel).where(materiasModel.c.id_Materia == id).values(materia.dict(exclude_unset=True))
         await database.execute(query)
         return {"message": "Materia actualizada correctamente"}
     except Exception as error:
@@ -95,7 +93,7 @@ async def delete_materias(id: int):
     status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa una lista de Nombres de materias",
     description ="Regresa una lista de Nombres de materias",
-    tags=["N_Materias"]
+    tags=["Nombre Materias"]
 )
 async def get_n_materias():
     try:
@@ -110,7 +108,7 @@ async def get_n_materias():
     status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa una materia",
     description ="Regresa una materia",
-    tags=["N_Materias"]
+    tags=["Nombre Materias"]
 )
 async def get_n_materia(id: int):
     try:
@@ -125,14 +123,12 @@ async def get_n_materia(id: int):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Inserta una nueva materia",
     description="Inserta una nueva materia",
-    tags=["N_Materias"]
+    tags=["Nombre Materias"]
 )
 async def post_n_materias(materia:List[S_Materias.N_MateriaNew]):
     try:
         for i in materia:
-            query = insert(n_materiasModel).values(
-                 materia=i.materia
-            )
+            query = insert(n_materiasModel).values(i.dict())
             await database.execute(query)
         return {"message": "Materias insertada correctamente"}
     except Exception as error:
@@ -144,12 +140,11 @@ async def post_n_materias(materia:List[S_Materias.N_MateriaNew]):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Actualiza una materia",
     description="Actualiza una materia",
-    tags=["N_Materias"]
+    tags=["Nombre Materias"]
 )
 async def put_n_materias(id: int, materia: S_Materias.N_MateriaUpdate):
     try:
-        query = update(n_materiasModel).wheren(n_materiasModel.c.id_N_Materia == id).values(
-            materia=materia.materia)
+        query = update(n_materiasModel).where(n_materiasModel.c.id_N_Materia == id).values(materia.dict(exclude_unset=True))
         await database.execute(query)
         return {"message": "Materia actualizada correctamente"}
     except Exception as error:
@@ -161,7 +156,7 @@ async def put_n_materias(id: int, materia: S_Materias.N_MateriaUpdate):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Elimina una materia",
     description="Elimina una materia",
-    tags=["N_Materias"]
+    tags=["Nombre Materias"]
 )
 async def delete_n_materias(id: int):
     try:

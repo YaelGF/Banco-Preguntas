@@ -34,12 +34,11 @@ async def get_preguntas():
 )
 async def get_pregunta(id: int):
     try:
-        query = select(preguntasModel).where(preguntasModel.c.id == id)
-        return await database
+        query = select(preguntasModel).where(preguntasModel.c.id_Pregunta == id)
+        return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al obtener la pregunta"}
-
 
 @preguntas.post(
     "/preguntas/", 
@@ -51,14 +50,8 @@ async def get_pregunta(id: int):
 async def post_preguntas(pregunta: List[S_Preguntas.PreguntaNew]):
     try:
         for i in pregunta:
-            query = insert(preguntasModel).values(
-                opcion1 = pregunta.opcion1,
-                opcion2 = pregunta.opcion2,
-                opcion3 = pregunta.opcion3,
-                opcion4 = pregunta.opcion4,
-                opcionCorrecta = pregunta.opcionCorrecta,
-                id_Materia = pregunta.id_Materia,
-            )
+            preguntaNew = i.dict()
+            query = insert(preguntasModel).values(preguntaNew)
             await database.execute(query)
         return {"message": "Pregunta insertada correctamente"}
         
@@ -75,14 +68,8 @@ async def post_preguntas(pregunta: List[S_Preguntas.PreguntaNew]):
 )
 async def put_pregunta(id: int, pregunta: S_Preguntas.PreguntaUpdate):
     try:
-        query = update(preguntasModel).where(preguntasModel.c.id == id).values(
-            opcion1 = pregunta.opcion1,
-            opcion2 = pregunta.opcion2,
-            opcion3 = pregunta.opcion3,
-            opcion4 = pregunta.opcion4,
-            opcionCorrecta = pregunta.opcionCorrecta,
-            id_Materia = pregunta.id_Materia,
-        )
+        pregunta = pregunta.dict(exclude_unset=True)
+        query = update(preguntasModel).where(preguntasModel.c.id_Pregunta == id).values(pregunta)
         await database.execute(query)
         return {"message": "Pregunta actualizada correctamente"}
     except Exception as error:
@@ -98,7 +85,7 @@ async def put_pregunta(id: int, pregunta: S_Preguntas.PreguntaUpdate):
 )
 async def delete_pregunta(id: int):
     try:
-        query = delete(preguntasModel).where(preguntasModel.c.id == id)
+        query = delete(preguntasModel).where(preguntasModel.c.id_Pregunta == id)
         await database.execute(query)
         return {"message": "Pregunta eliminada correctamente"}
     except Exception as error:
@@ -110,7 +97,7 @@ async def delete_pregunta(id: int):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Regresa una lista de preguntas con sus imagenes",
     description="Regresa una lista de preguntas con sus imagenes",
-    tags=["Preguntas"]
+    tags=["Preguntas Con Imagenes"]
 )
 async def get_preguntas_imagenes():
     try:
@@ -125,11 +112,11 @@ async def get_preguntas_imagenes():
     status_code=status.HTTP_202_ACCEPTED,
     summary="Regresa una pregunta con su imagen",
     description="Regresa una pregunta con su imagen",
-    tags=["Preguntas"]
+    tags=["Preguntas Con Imagenes"]
 )
 async def get_pregunta_imagen(id: int):
     try:
-        query = select(preguntas_imagenesModel).where(preguntas_imagenesModel.c.id == id)
+        query = select(preguntas_imagenesModel).where(preguntas_imagenesModel.c.id_Pregunta_Imagen == id)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -140,15 +127,13 @@ async def get_pregunta_imagen(id: int):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Inserta una nueva pregunta con su imagen",
     description="Inserta una nueva pregunta con su imagen",
-    tags=["Preguntas"]
+    tags=["Preguntas Con Imagenes"]
 )
 async def post_preguntas_imagenes(pregunta: List[S_Preguntas.Pregunta_ImagenesNew]):
     try:
         for i in pregunta:
-            query = insert(preguntas_imagenesModel).values(
-                id_Pregunta = pregunta.id_Pregunta,
-                id_Imagen = pregunta.id_Imagen,
-            )
+            preguntaNew = i.dict()
+            query = insert(preguntas_imagenesModel).values(preguntaNew)
             await database.execute(query)
         return {"message": "Pregunta insertada correctamente"}
         
@@ -161,14 +146,12 @@ async def post_preguntas_imagenes(pregunta: List[S_Preguntas.Pregunta_ImagenesNe
     status_code=status.HTTP_202_ACCEPTED,
     summary="Actualiza una pregunta con su imagen",
     description="Actualiza una pregunta con su imagen",
-    tags=["Preguntas"]
+    tags=["Preguntas Con Imagenes"]
 )
 async def put_pregunta_imagen(id: int, pregunta: S_Preguntas.Pregunta_ImagenesUpdate):
     try:
-        query = update(preguntas_imagenesModel).where(preguntas_imagenesModel.c.id == id).values(
-            id_Pregunta = pregunta.id_Pregunta,
-            id_Imagen = pregunta.id_Imagen,
-        )
+        preguntaNew = pregunta.dict(exclude_unset=True)
+        query = update(preguntas_imagenesModel).where(preguntas_imagenesModel.c.id_Pregunta_Imagen == id).values(preguntaNew)
         await database.execute(query)
         return {"message": "Pregunta actualizada correctamente"}
     except Exception as error:
@@ -180,11 +163,11 @@ async def put_pregunta_imagen(id: int, pregunta: S_Preguntas.Pregunta_ImagenesUp
     status_code=status.HTTP_202_ACCEPTED,
     summary="Elimina una pregunta con su imagen",
     description="Elimina una pregunta con su imagen",
-    tags=["Preguntas"]
+    tags=["Preguntas Con Imagenes"]
 )
 async def delete_pregunta_imagen(id: int):
     try:
-        query = delete(preguntas_imagenesModel).where(preguntas_imagenesModel.c.id == id)
+        query = delete(preguntas_imagenesModel).where(preguntas_imagenesModel.c.id_Pregunta_Imagen == id)
         await database.execute(query)
         return {"message": "Pregunta eliminada correctamente"}
     except Exception as error:
@@ -215,7 +198,7 @@ async def get_respuestas():
 )
 async def get_respuesta(id: int):
     try:
-        query = select(respuestasModel).where(respuestasModel.c.id == id)
+        query = select(respuestasModel).where(respuestasModel.c.id_Respuesta == id)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -232,10 +215,10 @@ async def post_respuestas(respuestaM: List[S_Preguntas.RespuestaNew]):
     try:
         for i in respuestaM:
             query = insert(respuestasModel).values(
-                respuesta = respuestaM.respuesta,
+                respuesta = i.respuesta,
             )
             await database.execute(query)
-        return {"message": "Respuesta insertada correctamente"}
+        return {"message": "Respuestas insertada correctamente"}
         
     except Exception as error:
         print(f"Error: {error}")
@@ -250,9 +233,7 @@ async def post_respuestas(respuestaM: List[S_Preguntas.RespuestaNew]):
 )
 async def put_respuesta(id: int, respuestaM: S_Preguntas.RespuestaUpdate):
     try:
-        query = update(respuestasModel).where(respuestasModel.c.id == id).values(
-            respuesta = respuestaM.respuesta,
-        )
+        query = update(respuestasModel).where(respuestasModel.c.id_Respuesta == id).values(respuestaM.dict(exclude_unset=True))
         await database.execute(query)
         return {"message": "Respuesta actualizada correctamente"}
     except Exception as error:
@@ -268,13 +249,13 @@ async def put_respuesta(id: int, respuestaM: S_Preguntas.RespuestaUpdate):
 )
 async def delete_respuesta(id: int):
     try:
-        query = delete(respuestasModel).where(respuestasModel.c.id == id)
+        query = delete(respuestasModel).where(respuestasModel.c.id_Respuesta == id)
         await database.execute(query)
         return {"message": "Respuesta eliminada correctamente"}
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al eliminar la respuesta"}
-    
+
 @preguntas.get(
     "/imagenes/",
     status_code=status.HTTP_202_ACCEPTED,
@@ -299,7 +280,7 @@ async def get_imagenes():
 )
 async def get_imagen(id: int):
     try:
-        query = select(imagenesModel).where(imagenesModel.c.id == id)
+        query = select(imagenesModel).where(imagenesModel.c.id_Imagen == id)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -315,9 +296,8 @@ async def get_imagen(id: int):
 async def post_imagenes(imagenM: List[S_Preguntas.ImagenNew]):
     try:
         for i in imagenM:
-            query = insert(imagenesModel).values(
-                url = imagenM.url,
-            )
+            newImage = i.dict()
+            query = insert(imagenesModel).values(newImage)
             await database.execute(query)
         return {"message": "Imagen insertada correctamente"}
         
@@ -334,7 +314,7 @@ async def post_imagenes(imagenM: List[S_Preguntas.ImagenNew]):
 )
 async def put_imagen(id: int, imagenM: S_Preguntas.ImagenUpdate):
     try:
-        query = update(imagenesModel).where(imagenesModel.c.id == id).values(
+        query = update(imagenesModel).where(imagenesModel.c.id_Imagen == id).values(
             url = imagenM.url,
         )
         await database.execute(query)
@@ -352,7 +332,7 @@ async def put_imagen(id: int, imagenM: S_Preguntas.ImagenUpdate):
 )
 async def delete_imagen(id: int):
     try:
-        query = delete(imagenesModel).where(imagenesModel.c.id == id)
+        query = delete(imagenesModel).where(imagenesModel.c.id_Imagen == id)
         await database.execute(query)
         return {"message": "Imagen eliminada correctamente"}
     except Exception as error:

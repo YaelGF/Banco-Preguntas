@@ -24,6 +24,24 @@ async def get_usuarios():
         print(f"Error: {error}")
         return {"message": "Error al obtener los usuarios"}
 
+@usuarios.post(
+    "/usuarios/Login/",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary     ="Regresa un usuario",
+    description ="Regresa un usuario",
+    tags=["Usuarios"]
+)
+async def get_usuario(usuario: S_Usuarios.UserLogin): 
+    try:
+        query = select(usuariosModel).where(usuariosModel.c.uid == usuario.uid)
+        result = await database.fetch_one(query)
+        if result:
+            return "Success"
+        return "Fail"
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al obtener el usuario"}
+
 @usuarios.get(
     "/usuarios/{id}",
     status_code=status.HTTP_202_ACCEPTED,
@@ -33,7 +51,7 @@ async def get_usuarios():
 )
 async def get_usuario(id: int):
     try:
-        query = select(usuariosModel).where(usuariosModel.c.id == id)
+        query = select(usuariosModel).where(usuariosModel.c.id_Usuario == id)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -49,15 +67,8 @@ async def get_usuario(id: int):
 async def post_usuarios(usuario: List[S_Usuarios.UsuarioNew]):
     try:
         for i in usuario:
-            query = insert(usuariosModel).values(
-                nombre=i.nombre,
-                apellidoPaterno=i.apellidoPaterno,
-                apellidoMaterno=i.apellidoMaterno,
-                email=i.email,
-                matricula=i.matricula,
-                id_TipoUsuario=i.id_TipoUsuario,
-                uid=i.uid
-            )
+            usuarioNew = i.dict()
+            query = insert(usuariosModel).values(usuarioNew)
             await database.execute(query)
         return {"message": "Usuario insertado correctamente"}
     except Exception as error:
@@ -73,14 +84,8 @@ async def post_usuarios(usuario: List[S_Usuarios.UsuarioNew]):
 )
 async def put_usuarios(id: int, usuario: S_Usuarios.UsuarioUpdate):
     try:
-        query = update(usuariosModel).where(usuariosModel.c.id == id).values(
-            nombre=usuario.nombre,
-            apellidoPaterno=usuario.apellidoPaterno,
-            apellidoMaterno=usuario.apellidoMaterno,
-            email=usuario.email,
-            matricula=usuario.matricula,
-            id_tipoUsuario=usuario.id_tipoUsuario
-        )
+        usuarioUpdate = usuario.dict(exclude_unset=True)
+        query = update(usuariosModel).where(usuariosModel.c.id_Usuario == id).values(usuarioUpdate)
         await database.execute(query)
         return {"message": "Usuario actualizado correctamente"}
     except Exception as error:
@@ -96,7 +101,7 @@ async def put_usuarios(id: int, usuario: S_Usuarios.UsuarioUpdate):
 )
 async def delete_usuarios(id: int):
     try:
-        query = delete(usuariosModel).where(usuariosModel.c.id == id)
+        query = delete(usuariosModel).where(usuariosModel.c.id_Usuario == id)
         await database.execute(query)
         return {"message": "Usuario eliminado correctamente"}
     except Exception as error:
@@ -108,7 +113,7 @@ async def delete_usuarios(id: int):
     status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa una lista de alumnos",
     description ="Regresa una lista de alumnos",
-    tags=["Usuarios"]
+    tags=["Alumnos"]
 )
 async def get_alumnos():
     try:
@@ -123,11 +128,11 @@ async def get_alumnos():
     status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa un alumno",
     description ="Regresa un alumno",
-    tags=["Usuarios"]
+    tags=["Alumnos"]
 )
 async def get_alumno(id: int):
     try:
-        query = select(alumnosModel).where(alumnosModel.c.id == id)
+        query = select(alumnosModel).where(alumnosModel.c.id_Alumno == id)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -138,15 +143,13 @@ async def get_alumno(id: int):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Inserta un nuevo alumno",
     description="Inserta un nuevo alumno",
-    tags=["Usuarios"]
+    tags=["Alumnos"]
 )
 async def post_alumnos(alumno: List[S_Usuarios.AlumnoNew]):
     try:
         for i in alumno:
-            query = insert(alumnosModel).values(
-                id_Usuario=i.id_Usuario,
-                id_Grupo=i.id_Grupo
-            )
+            alumnoNew = i.dict()
+            query = insert(alumnosModel).values(alumnoNew)
             await database.execute(query)
         return {"message": "Alumno insertado correctamente"}
     except Exception as error:
@@ -158,14 +161,12 @@ async def post_alumnos(alumno: List[S_Usuarios.AlumnoNew]):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Actualiza un alumno",
     description="Actualiza un alumno",
-    tags=["Usuarios"]
+    tags=["Alumnos"]
 )
 async def put_alumnos(id: int, alumno: S_Usuarios.AlumnoUpdate):
     try:
-        query = update(alumnosModel).where(alumnosModel.c.id == id).values(
-            id_Usuario=alumno.id_Usuario,
-            id_Grupo=alumno.id_Grupo
-        )
+        alumnoUpdate = alumno.dict(exclude_unset=True)
+        query = update(alumnosModel).where(alumnosModel.c.id_Alumno == id).values(alumnoUpdate)
         await database.execute(query)
         return {"message": "Alumno actualizado correctamente"}
     except Exception as error:
@@ -177,11 +178,11 @@ async def put_alumnos(id: int, alumno: S_Usuarios.AlumnoUpdate):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Elimina un alumno",
     description="Elimina un alumno",
-    tags=["Usuarios"]
+    tags=["Alumnos"]
 )
 async def delete_alumnos(id: int):
     try:
-        query = delete(alumnosModel).where(alumnosModel.c.id == id)
+        query = delete(alumnosModel).where(alumnosModel.c.id_Alumno == id)
         await database.execute(query)
         return {"message": "Alumno eliminado correctamente"}
     except Exception as error:
@@ -193,7 +194,7 @@ async def delete_alumnos(id: int):
     status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa una lista de tipos de usuarios",
     description ="Regresa una lista de tipos de usuarios",
-    tags=["Usuarios"]
+    tags=["Tipos de usuarios"]
 )
 async def get_tipos():
     try:
@@ -208,11 +209,11 @@ async def get_tipos():
     status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa un tipo de usuario",
     description ="Regresa un tipo de usuario",
-    tags=["Usuarios"]
+    tags=["Tipos de usuarios"]
 )
 async def get_tipo(id: int):
     try:
-        query = select(tipoUsuariosModel).where(tipoUsuariosModel.c.id == id)
+        query = select(tipoUsuariosModel).where(tipoUsuariosModel.c.id_TipoUsuario == id)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -223,14 +224,13 @@ async def get_tipo(id: int):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Inserta un nuevo tipo de usuario",
     description="Inserta un nuevo tipo de usuario",
-    tags=["Usuarios"]
+    tags=["Tipos de usuarios"]
 )
 async def post_tipos(tipo: List[S_Usuarios.TipoUsuarioNew]):
     try:
         for i in tipo:
-            query = insert(tipoUsuariosModel).values(
-                tipoUsuario=i.tipoUsuario
-            )
+            tipoNew =i.dict()
+            query = insert(tipoUsuariosModel).values(tipoNew)
             await database.execute(query)
         return {"message": "Tipo de usuario insertado correctamente"}
     except Exception as error:
@@ -242,13 +242,12 @@ async def post_tipos(tipo: List[S_Usuarios.TipoUsuarioNew]):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Actualiza un tipo de usuario",
     description="Actualiza un tipo de usuario",
-    tags=["Usuarios"]
+    tags=["Tipos de usuarios"]
 )
 async def put_tipos(id: int, tipo: S_Usuarios.TipoUsuarioUpdate):
     try:
-        query = update(tipoUsuariosModel).where(tipoUsuariosModel.c.id == id).values(
-            nombre=tipo.nombre
-        )
+        tipoNew = tipo.dict(exclude_unset=True)
+        query = update(tipoUsuariosModel).where(tipoUsuariosModel.c.id_TipoUsuario == id).values(tipoNew)
         await database.execute(query)
         return {"message": "Tipo de usuario actualizado correctamente"}
     except Exception as error:
@@ -260,11 +259,11 @@ async def put_tipos(id: int, tipo: S_Usuarios.TipoUsuarioUpdate):
     status_code=status.HTTP_202_ACCEPTED,
     summary="Elimina un tipo de usuario",
     description="Elimina un tipo de usuario",
-    tags=["Usuarios"]
+    tags=["Tipos de usuarios"]
 )
 async def delete_tipos(id: int):
     try:
-        query = delete(tipoUsuariosModel).where(tipoUsuariosModel.c.id == id)
+        query = delete(tipoUsuariosModel).where(tipoUsuariosModel.c.id_TipoUsuario == id)
         await database.execute(query)
         return {"message": "Tipo de usuario eliminado correctamente"}
     except Exception as error:
