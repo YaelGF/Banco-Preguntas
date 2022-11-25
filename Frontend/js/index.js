@@ -4,7 +4,7 @@ function login(){
     let password = document.getElementById("password")
 
     var request = new XMLHttpRequest();
-    request.open("GET","http://127.0.0.1:8000/login/validate",true);
+    request.open("GET","http://147.182.172.184/login/validate",true);
     request.setRequestHeader("Authorization", "Basic " + btoa(email.value+":"+password.value));
     request.setRequestHeader('Content-Type', 'application/json');
     request.setRequestHeader('accept', 'application/json');
@@ -27,7 +27,7 @@ function login(){
 function getInformation(token){
 
     var request = new XMLHttpRequest();
-    request.open("GET","http://127.0.0.1:8000/login/info",true);
+    request.open("GET","http://147.182.172.184/login/validateToken",true);
     request.setRequestHeader('Authorization', 'Bearer '+token);
     request.setRequestHeader('Content-Type', 'application/json');
     request.setRequestHeader('accept', 'application/json');
@@ -40,14 +40,15 @@ function getInformation(token){
             json = JSON.parse(request.responseText);
             username = json["user"]["nombre"];
             sessionStorage.setItem("token",token);
+            console.log(json);
             if(json["user"]["rol"] == "Admin"){
-                window.location.replace("/dashboard_Admin.html");
+                window.location.replace("Admin/dashboard_Admin.html");
             }
             else if(json["user"]["rol"] == "Alumno"){
-                window.location.replace("/dashboard_Alumno.html");
+                window.location.replace("Alumno/dashboard_Alumno.html");
             }
             else if(json["user"]["rol"] == "Profesor"){
-                window.location.replace("/dashboard_Profesor.html");
+                window.location.replace("Profesor/dashboard_Profesor.html");
             }
             else{
                 alert("Error");
