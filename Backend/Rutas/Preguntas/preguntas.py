@@ -6,6 +6,8 @@ from Modelos.BasedeDatos import preguntas_imagenes as preguntas_imagenesModel
 from Modelos.BasedeDatos import respuestas as respuestasModel
 from Modelos.BasedeDatos import preguntas as preguntasModel
 from Modelos.BasedeDatos import imagenes as imagenesModel
+from Modelos.BasedeDatos import materias as materiasModel
+from Modelos.BasedeDatos import n_materias as n_materiasModel
 from sqlalchemy import select, insert, update, delete
 
 preguntas = APIRouter()
@@ -19,7 +21,7 @@ preguntas = APIRouter()
 )
 async def get_preguntas():
     try:
-        query = select(preguntasModel)
+        query = select([preguntasModel.c.id_Pregunta,preguntasModel.c.pregunta,respuestasModel.c.respuesta,n_materiasModel.c.materia]).where(preguntasModel.c.id_Materia == materiasModel.c.id_Materia).where(materiasModel.c.id_N_Materia == n_materiasModel.c.id_N_Materia).where(preguntasModel.c.opcionCorrecta == respuestasModel.c.id_Respuesta)
         return await database.fetch_all(query)
     except Exception as error:
         print(f"Error: {error}")

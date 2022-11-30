@@ -40,14 +40,14 @@ class Resultado(BaseModel):
     id_Resultado: int
     id_Examen: int
     id_Alumno: int
-    calificacion: int
+    calificacion: float
 
 class ResultadoNew(BaseModel):
     id_Examen: int
     id_Alumno: int
-    calificacion: int
+    calificacion: float
 
 class ResultadoUpdate(BaseModel):
     id_Examen: Optional[int]
     id_Alumno: Optional[int]
-    calificacion: Optional[int]
+    calificacion: Optional[float]

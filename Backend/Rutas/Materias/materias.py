@@ -4,6 +4,9 @@ from Config.Conexion import database
 from typing import List
 from Modelos.BasedeDatos import materias as materiasModel
 from Modelos.BasedeDatos import n_materias as n_materiasModel
+from Modelos.BasedeDatos import grupos as gruposModel
+from Modelos.BasedeDatos import carreras as carrerasModel
+from Modelos.BasedeDatos import usuarios as usuariosModel
 from sqlalchemy import select, insert, update, delete
 
 materias = APIRouter()
@@ -17,7 +20,8 @@ materias = APIRouter()
 )
 async def get_materias():
     try:
-        query = select(materiasModel)
+        
+        query = select([materiasModel.c.id_Materia,usuariosModel.c.nombre,n_materiasModel.c.materia,gruposModel.c.grupo,carrerasModel.c.carrera]).where(materiasModel.c.id_N_Materia == n_materiasModel.c.id_N_Materia).where(materiasModel.c.id_Grupo == gruposModel.c.id_Grupo).where(gruposModel.c.id_Carrera == carrerasModel.c.id_Carrera).where(materiasModel.c.profesor == usuariosModel.c.id_Usuario)
         return await database.fetch_all(query)
     except Exception as error:
         print(f"Error: {error}")
