@@ -5,6 +5,8 @@ from typing import List
 from Modelos.BasedeDatos import usuarios  as usuariosModel
 from Modelos.BasedeDatos import alumnos as alumnosModel
 from Modelos.BasedeDatos import tipoUsuarios as tipoUsuariosModel
+from Modelos.BasedeDatos import carreras as carrerasModel
+from Modelos.BasedeDatos import grupos as gruposModel
 from sqlalchemy import select, insert, update, delete
 
 usuarios = APIRouter()
@@ -18,7 +20,7 @@ usuarios = APIRouter()
 )
 async def get_usuarios():
     try:
-        query = select(usuariosModel)
+        query = select([usuariosModel,tipoUsuariosModel.c.tipoUsuario]).where(usuariosModel.c.id_TipoUsuario == tipoUsuariosModel.c.id_TipoUsuario)
         return await database.fetch_all(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -33,7 +35,7 @@ async def get_usuarios():
 )
 async def get_usuario(usuario: S_Usuarios.UserLogin): 
     try:
-        query = select(usuariosModel).where(usuariosModel.c.uid == usuario.uid)
+        query = select([usuariosModel,tipoUsuariosModel.c.tipoUsuario]).where(usuariosModel.c.id_TipoUsuario == tipoUsuariosModel.c.id_TipoUsuario).where(usuariosModel.c.uid == usuario.uid)
         result = await database.fetch_one(query)
         if result:
             return "Success"
@@ -51,7 +53,7 @@ async def get_usuario(usuario: S_Usuarios.UserLogin):
 )
 async def get_usuario(id: int):
     try:
-        query = select(usuariosModel).where(usuariosModel.c.id_Usuario == id)
+        query = select([usuariosModel,tipoUsuariosModel.c.tipoUsuario]).where(usuariosModel.c.id_TipoUsuario == tipoUsuariosModel.c.id_TipoUsuario).where(usuariosModel.c.id_Usuario == id)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -117,7 +119,7 @@ async def delete_usuarios(id: int):
 )
 async def get_alumnos():
     try:
-        query = select(alumnosModel)
+        query = select([alumnosModel,usuariosModel,tipoUsuariosModel,carrerasModel.c.carrera,gruposModel.c.grupo]).where(gruposModel.c.id_Carrera == carrerasModel.c.id_Carrera).where(alumnosModel.c.id_Grupo == gruposModel.c.id_Grupo).where(alumnosModel.c.id_Usuario == usuariosModel.c.id_Usuario).where(usuariosModel.c.id_TipoUsuario == tipoUsuariosModel.c.id_TipoUsuario)
         return await database.fetch_all(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -132,7 +134,7 @@ async def get_alumnos():
 )
 async def get_alumno(id: int):
     try:
-        query = select(alumnosModel).where(alumnosModel.c.id_Alumno == id)
+        query =  select([alumnosModel,usuariosModel,tipoUsuariosModel,carrerasModel.c.carrera,gruposModel.c.grupo]).where(gruposModel.c.id_Carrera == carrerasModel.c.id_Carrera).where(alumnosModel.c.id_Grupo == gruposModel.c.id_Grupo).where(alumnosModel.c.id_Usuario == usuariosModel.c.id_Usuario).where(usuariosModel.c.id_TipoUsuario == tipoUsuariosModel.c.id_TipoUsuario).where(alumnosModel.c.id_Alumno == id)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
