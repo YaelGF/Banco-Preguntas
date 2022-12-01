@@ -3,6 +3,8 @@ from fastapi import APIRouter, status
 from Config.Conexion import database
 from typing import List
 from Modelos.BasedeDatos import carreras as carrerasModel
+from Modelos.BasedeDatos import usuarios as usuariosModel
+from Modelos.BasedeDatos import tipoUsuarios as tipoUsuariosModel
 from sqlalchemy import select, insert, update, delete
 
 carreras = APIRouter()
@@ -16,7 +18,7 @@ carreras = APIRouter()
 )
 async def get_carreras():
     try:
-        query = select(carrerasModel)
+        query = select([carrerasModel,usuariosModel,tipoUsuariosModel.c.tipoUsuario]).where(carrerasModel.c.coordinador == usuariosModel.c.id_Usuario).where(usuariosModel.c.id_TipoUsuario == tipoUsuariosModel.c.id_TipoUsuario)
         return await database.fetch_all(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -31,7 +33,7 @@ async def get_carreras():
 )
 async def get_carrera(id: int):
     try:
-        query = select(carrerasModel).where(carrerasModel.c.id_Carrera == id)
+        query =  select([carrerasModel,usuariosModel,tipoUsuariosModel.c.tipoUsuario]).where(carrerasModel.c.coordinador == usuariosModel.c.id_Usuario).where(usuariosModel.c.id_TipoUsuario == tipoUsuariosModel.c.id_TipoUsuario).where(carrerasModel.c.id_Carrera == id)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")

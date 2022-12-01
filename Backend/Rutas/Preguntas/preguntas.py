@@ -6,9 +6,35 @@ from Modelos.BasedeDatos import preguntas_imagenes as preguntas_imagenesModel
 from Modelos.BasedeDatos import respuestas as respuestasModel
 from Modelos.BasedeDatos import preguntas as preguntasModel
 from Modelos.BasedeDatos import imagenes as imagenesModel
+from Modelos.BasedeDatos import materias as materiasModel
+from Modelos.BasedeDatos import n_materias as n_materiasModel
 from sqlalchemy import select, insert, update, delete
 
 preguntas = APIRouter()
+
+def concatenacion(pregunta, opcion1, opcion2, opcion3, opcion4):
+    for i in range(len(pregunta)):
+        pregunta[i]= dict(pregunta[i])
+        opcion1[i]= list(opcion1[i])
+        opcion2[i]= list(opcion2[i])
+        opcion3[i]= list(opcion3[i])
+        opcion4[i]= list(opcion4[i])
+        pregunta[i]['opcion1'] = opcion1[i][0]
+        pregunta[i]['opcion2'] = opcion2[i][0]
+        pregunta[i]['opcion3'] = opcion3[i][0]
+        pregunta[i]['opcion4'] = opcion4[i][0]
+    return pregunta
+
+def concatenar1(pregunta,opcion1,opcion2,opcion3,opcion4):
+    opcion1 = list(opcion1)
+    opcion2 = list(opcion2)
+    opcion3 = list(opcion3)
+    opcion4 = list(opcion4)
+    pregunta['opcion1'] = opcion1[0]
+    pregunta['opcion2'] = opcion2[0]
+    pregunta['opcion3'] = opcion3[0]
+    pregunta['opcion4'] = opcion4[0]
+    return pregunta
 
 @preguntas.get(
     "/preguntas/", 
@@ -19,8 +45,17 @@ preguntas = APIRouter()
 )
 async def get_preguntas():
     try:
-        query = select(preguntasModel)
-        return await database.fetch_all(query)
+        query = select([preguntasModel.c.id_Pregunta,preguntasModel.c.pregunta,respuestasModel.c.respuesta,n_materiasModel.c.materia]).where(preguntasModel.c.id_Materia == materiasModel.c.id_Materia).where(materiasModel.c.id_N_Materia == n_materiasModel.c.id_N_Materia).where(preguntasModel.c.opcionCorrecta == respuestasModel.c.id_Respuesta)
+        queryy = select([respuestasModel.c.respuesta]).where(preguntasModel.c.opcion1 == respuestasModel.c.id_Respuesta)
+        opcion_1 = list(await database.fetch_all(queryy))
+        queryy = select([respuestasModel.c.respuesta]).where(preguntasModel.c.opcion2 == respuestasModel.c.id_Respuesta)
+        opcion_2 = list(await database.fetch_all(queryy))
+        queryy = select([respuestasModel.c.respuesta]).where(preguntasModel.c.opcion3 == respuestasModel.c.id_Respuesta)
+        opcion_3 = list(await database.fetch_all(queryy))
+        queryy = select([respuestasModel.c.respuesta]).where(preguntasModel.c.opcion4 == respuestasModel.c.id_Respuesta)
+        opcion_4 = list(await database.fetch_all(queryy))
+        preguntas = list(await database.fetch_all(query))
+        return concatenacion(preguntas, opcion_1, opcion_2, opcion_3, opcion_4)
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al obtener las preguntas"}
@@ -34,8 +69,22 @@ async def get_preguntas():
 )
 async def get_pregunta(id: int):
     try:
-        query = select(preguntasModel).where(preguntasModel.c.id_Pregunta == id)
-        return await database.fetch_one(query)
+        query = select([preguntasModel.c.id_Pregunta,preguntasModel.c.pregunta,respuestasModel.c.respuesta,n_materiasModel.c.materia]).where(preguntasModel.c.id_Materia == materiasModel.c.id_Materia).where(materiasModel.c.id_N_Materia == n_materiasModel.c.id_N_Materia).where(preguntasModel.c.opcionCorrecta == respuestasModel.c.id_Respuesta).where(preguntasModel.c.id_Pregunta == id)
+        queryy = select([respuestasModel.c.respuesta]).where(preguntasModel.c.opcion1 == respuestasModel.c.id_Respuesta).where(preguntasModel.c.id_Pregunta == id)
+        opcion_1 = list(await database.fetch_one(queryy))
+        queryy = select([respuestasModel.c.respuesta]).where(preguntasModel.c.opcion2 == respuestasModel.c.id_Respuesta).where(preguntasModel.c.id_Pregunta == id)
+        opcion_2 = list(await database.fetch_one(queryy))
+        queryy = select([respuestasModel.c.respuesta]).where(preguntasModel.c.opcion3 == respuestasModel.c.id_Respuesta).where(preguntasModel.c.id_Pregunta == id)
+        opcion_3 = list(await database.fetch_one(queryy))
+        queryy = select([respuestasModel.c.respuesta]).where(preguntasModel.c.opcion4 == respuestasModel.c.id_Respuesta).where(preguntasModel.c.id_Pregunta == id)
+        opcion_4 = list(await database.fetch_one(queryy))
+        preguntas = dict(await database.fetch_one(query))
+        print(preguntas)
+        print(opcion_1)
+        print(opcion_2)
+        print(opcion_3)
+        print(opcion_4)
+        return concatenar1(preguntas, opcion_1, opcion_2, opcion_3, opcion_4)
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al obtener la pregunta"}

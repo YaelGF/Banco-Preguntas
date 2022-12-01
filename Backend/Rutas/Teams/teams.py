@@ -18,7 +18,7 @@ groups = APIRouter()
 async def get_grupos():
     try:
         #select([gruposModel.c.grupo,gruposModel.c.semestre, carrerasModel.c.carrera]).where(gruposModel.c.id_Carrera == carrerasModel.c.id_Carrera)
-        query = select(gruposModel)
+        query = select([gruposModel, carrerasModel.c.carrera]).where(gruposModel.c.id_Carrera == carrerasModel.c.id_Carrera)
         return await database.fetch_all(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -33,7 +33,7 @@ async def get_grupos():
 )
 async def get_grupo(id_Grupo: int):
     try:
-        query = select(gruposModel).where(gruposModel.c.id_Grupo == id_Grupo)
+        query = select([gruposModel, carrerasModel.c.carrera]).where(gruposModel.c.id_Carrera == carrerasModel.c.id_Carrera).where(gruposModel.c.id_Grupo == id_Grupo)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")

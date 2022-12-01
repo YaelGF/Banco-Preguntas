@@ -1,4 +1,4 @@
-from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
+from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey, Float
 from Config.Conexion import engine, meta
  
 tipoUsuarios = Table('tipoUsuarios', meta, 
@@ -59,20 +59,21 @@ resultados = Table('resultados', meta,
 Column('id_Resultado', Integer, primary_key=True),
 Column('id_Examen', Integer, ForeignKey('examenes.id_Examen')),
 Column('id_Alumno', Integer, ForeignKey('alumnos.id_Alumno')),
-Column('calificacion', Integer))
+Column('calificacion', Float))
 
 imagenes = Table('imagenes', meta,
 Column('id_Imagen', Integer, primary_key=True),
-Column('url', String(50)))
+Column('url', String(300)))
 
 preguntas = Table('preguntas', meta,
 Column('id_Pregunta', Integer, primary_key=True),
+Column('pregunta', String(300)),
 Column('opcion1', Integer, ForeignKey('respuestas.id_Respuesta')),
 Column('opcion2', Integer, ForeignKey('respuestas.id_Respuesta')),
 Column('opcion3', Integer, ForeignKey('respuestas.id_Respuesta')),
 Column('opcion4', Integer, ForeignKey('respuestas.id_Respuesta')),
 Column('opcionCorrecta', Integer, ForeignKey('respuestas.id_Respuesta')),
-Column('id_materia', Integer, ForeignKey('materias.id_Materia')))
+Column('id_Materia', Integer, ForeignKey('materias.id_Materia')))
 
 respuestas = Table('respuestas', meta,
 Column('id_Respuesta', Integer, primary_key=True),

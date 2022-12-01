@@ -3,28 +3,31 @@ from pydantic import BaseModel
 
 class Pregunta(BaseModel):
     id_Pregunta: int
+    pregunta: str
     opcion1: int
     opcion2: int
     opcion3: int
     opcion4: int
     opcionCorrecta: int
-    id_materia: int
+    id_Materia: int
 
 class PreguntaNew(BaseModel):
+    pregunta: str
     opcion1: int
     opcion2: int
     opcion3: int
     opcion4: int
     opcionCorrecta: int
-    id_materia: int
+    id_Materia: int
 
 class PreguntaUpdate(BaseModel):
+    pregunta: Optional[str]
     opcion1: Optional[int]
     opcion2: Optional[int]
     opcion3: Optional[int]
     opcion4: Optional[int]
     opcionCorrecta: Optional[int]
-    id_materia: Optional[int]
+    id_Materia: Optional[int]
 
 class Respuesta(BaseModel):
     id_Respuesta: int
