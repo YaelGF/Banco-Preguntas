@@ -45,7 +45,7 @@ async def validateToken(credentials: HTTPAuthorizationCredentials = Depends(segu
         user = auth.get_account_info(credentials.credentials)
         uid = user['users'][0]['localId']
         user_data = db.child("users").child(uid).get().val()
-        return { "user": user_data}
+        return { "user": user_data, "uid": uid }
     except:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,

@@ -3,6 +3,11 @@ from fastapi import APIRouter, status
 from Config.Conexion import database
 from typing import List
 from Modelos.BasedeDatos import resultados as resulModel
+from Modelos.BasedeDatos import alumnos as alumnosModel
+from Modelos.BasedeDatos import examenes as examenesModel
+from Modelos.BasedeDatos import usuarios as usuariosModel
+from Modelos.BasedeDatos import n_materias as n_materiasModel
+from Modelos.BasedeDatos import materias as materiasModel
 from sqlalchemy import select, insert, update, delete
 
 resultados = APIRouter()
@@ -16,7 +21,7 @@ resultados = APIRouter()
 )
 async def get_resultados():
     try:
-        query = select(resulModel)
+        query = select([resulModel,examenesModel,n_materiasModel]).where(resulModel.c.id_Examen == examenesModel.c.id_Examen).where(examenesModel.c.id_Materia == materiasModel.c.id_Materia).where(materiasModel.c.id_N_Materia == n_materiasModel.c.id_N_Materia)
         return await database.fetch_all(query)
     except Exception as error:
         print(f"Error: {error}")

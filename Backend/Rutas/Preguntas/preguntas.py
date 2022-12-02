@@ -61,6 +61,21 @@ async def get_preguntas():
         return {"message": "Error al obtener las preguntas"}
 
 @preguntas.get(
+    "/preguntas/respuestas/", 
+    status_code=status.HTTP_202_ACCEPTED,
+    summary     ="Regresa una lista de preguntas",
+    description ="Regresa una lista de preguntas",
+    tags        =["Preguntas"]
+)
+async def get_preguntas():
+    try:
+        query = select([preguntasModel.c.id_Pregunta,preguntasModel.c.pregunta,respuestasModel.c.respuesta,n_materiasModel.c.materia]).where(preguntasModel.c.id_Materia == materiasModel.c.id_Materia).where(materiasModel.c.id_N_Materia == n_materiasModel.c.id_N_Materia).where(preguntasModel.c.opcionCorrecta == respuestasModel.c.id_Respuesta)
+        return await database.fetch_all(query)
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al obtener las preguntas"}
+
+@preguntas.get(
     "/preguntas/{id}",
     status_code=status.HTTP_202_ACCEPTED,
     summary     ="Regresa una pregunta",
