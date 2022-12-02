@@ -45,6 +45,8 @@ Column('materia', String(50)),
 examenes = Table('examenes', meta,
 Column('id_Examen', Integer, primary_key=True),
 Column('profesor', Integer, ForeignKey('usuarios.id_Usuario')),
+Column('id_Materia', Integer, ForeignKey('materias.id_Materia')),
+Column('id_Grupo', Integer, ForeignKey('grupos.id_Grupo')),
 Column('fecha', String(50)),
 Column('horaInicio', String(50)),
 Column('horaFin', String(50)))

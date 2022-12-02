@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/action_page.php">
+  <p>Please select your favorite Web language:</p>
+  <input type="radio" id="html" name="fav_language" value="HTML">
+  <label for="html">HTML</label><br>
+  <input type="radio" id="css" name="fav_language" value="CSS">
+  <label for="css">CSS</label><br>
+  <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+  <label for="javascript">JavaScript</label>
+
+  <br>  
+
+  <p>Please select your age:</p>
+  <input type="radio" id="age1" name="age" value="30">
+  <label for="age1">0 - 30</label><br>
+  <input type="radio" id="age2" name="age" value="60">
+  <label for="age2">31 - 60</label><br>  
+  <input type="radio" id="age3" name="age" value="100">
+  <label for="age3">61 - 100</label><br><br>
+  <input type="submit" value="Submit">
+</form>
+<form id="examen">
+
+</form>
+<script>
+getExamInfo();
+function getExamInfo(){
+  token = sessionStorage.getItem("token");
+  console.log(token);
+  var request = new XMLHttpRequest();
+    request.open("GET",'http://127.0.0.1:8000/GenerarExamen/',true);
+    request.setRequestHeader('Authorization', 'Bearer '+token);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('accept', 'application/json');
+
+    request.onload = function(){
+
+        const status = request.status
+
+        if (status == 202) {
+            json = JSON.parse(request.responseText);
+            fexamen = document.getElementById("examen");
+            var p = document.createElement("p");
+            p.innerHTML = json[0]['pregunta'];
+            fexamen.appendChild(p);
+            var input = document.createElement("input");
+            input.setAttribute("type", "radio");
+            input.setAttribute("id", "opcion1");
+            input.setAttribute("value", json[0]['opcion1']);
+            fexamen.appendChild(input);
+            var label = document.createElement("label");
+            label.setAttribute("for", "opcion1");
+            label.innerHTML = json[0]['opcion1'];
+            fexamen.appendChild(label);
+            var br = document.createElement("br");
+
+        }
+
+        else{
+            alert(json.detail);
+        }
+    }
+    request.send();
+}
+</script>
+</body>
+</html>

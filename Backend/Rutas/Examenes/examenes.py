@@ -3,7 +3,13 @@ from fastapi import APIRouter, status
 from Config.Conexion import database
 from typing import List
 from Modelos.BasedeDatos import examenes as examenesModel
+from Modelos.BasedeDatos import usuarios as usuariosModel
 from Modelos.BasedeDatos import configuraciones as configuracionesModel
+from Modelos.BasedeDatos import materias as materiasModel
+from Modelos.BasedeDatos import n_materias as n_materiasModel
+from Modelos.BasedeDatos import preguntas as preguntasModel
+from Modelos.BasedeDatos import respuestas as respuestasModel
+from Modelos.BasedeDatos import tipoUsuarios as tipousuarioModel
 from sqlalchemy import select, insert, update, delete
 
 examenes = APIRouter()
@@ -17,7 +23,7 @@ examenes = APIRouter()
 )
 async def get_examenes():
     try:
-        query = select(examenesModel)
+        query = select(examenesModel, usuariosModel,tipousuarioModel).where(examenesModel.c.profesor == usuariosModel.c.id_Usuario).where(usuariosModel.c.id_TipoUsuario == tipousuarioModel.c.id_TipoUsuario)
         return await database.fetch_all(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -32,7 +38,7 @@ async def get_examenes():
 )
 async def get_examen(id_Examen: int):
     try:
-        query = select(examenesModel).where(examenesModel.c.id_Examen == id_Examen)
+        query = select(examenesModel, usuariosModel,tipousuarioModel).where(examenesModel.c.profesor == usuariosModel.c.id_Usuario).where(usuariosModel.c.id_TipoUsuario == tipousuarioModel.c.id_TipoUsuario).where(examenesModel.c.id_Examen == id_Examen)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -97,7 +103,7 @@ async def delete_examen(id_Examen: int):
 )
 async def get_configuraciones():
     try:
-        query = select(configuracionesModel)
+        query = select([configuracionesModel, n_materiasModel.c.materia,examenesModel,usuariosModel]).where(materiasModel.c.id_N_Materia == n_materiasModel.c.id_N_Materia).where(configuracionesModel.c.id_Examen == examenesModel.c.id_Examen).where(examenesModel.c.profesor == usuariosModel.c.id_Usuario)
         return await database.fetch_all(query)
     except Exception as error:
         print(f"Error: {error}")
@@ -112,7 +118,7 @@ async def get_configuraciones():
 )
 async def get_configuracion(id_Configuracion: int):
     try:
-        query = select(configuracionesModel).where(configuracionesModel.c.id_Configuracion == id_Configuracion)
+        query = select([configuracionesModel, n_materiasModel.c.materia,examenesModel,usuariosModel]).where(materiasModel.c.id_N_Materia == n_materiasModel.c.id_N_Materia).where(configuracionesModel.c.id_Examen == examenesModel.c.id_Examen).where(examenesModel.c.profesor == usuariosModel.c.id_Usuario).where(configuracionesModel.c.id_Configuracion == id_Configuracion)
         return await database.fetch_one(query)
     except Exception as error:
         print(f"Error: {error}")
