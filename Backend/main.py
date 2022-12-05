@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 from typing import Union
 from typing import List
-from .Schemas import Schemas
+from Schemas import Schemas
 import pyrebase
 import sqlite3
 import hashlib
