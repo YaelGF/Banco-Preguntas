@@ -1,0 +1,71 @@
+
+p{
+}
+
+.navbar-dark .navbar-brand {
+    color: #024a87;
+}
+
+.bg-dark {
+    background-color: #4D9D29 !important;
+}
+.navbar {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -ms-flex-align: center;
+    align-items: center;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    
+}
+
+.navbar-dark .navbar-toggler {
+    color: #024a86;
+    border-color: #024a86;
+    width: 200px;
+}
+
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+}
+
+a {
+    color: #024a86;
+    text-decoration: none;
+    background-color: transparent;
+    width: 200px;
+}
+
+.nav-link {
+display: block;
+padding: 0.5rem 1rem;
+}
+a {
+color: #024a86;
+text-decoration: none;
+background-color: transparent;
+width: 200px;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #024a86;
+    width: 200px;
+}
+
+.display-4 {
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+    text-align: center;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #024a86;
+    border-color: #024a86;
+}
