@@ -1,7 +1,7 @@
 
-p{
+.bg-dark {
+    background-color: #4D9D29!important;
 }
-
 .navbar-dark .navbar-brand {
     color: #024a87;
 }
