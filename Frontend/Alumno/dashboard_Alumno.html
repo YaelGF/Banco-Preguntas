@@ -173,7 +173,7 @@ function getExamInfo(){
   token = sessionStorage.getItem("token");
   console.log(token);
   var request = new XMLHttpRequest();
-    request.open("GET",'http://127.0.0.1:8000/ValidateExamen/',true);
+    request.open("GET",'http://147.182.172.184/ValidateExamen/',true);
     request.setRequestHeader('Authorization', 'Bearer '+token);
     request.setRequestHeader('Content-Type', 'application/json');
     request.setRequestHeader('accept', 'application/json');
@@ -194,7 +194,6 @@ function getExamInfo(){
                 alert("No hay examenes activos");
             }
         }
-
         else{
             alert(json.detail);
         }
