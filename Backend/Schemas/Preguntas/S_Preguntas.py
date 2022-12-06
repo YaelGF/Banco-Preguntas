@@ -61,4 +61,13 @@ class ImagenNew(BaseModel):
 
 class ImagenUpdate(BaseModel):
     url: Optional[str]
+
+class PreguntaFront(BaseModel):
+    pregunta: str
+    opcion1: str
+    opcion2: str
+    opcion3: str
+    opcion4: str
+    opcionCorrecta: str
+    materia: str
     

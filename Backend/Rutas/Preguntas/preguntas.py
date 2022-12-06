@@ -1,16 +1,21 @@
 from Schemas.Preguntas import S_Preguntas
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, Depends
 from Config.Conexion import database
 from typing import List
 from Modelos.BasedeDatos import preguntas_imagenes as preguntas_imagenesModel
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from Modelos.BasedeDatos import respuestas as respuestasModel
 from Modelos.BasedeDatos import preguntas as preguntasModel
 from Modelos.BasedeDatos import imagenes as imagenesModel
 from Modelos.BasedeDatos import materias as materiasModel
 from Modelos.BasedeDatos import n_materias as n_materiasModel
+from Segurity.segurity import get_level
+from Modelos.BasedeDatos import usuarios as usuariosModel
 from sqlalchemy import select, insert, update, delete
 
 preguntas = APIRouter()
+
+securityBearer = HTTPBearer()
 
 def concatenacion(pregunta, opcion1, opcion2, opcion3, opcion4):
     for i in range(len(pregunta)):
@@ -402,3 +407,60 @@ async def delete_imagen(id: int):
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al eliminar la imagen"}
+
+@preguntas.post(
+    "/preguntas/Front/",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Regresa una lista de preguntas",
+    description="Regresa una lista de preguntas",
+    tags=["Preguntas"]
+)
+async def add_preguntasFront(preguntaM: S_Preguntas.PreguntaFront,credentials: HTTPAuthorizationCredentials = Depends(securityBearer)):
+    try:
+        opcion1 = {"respuesta": preguntaM.opcion1}
+        opcion2 = {"respuesta": preguntaM.opcion2}
+        opcion3 = {"respuesta": preguntaM.opcion3}
+        opcion4 = {"respuesta": preguntaM.opcion4} 
+        query  = insert(respuestasModel).values(opcion1)
+        await database.execute(query)
+        query  = insert(respuestasModel).values(opcion2)
+        await database.execute(query)
+        query  = insert(respuestasModel).values(opcion3)
+        await database.execute(query)
+        query  = insert(respuestasModel).values(opcion4)
+        await database.execute(query)
+        query = select(respuestasModel.c.id_Respuesta).where(respuestasModel.c.respuesta == preguntaM.opcion1)
+        id1 = await database.fetch_one(query)
+        query = select(respuestasModel.c.id_Respuesta).where(respuestasModel.c.respuesta == preguntaM.opcion2)
+        id2 = await database.fetch_one(query)
+        query = select(respuestasModel.c.id_Respuesta).where(respuestasModel.c.respuesta == preguntaM.opcion3)
+        id3 = await database.fetch_one(query)
+        query = select(respuestasModel.c.id_Respuesta).where(respuestasModel.c.respuesta == preguntaM.opcion4)
+        id4 = await database.fetch_one(query)
+        query = select(respuestasModel).where(respuestasModel.c.respuesta == preguntaM.opcionCorrecta)
+        oC = await database.fetch_one(query)
+        token = credentials.credentials
+        user = get_level(token)
+        uid = user['uid']
+        query = select(usuariosModel.c.id_Usuario).where(usuariosModel.c.uid == uid)
+        idUser = await database.fetch_one(query)
+        query = select(n_materiasModel.c.id_N_Materia).where(n_materiasModel.c.materia == preguntaM.materia)
+        idMateria = await database.fetch_one(query)
+        query = select(materiasModel.c.id_Materia).where((materiasModel.c.id_N_Materia == idMateria["id_N_Materia"]) & (materiasModel.c.profesor == idUser["id_Usuario"]))
+        idMateria = await database.fetch_one(query)
+        print(oC)
+        newPregunta = {
+            "pregunta": preguntaM.pregunta,
+            "opcion1": id1["id_Respuesta"],
+            "opcion2": id2["id_Respuesta"],
+            "opcion3": id3["id_Respuesta"],
+            "opcion4": id4["id_Respuesta"],
+            "opcionCorrecta": oC["id_Respuesta"],
+            "id_Materia": idMateria["id_Materia"]
+        }
+        query = insert(preguntasModel).values(newPregunta)
+        await database.execute(query)
+        return {"message": "Pregunta insertada correctamente"}
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al obtener las preguntas"}
