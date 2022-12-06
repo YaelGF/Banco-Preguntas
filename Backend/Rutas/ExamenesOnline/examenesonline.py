@@ -159,7 +159,9 @@ async def calificar_examen(resultados: List[respuestaSchema],credentials: HTTPAu
         uid = user['uid']
         query = select([usuariosModel.c.id_Usuario]).where(usuariosModel.c.uid == uid)
         idUsuario = await database.fetch_one(query)
-        idUsuario= idUsuario['id_Usuario']
+        query = select([alumnosModel]).where(alumnosModel.c.id_Usuario == idUsuario['id_Usuario'])
+        idUsuario = await database.fetch_one(query)
+        idUsuario= idUsuario['id_Alumno']
         id_Examen = resultados[0].id_Examen
         count = 0
         for i in range(len(resultados)):
