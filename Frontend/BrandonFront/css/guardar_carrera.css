@@ -1,0 +1,28 @@
+.bg-dark {
+    background-color: #4d9d29!important;
+}
+
+.navbar-toggler {
+    padding: 0.25rem 0.75rem;
+    font-size: 1.25rem;
+    line-height: 1;
+    background-color: transparent;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+}
+
+a {
+    color: #024a86;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #0d2bb1a7;
+    border-color: #0d2bb1a7;
+}
+
+input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].btn-block {
+    width: 50%;
+}

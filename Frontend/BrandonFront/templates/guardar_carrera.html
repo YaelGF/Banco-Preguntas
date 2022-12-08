@@ -12,7 +12,7 @@
 
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg bg-dark">
             <div class="container-fluid">
                 <a href="../../index.php" class="navbar-brand">
        
@@ -21,21 +21,27 @@
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <a href="../../index.php" class="nav-item nav-link active"><i class="fa fa-fw fa-home"></i>Home</a>
-                <a href="listar_preguntas.php" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i>Listar preguntas</a>
-                <a href="guardar_carrera.html" class="nav-item nav-link"><i class="fa fa-fw fa-plus"></i>Guardar carrera</a>
+                <a href="listar_preguntas.php" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i></a>
+                <a href="guardar_carrera.html" class="nav-item nav-link"><i class="fa fa-fw fa-plus"></i>Carreras guardadas</a>
                 <div class="navbar-nav">
-                    <a href="#" class="nav-item nav-link">Login</a>
+                    <a href="#" class="nav-item nav-link">Cerrar sesion</a>
                 </div>
                 <br>
                 <br>
             </div>
         </nav>
-        <form  method="post" id="form">
-            <div class="form-group">
-                <label for="nombre">Nombre de la carrera</label>
-                <input type="text" class="form-control" id="carrera" name="nombre" placeholder="Nombre de la carrera">
+        <div class="container mt-5">
+        <div class="jumbtron">
+            <div class="container">
+                <form  method="post" id="form">
+                    <div class="form-group">
+                        <center><h1 for="nombre">Nombre de la carrera</h1></center>
+                        <input type="text" class="form-control" id="carrera" name="nombre" placeholder="Ingrese el nombre de la carrera">
+                    </div>
+                    <br>
+                    <input type="button" value="Guardar" onclick="Guardar_carrera()" class="btn btn-success btn-block btn-lg"></center>
+                </br>    
+                </form>
             </div>
-            <center><input type="button" value="Guardar" onclick="Guardar_carrera()" class="btn btn-success btn-block btn-lg"></center>
-        </form>
-
+        </div>
 </html>

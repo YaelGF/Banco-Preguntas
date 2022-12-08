@@ -1,0 +1,18 @@
+.bg-dark {
+    background-color: #4D9D29!important;
+}
+
+.navbar-dark .navbar-toggler {
+    color: #024a86;
+    border-color: #024a86;
+}
+
+a {
+    color: #024a86;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #024a86;
+}

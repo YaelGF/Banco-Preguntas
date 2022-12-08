@@ -1,0 +1,15 @@
+.bg-dark {
+    background-color: #4D9D29!important;
+}
+
+a {
+    color: #024a86;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
