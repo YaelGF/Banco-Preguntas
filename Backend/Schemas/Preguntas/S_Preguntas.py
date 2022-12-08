@@ -22,11 +22,11 @@ class PreguntaNew(BaseModel):
 
 class PreguntaUpdate(BaseModel):
     pregunta: Optional[str]
-    opcion1: Optional[int]
-    opcion2: Optional[int]
-    opcion3: Optional[int]
-    opcion4: Optional[int]
-    opcionCorrecta: Optional[int]
+    opcion1: Optional[str]
+    opcion2: Optional[str]
+    opcion3: Optional[str]
+    opcion4: Optional[str]
+    opcionCorrecta: Optional[str]
     id_Materia: Optional[int]
 
 class Respuesta(BaseModel):
@@ -69,5 +69,5 @@ class PreguntaFront(BaseModel):
     opcion3: str
     opcion4: str
     opcionCorrecta: str
-    materia: str
+    id_Materia: int
     

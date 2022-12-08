@@ -137,8 +137,40 @@ async def post_preguntas(pregunta: List[S_Preguntas.PreguntaNew]):
 )
 async def put_pregunta(id: int, pregunta: S_Preguntas.PreguntaUpdate):
     try:
-        pregunta = pregunta.dict(exclude_unset=True)
-        query = update(preguntasModel).where(preguntasModel.c.id_Pregunta == id).values(pregunta)
+        query = delete(preguntasModel).where(preguntasModel.c.id_Pregunta == id)
+        await database.execute(query)
+        opcion1 = {"respuesta": pregunta.opcion1}
+        opcion2 = {"respuesta": pregunta.opcion2}
+        opcion3 = {"respuesta": pregunta.opcion3}
+        opcion4 = {"respuesta": pregunta.opcion4} 
+        query  = insert(respuestasModel).values(opcion1)
+        await database.execute(query)
+        query  = insert(respuestasModel).values(opcion2)
+        await database.execute(query)
+        query  = insert(respuestasModel).values(opcion3)
+        await database.execute(query)
+        query  = insert(respuestasModel).values(opcion4)
+        await database.execute(query)
+        query = select(respuestasModel.c.id_Respuesta).where(respuestasModel.c.respuesta == pregunta.opcion1)
+        id1 = await database.fetch_one(query)
+        query = select(respuestasModel.c.id_Respuesta).where(respuestasModel.c.respuesta == pregunta.opcion2)
+        id2 = await database.fetch_one(query)
+        query = select(respuestasModel.c.id_Respuesta).where(respuestasModel.c.respuesta == pregunta.opcion3)
+        id3 = await database.fetch_one(query)
+        query = select(respuestasModel.c.id_Respuesta).where(respuestasModel.c.respuesta == pregunta.opcion4)
+        id4 = await database.fetch_one(query)
+        query = select(respuestasModel).where(respuestasModel.c.respuesta == pregunta.opcionCorrecta)
+        oC = await database.fetch_one(query)
+        newPregunta = {
+            "pregunta": pregunta.pregunta,
+            "opcion1": id1["id_Respuesta"],
+            "opcion2": id2["id_Respuesta"],
+            "opcion3": id3["id_Respuesta"],
+            "opcion4": id4["id_Respuesta"],
+            "opcionCorrecta": oC["id_Respuesta"],
+            "id_Materia": pregunta.id_Materia
+        }
+        query = insert(preguntasModel).values(newPregunta)
         await database.execute(query)
         return {"message": "Pregunta actualizada correctamente"}
     except Exception as error:
@@ -444,11 +476,7 @@ async def add_preguntasFront(preguntaM: S_Preguntas.PreguntaFront,credentials: H
         uid = user['uid']
         query = select(usuariosModel.c.id_Usuario).where(usuariosModel.c.uid == uid)
         idUser = await database.fetch_one(query)
-        query = select(n_materiasModel.c.id_N_Materia).where(n_materiasModel.c.materia == preguntaM.materia)
-        idMateria = await database.fetch_one(query)
-        query = select(materiasModel.c.id_Materia).where((materiasModel.c.id_N_Materia == idMateria["id_N_Materia"]) & (materiasModel.c.profesor == idUser["id_Usuario"]))
-        idMateria = await database.fetch_one(query)
-        print(oC)
+        id_Materia = preguntaM.id_Materia
         newPregunta = {
             "pregunta": preguntaM.pregunta,
             "opcion1": id1["id_Respuesta"],
@@ -456,7 +484,7 @@ async def add_preguntasFront(preguntaM: S_Preguntas.PreguntaFront,credentials: H
             "opcion3": id3["id_Respuesta"],
             "opcion4": id4["id_Respuesta"],
             "opcionCorrecta": oC["id_Respuesta"],
-            "id_Materia": idMateria["id_Materia"]
+            "id_Materia": id_Materia
         }
         query = insert(preguntasModel).values(newPregunta)
         await database.execute(query)
