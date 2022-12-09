@@ -272,3 +272,32 @@ async def delete_tipos(id: int):
         print(f"Error: {error}")
         return {"message": "Error al eliminar el tipo de usuario"}
 
+@usuarios.get(
+    "/usuarios/Profesores/",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary     ="Regresa una lista de profesores",
+    description ="Regresa una lista de profesores",
+    tags=["Usuarios"]
+)
+async def get_profesores():
+    try:
+        query = select(usuariosModel).where(usuariosModel.c.id_TipoUsuario == 2)
+        return await database.fetch_all(query)
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al obtener los profesores"}
+    
+@usuarios.get(
+    "/usuarios/Cordinadores/",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary     ="Regresa una lista de cordinadores",
+    description ="Regresa una lista de cordinadores",
+    tags=["Usuarios"]
+)
+async def get_cordinadores():
+    try:
+        query = select(usuariosModel).where(usuariosModel.c.id_TipoUsuario == 3)
+        return await database.fetch_all(query)
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al obtener los cordinadores"}

@@ -27,4 +27,7 @@ class N_MateriaNew(BaseModel):
 class N_MateriaUpdate(BaseModel):
     materia: Optional[str]
 
-
+class MateriaNewF(BaseModel):
+    profesor: int
+    id_Grupo: int
+    materia: str
