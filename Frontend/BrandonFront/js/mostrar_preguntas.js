@@ -65,7 +65,6 @@ function mostrar_preguntas() {
                 detalle.innerHTML       = "<a class='btn btn-info btn-sm' href='../templates/detalle_pregunta.html?"+id_Preguntas+"'><span class='glyphicon glyphicon-list-alt'></span>  Detalle</a>";
                 editar.innerHTML        = "<a class='btn btn-success btn-sm' href='../templates/update_pregunta.html?"+id_Preguntas+"'><span class='glyphicon glyphicon-pencil'></span>  Actualizar</a>";
                 eliminar.innerHTML      = "<a class='btn btn-danger btn-sm' href='../templates/delete_pregunta.html?"+id_Preguntas+"'><span class='glyphicon glyphicon-trash'>  Borrar</a>";
-    
                 tr.appendChild(id_pregunta);
                 tr.appendChild(materia);
                 tr.appendChild(pregunta);

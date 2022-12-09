@@ -6,6 +6,7 @@ function resultados_examen(){
     request.setRequestHeader("content-type", "application/json");
 
     const  tabla   = document.getElementById("resultados");
+    
 
     var tblBody = document.createElement("tbody");
     var tblHead = document.createElement("thead");
@@ -20,7 +21,7 @@ function resultados_examen(){
             <th>Grupo</th>
             <th>Materia</th>
             <th>Fecha</th>
-            <th>Hora de inició</th>
+            <th>Hora de inicio</th>
             <th>Hora de fin</th>
             <th>Calificación</th>
             <th>Profesor</th>
@@ -73,9 +74,9 @@ function resultados_examen(){
                 hora_fin.innerHTML          = json[i].Hora_Fin;
                 calificacion.innerHTML      = json[i].Calificacion;
                 profesor.innerHTML          = json[i].Profesor;
-                editar.innerHTML            = `<button class="btn btn-primary" href="editar_resultado.html?id=${json[i].id_Resultado}">Editar</button>`;
-                eliminar.innerHTML          = `<button class="btn btn-danger" href="eliminar_resultado.html?id=${json[i].id_Resultado}">Eliminar</button>`;
-                
+                editar.innerHTML            = `<a class='btn btn-success btn-s' href='../templates/update_pregunta.html?"+id_Preguntas+"'><span class='glyphicon glyphicon-pencil'></span>Editar</a>`;
+                eliminar.innerHTML          = `<a class='btn btn-danger btn-sm' href='../templates/delete_pregunta.html?"+id_Preguntas+"'><span class='glyphicon glyphicon-trash'>  Borrar</a>`;
+
 
                 tr.appendChild(id_resultado);
                 tr.appendChild(matricula_alumno);
