@@ -1,135 +1,84 @@
 function PostPreguntas(){
 
+    const token = sessionStorage.getItem('token');
+    
+    console.log(token);
+
+    
+    var request = new XMLHttpRequest(); 
+    request.open('POST', "http://147.182.172.184/preguntas/Front/",true);
+    request.setRequestHeader("accept", "application/json");
+    request.setRequestHeader("Authorization", "Bearer " +token);
+    request.setRequestHeader("Content-Type", "application/json");
+
+
     var pregunta    = document.getElementById("pregunta").value;
     var opc1        = document.getElementById("opcion1").value;
     var opc2        = document.getElementById("opcion2").value;
     var opc3        = document.getElementById("opcion3").value;
+    var opc4        = document.getElementById("opcion4").value;
     var opcionc     = document.getElementById("opcionc").value;
     var materia     = document.getElementById("materia").value;
-    
+    //convierte la materia en entero
+    materia2 = parseInt(materia);
 
-    payload = {
-        "pregunta":     pregunta,
-        "opcion1":      opc1,
-        "opcion2":      opc2,
-        "opcion3":      opc3,
-        "opcionc":      opcionc,
-        "materia":      materia,
+    var payload = {
+        "pregunta":         pregunta,
+        "opcion1":          opc1,
+        "opcion2":          opc2,
+        "opcion3":          opc3,
+        "opcion4":          opc4,
+        "opcionCorrecta":   opcionc,
+        "id_Materia":       materia2
     }
+
 
     console.log(payload);
 
-    var request = new XMLHttpRequest(); 
-    request.open('POST', "http://0.0.0.0:8000/preguntas/",true);
-    request.setRequestHeader("accept", "application/json");
-    //request.setRequestHeader("Authorization", "Bearer " + btoa(token));
-    request.setRequestHeader("Content-Type", "application/json");
-
-    
     request.onload = () => {
-        
         const response  = request.responseText;
-        const json      = JSON.parse(response); 
-        
+        const json      = JSON.parse(response);
         const status    = request.status;
 
-        if (request.status === 401 || request.status === 403) {
-            alert(json.detail);
-        }
+        const mensaje  = json.message;
 
-        else if (request.status == 202){
+        if (request.status === 401 || request.status === 403) {
+            Swal.fire({
+                title: "Error",
+                text: json.detail,
+                type: "error"
+            });
+            //imprime el error en la consola
+            console.log("Response: " + response);
+        }
+        else if (request.status == 202 && mensaje == "Pregunta insertada correctamente"){
+            Swal.fire({
+                title: "Exito",
+                text: "Pregunta almacenada correctamente",
+                type: "success"
+            }).then(function() {
+                window.location = "../templates/mostrar_preguntas.html";
+            });
+        }
+        else if (request.status == 202 && mensaje == "Error al obtener las preguntas"){
 
             console.log("Response: " + response);
             console.log("JSON: " + json);
             console.log("Status: " + status);
 
             Swal.fire({
-                title: json.message,
-                text: "Pregunta guardada correctamente",
-                type: "success"
-            }).then(function() {
-                window.location = "/templates/mostrar_preguntas.html";
+                title: "Error al insertar la pregunta",
+                text: "Error vuelve a intentarlo",
+                type: "error"
             });
-            
+
         }
     };
     request.send(JSON.stringify(payload));
 
-};
-
-/*
-try {
-    canvas.getContext('2d').drawImage(image_target, left, top, width, height, 0, 0, width, height);
-    
-     var dataUrl = canvas.toDataURL("image/png"); 
-
-     $.ajax({
-             url: '../php/saveFile.php',  
-             data:{ 
-                 img: dataUrl
-             },                     
-             type: 'POST',   
-             success: function(data)
-             {
-               alert("Imagen guardada en servidor");                       
-             }
-         });                
 }
-catch(err) {
-   alert("Ocurrio un error");
-}  
-
-/*
-
-function PostPreguntas(){
-    var check       = document.getElementById("check").checked;
-    var imagen      = document.getElementById("imagen").value;
-    var pregunta    = document.getElementById("pregunta").value;
-    var opc1        = document.getElementById("opcion1").value;
-    var opc2        = document.getElementById("opcion2").value;
-    var opc3        = document.getElementById("opcion3").value;
-    var opcionc     = document.getElementById("opcionc").value;
-    var materia     = document.getElementById("materia").value;
 
 
-    /*console.log("check: " + check);
-    console.log("imagen: " + imagen);
-    console.log("pregunta: " + pregunta);
-    console.log("opc1: " + opc1);
-    console.log("opc2: " + opc2);
-    console.log("opc3: " + opc3);
-    console.log("opcionc: " + opcionc);
-    console.log("materia: " + materia);
-
-    if (check == true){
-        //guardar imagen en servidor
-        var imagen      = document.getElementById("imagen").value;
-        
-        
-
-        
-        payload = {
-            "imagen":       dataUrl,
-            "pregunta":     pregunta,
-            "opcion1":      opc1,
-            "opcion2":      opc2,
-            "opcion3":      opc3,
-            "opcionc":      opcionc,
-            "materia":      materia
-        }
-    }
-    else{
-        payload = {
-            "pregunta":     pregunta,
-            "opcion1":      opc1,
-            "opcion2":      opc2,
-            "opcion3":      opc3,
-            "opcionc":      opcionc,
-            "materia":      materia
-        }
-    }
-
-    console.log(payload);
 /*
     var request = new XMLHttpRequest(); 
     request.open('POST', "http://0.0.0.0:8000/preguntas/",true);

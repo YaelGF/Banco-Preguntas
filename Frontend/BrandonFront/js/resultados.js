@@ -13,12 +13,15 @@ function resultados_examen(){
     tblHead.innerHTML = `
         <tr>
             <th>ID</th>
+            <th>Matricula</th>
             <th>Alumno</th>
+            <th>Carrera</th>
+            <th>Semestre</th>
+            <th>Grupo</th>
             <th>Materia</th>
-            <th>Examen</th>
             <th>Fecha</th>
-            <th>Hora de inicio de examen</th>
-            <th>Hora de fin de examen</th>
+            <th>Hora de inició</th>
+            <th>Hora de fin</th>
             <th>Calificación</th>
             <th>Profesor</th>
             <th>Editar</th>
@@ -43,9 +46,12 @@ function resultados_examen(){
             for (let i = 0; i < json.length; i++) {
                 var tr = document.createElement('tr');
                 var id_resultado = document.createElement('td');
+                var matricula_alumno = document.createElement('td');
                 var alumno = document.createElement('td');
+                var carrera = document.createElement('td');
+                var semestre = document.createElement('td');
+                var grupo = document.createElement('td');
                 var materia = document.createElement('td');
-                var examen = document.createElement('td');
                 var fecha = document.createElement('td');
                 var hora_inicio = document.createElement('td');
                 var hora_fin = document.createElement('td');
@@ -55,24 +61,30 @@ function resultados_examen(){
                 var eliminar = document.createElement('td');
 
 
-                id_resultado.innerHTML = json[i].id_Resultado;
-                alumno.innerHTML = json[i].id_Alumno;
-                materia.innerHTML = json[i].materia;
-                examen.innerHTML = json[i].id_Examen;
-                fecha.innerHTML = json[i].fecha;
-                hora_inicio.innerHTML = json[i].horaInicio;
-                hora_fin.innerHTML = json[i].horaFin;
-                calificacion.innerHTML = json[i].calificacion;
-                profesor.innerHTML = json[i].profesor;
-                editar.innerHTML = `<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="editar_resultado(${json[i].id_resultado})">Editar</button>`;
-                eliminar.innerHTML = `<button type="button" class="btn btn-danger" onclick="eliminar_resultado(${json[i].id_resultado})">Eliminar</button>`;
-
+                id_resultado.innerHTML      = json[i].id_Resultado;
+                matricula_alumno.innerHTML  = json[i].Matricula_Alumno;
+                alumno.innerHTML            = json[i].Alumno;
+                carrera.innerHTML           = json[i].Carrera;
+                semestre.innerHTML          = json[i].Semestre;
+                grupo.innerHTML             = json[i].Grupo;
+                materia.innerHTML           = json[i].Materia;
+                fecha.innerHTML             = json[i].Fecha;
+                hora_inicio.innerHTML       = json[i].Hora_Inicio;
+                hora_fin.innerHTML          = json[i].Hora_Fin;
+                calificacion.innerHTML      = json[i].Calificacion;
+                profesor.innerHTML          = json[i].Profesor;
+                editar.innerHTML            = `<button class="btn btn-primary" href="editar_resultado.html?id=${json[i].id_Resultado}">Editar</button>`;
+                eliminar.innerHTML          = `<button class="btn btn-danger" href="eliminar_resultado.html?id=${json[i].id_Resultado}">Eliminar</button>`;
+                
 
                 tr.appendChild(id_resultado);
+                tr.appendChild(matricula_alumno);
                 tr.appendChild(alumno);
+                tr.appendChild(carrera);
+                tr.appendChild(semestre);
+                tr.appendChild(grupo);
                 tr.appendChild(materia);
-                tr.appendChild(examen);
-                tr.appendChild(fecha);
+                tr.appendChild(fecha);  
                 tr.appendChild(hora_inicio);
                 tr.appendChild(hora_fin);
                 tr.appendChild(calificacion);
@@ -85,7 +97,11 @@ function resultados_examen(){
             tabla.appendChild(tblBody);
         }
         else{
-            alert("Error al obtener los resultados");
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Algo salió mal!',
+            })
         }
     };
     

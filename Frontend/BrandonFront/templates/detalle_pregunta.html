@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html >
+    <head>
+        <title>Detalle de la pregunta</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
+        <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../js/detalle_preguntas.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <a href="../../index.php" class="nav-item nav-link active"><i class="fa fa-fw fa-home"></i>Home</a>
+                <a href="listar_preguntas.php" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i>Listar preguntas</a>
+                <a href="../templates/mostrar_alumnos.html" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i>Listar alumnos</a>
+                <a href="../templates/insertar_nombre_materia.html" class="nav-item nav-link"><i class="fa fa-fw fa-plus"></i>Insertar materia</a>
+                <div class="navbar-nav">
+                    <a href="#" class="nav-item nav-link">Login</a>
+                </div>
+                <br>
+                <br>
+            </div>
+        </nav>
+
+        <div class="jumbotron">
+            <div class="container">
+                <center><h1>Detalle</h1></center>
+                <div class="container-fluid" id="detalle" name="detalle">
+                    <!--Se realiza un formulario para mostrar las preguntas-->
+                    <form action="" method="POST" id="form_detalle" name="form_detalle">
+                        <div class="form-group">
+                            <label for="pregunta">Pregunta</label>
+                            <input type="text" class="form-control" id="pregunta" name="pregunta" placeholder="Pregunta" readonly=»readonly»>
+                        </div>
+                        <div class="form-group">
+                            <label for="opcion1">Opcion1</label>
+                            <input type="text" class="form-control" id="opcion1" name="opcion1" placeholder="Opcion1" readonly=»readonly»>
+                        </div>
+                        <div class="form-group">
+                            <label for="opcion2">Opcion2</label>
+                            <input type="text" class="form-control" id="opcion2" name="opcion2" placeholder="Opcion2" readonly=»readonly»>
+                        </div>
+                        <div class="form-group">
+                            <label for="opcion3">Opcion3</label>
+                            <input type="text" class="form-control" id="opcion3" name="opcion3" placeholder="Opcion3" readonly=»readonly»>
+                        </div>
+                        <div class="form-group">
+                            <label for="opcion4">Opcion4</label>
+                            <input type="text" class="form-control" id="opcion4" name="opcion4" placeholder="Opcion4" readonly=»readonly»>
+                        </div>
+                        <div class="form-group">
+                            <label for="respuesta">Respuesta</label>
+                            <input type="text" class="form-control" id="respuesta" name="respuesta" placeholder="Respuesta" readonly=»readonly»>
+                        </div>
+                        <div class="form-group">
+                            <label for="materia">Materia</label>
+                            <input type="text" class="form-control" id="materia" name="materia" placeholder="Comentario" required>
+                        </div>
+                    <script>
+                        document.body.onload = detalle_preguntas()
+                    </script>
+                </table>
+            </div>
+        </div>
+
+    
+        
+    </body>
+    
+</html>
+            
+    

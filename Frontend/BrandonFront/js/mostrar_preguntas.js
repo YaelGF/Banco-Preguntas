@@ -20,6 +20,7 @@ function mostrar_preguntas() {
             <th>opcion 3</th>
             <th>opcion 4</th>
             <th>Respuesta</th>
+            <th>Detalle</th>
             <th>Editar</th>
             <th>Eliminar</th>
         </tr>`;
@@ -48,19 +49,22 @@ function mostrar_preguntas() {
                 var opcion3 = document.createElement('td');
                 var opcion4 = document.createElement('td');
                 var respuesta = document.createElement('td');
+                var detalle = document.createElement('td');
                 var editar = document.createElement('td');
                 var eliminar = document.createElement('td');
-
-                id_pregunta.innerHTML = json[i].id_Pregunta;
-                materia.innerHTML = json[i].materia;
-                pregunta.innerHTML = json[i].pregunta;
-                opcion1.innerHTML = json[i].opcion1;
-                opcion2.innerHTML = json[i].opcion2;
-                opcion3.innerHTML = json[i].opcion3;
-                opcion4.innerHTML = json[i].opcion4;
-                respuesta.innerHTML = json[i].respuesta;
-                editar.innerHTML = `<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" onclick="editar_pregunta(${json[i].id_pregunta})">Editar</button>`;
-                eliminar.innerHTML = `<button type="button" class="btn btn-danger" onclick="eliminar_pregunta(${json[i].id_pregunta})">Eliminar</button>`;
+                
+                id_Preguntas            = json[i].id_Pregunta;
+                id_pregunta.innerHTML   = json[i].id_Pregunta;
+                materia.innerHTML       = json[i].materia;
+                pregunta.innerHTML      = json[i].pregunta;
+                opcion1.innerHTML       = json[i].opcion1;
+                opcion2.innerHTML       = json[i].opcion2;
+                opcion3.innerHTML       = json[i].opcion3;
+                opcion4.innerHTML       = json[i].opcion4;
+                respuesta.innerHTML     = json[i].respuesta;
+                detalle.innerHTML       = "<a class='btn btn-info btn-sm' href='../templates/detalle_pregunta.html?"+id_Preguntas+"'><span class='glyphicon glyphicon-list-alt'></span>  Detalle</a>";
+                editar.innerHTML        = "<a class='btn btn-success btn-sm' href='../templates/update_pregunta.html?"+id_Preguntas+"'><span class='glyphicon glyphicon-pencil'></span>  Actualizar</a>";
+                eliminar.innerHTML      = "<a class='btn btn-danger btn-sm' href='../templates/delete_pregunta.html?"+id_Preguntas+"'><span class='glyphicon glyphicon-trash'>  Borrar</a>";
     
                 tr.appendChild(id_pregunta);
                 tr.appendChild(materia);
@@ -70,6 +74,7 @@ function mostrar_preguntas() {
                 tr.appendChild(opcion3);
                 tr.appendChild(opcion4);
                 tr.appendChild(respuesta);
+                tr.appendChild(detalle);
                 tr.appendChild(editar);
                 tr.appendChild(eliminar);
                 tblBody.appendChild(tr);
