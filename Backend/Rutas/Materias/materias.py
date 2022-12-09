@@ -170,3 +170,31 @@ async def delete_n_materias(id: int):
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al eliminar la materia"}
+
+
+@materias.post(
+    "/materias/Front/",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Inserta una nueva materia",
+    description="Inserta una nueva materia",
+    tags=["Materias"]
+)
+async def post_materias_Front(materiaN: S_Materias.MateriaNewF):
+    try:
+        query = select(n_materiasModel).where(n_materiasModel.c.materia == materiaN.materia)
+        materia = await database.fetch_one(query)
+        print(materia)
+        if materia != None:
+            query = insert(materiasModel).values({'id_N_Materia': materia['id_N_Materia'], 'profesor': materiaN.profesor, 'id_Grupo': materiaN.id_Grupo})
+            await database.execute(query)
+            return {"message": "Materia insertada correctamente"}
+        query = insert(n_materiasModel).values({'materia': materiaN.materia})
+        await database.execute(query)
+        query = select(n_materiasModel).where(n_materiasModel.c.materia == materiaN.materia)
+        materia = await database.fetch_one(query)
+        query = insert(materiasModel).values({'id_N_Materia': materia['id_N_Materia'], 'profesor': materiaN.profesor, 'id_Grupo': materiaN.id_Grupo})
+        await database.execute(query)
+        return {"message": "Materia insertada correctamente"}
+    except Exception as error:
+        print(f"Error: {error}")
+        return {"message": "Error al insertar la materia"}
