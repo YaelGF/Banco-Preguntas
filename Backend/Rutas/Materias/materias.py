@@ -21,7 +21,7 @@ materias = APIRouter()
 async def get_materias():
     try:
         
-        query = select([materiasModel.c.id_Materia,usuariosModel.c.nombre,n_materiasModel.c.materia,gruposModel.c.grupo,carrerasModel.c.carrera]).where(materiasModel.c.id_N_Materia == n_materiasModel.c.id_N_Materia).where(materiasModel.c.id_Grupo == gruposModel.c.id_Grupo).where(gruposModel.c.id_Carrera == carrerasModel.c.id_Carrera).where(materiasModel.c.profesor == usuariosModel.c.id_Usuario)
+        query = select([materiasModel.c.id_Materia,usuariosModel.c.id_Usuario,usuariosModel.c.nombre,n_materiasModel.c.materia,gruposModel.c.grupo,carrerasModel.c.carrera]).where(materiasModel.c.id_N_Materia == n_materiasModel.c.id_N_Materia).where(materiasModel.c.id_Grupo == gruposModel.c.id_Grupo).where(gruposModel.c.id_Carrera == carrerasModel.c.id_Carrera).where(materiasModel.c.profesor == usuariosModel.c.id_Usuario)
         return await database.fetch_all(query)
     except Exception as error:
         print(f"Error: {error}")
