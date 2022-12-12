@@ -10,6 +10,7 @@ from Rutas.Carreras.carreras import carreras
 from Rutas.Login.login import login
 from Rutas.Teams.teams import groups
 from Rutas.ExamenesOnline.examenesonline import examenOnline
+from Rutas.Dashboards.dashboards import dashboard
 
 from sqlalchemy import select, insert, update, delete
 
@@ -110,3 +111,4 @@ app.include_router(groups)
 app.include_router(examenes)
 app.include_router(carreras)
 app.include_router(examenOnline)
+app.include_router(dashboard)
