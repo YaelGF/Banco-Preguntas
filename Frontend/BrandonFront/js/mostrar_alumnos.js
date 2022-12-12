@@ -53,7 +53,7 @@ function mostrar_alumnos(){
                 var btn_vista = document.createElement('button');
                 var btn_editar = document.createElement('button');
                 btn_vista.setAttribute('type','button');
-                btn_vista.setAttribute('class','btn btn-sm btn-outline-secondary');
+                btn_vista.setAttribute('class','glyphicon glyphicon-eye-open');
                 btn_vista.innerHTML = 'Ver';
                 btn_editar.setAttribute('type','button');
                 btn_editar.setAttribute('class','btn btn-sm btn-outline-secondary');

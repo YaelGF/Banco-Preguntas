@@ -16,3 +16,8 @@ a {
 .navbar-dark .navbar-nav .nav-link {
     color: #024a86;
 }
+
+.letras {
+    font-size: 36px;
+    color: #fff
+}

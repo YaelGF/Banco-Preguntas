@@ -1,0 +1,22 @@
+.navbar {
+    position: relative;
+    min-height: 50px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    background-color: #4D9D29!important;
+}
+
+.navbar-dark .navbar-toggler {
+    color:#024a86;
+    border-color:#024a86;
+}
+
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+    color:#024a86;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #024a86;
+}

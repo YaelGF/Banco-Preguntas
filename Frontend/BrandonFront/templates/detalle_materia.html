@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Muestra una tabla de materias</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
+        <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
+        <script type="text/javascript" src="../js/detalle_materia.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/detalle_materia.css" media="screen"/>
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    </head>
+
+    <body style="background-color:#191C24">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <div class="container-fluid">
+                <a href="../../index.php" class="navbar-brand">
+           
+                </a>
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+                <span class="navbar-toggler-icon"></span>
+                </button>
+                <a href="../../index.php" class="nav-item nav-link active"><i class="fa fa-fw fa-home"></i>Home</a>
+                <a href="listar_materias.php" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i>Listar materias</a>
+                <a href="../templates/mostrar_alumnos.html" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i>Listar alumnos</a>
+                <div class="navbar-nav">
+                    <a href="#" class="nav-item nav-link">Login</a>
+                </div>
+                <br>
+                <br>
+            </div>
+        </nav>
+
+        <div class="jumbotron">
+            <div class="container">
+                <center><h1>NOMBRE DE LA MATERIA</h1></center>
+                <div class="jumbotron"></div>
+                <form action="">
+                    <div class="row"> 
+                        <div class="col-md-6">
+                            <label for="nombre_prof">Profesor:</label>
+                            <input type="text" class="form-control" id="nombre_profesor" name="nombre_profesor" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="materia">Materia:</label>
+                            <input type="text" class="form-control" id="materia" name="materia" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="carrera">Carrera:</label>
+                            <input type="text" class="form-control" id="carrera" name="carrera" readonly>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="grupo">Grupo:</label>
+                            <input type="text" class="form-control" id="grupo" name="grupo" readonly>
+                        </div>
+                    </div>
+                    <!--Boton para regresar a la otra pagína anterior-->
+                    <br>
+                    <button type="button" class="btn btn-primary" onclick="location.href='mostrar_materias.html'">Regresar</button>
+                </form>
+
+                    <script>
+                        document.body.onload = detalle_materia()
+                    </script>
+
+            </div>
+
+        </div>
+</html>

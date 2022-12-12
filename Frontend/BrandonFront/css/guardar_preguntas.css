@@ -70,3 +70,8 @@ a {
     border: 1px solid #024a86;
     border-radius: 0.25rem;
 }
+
+.letras {
+    font-size: 36px;
+    color: #fff
+}

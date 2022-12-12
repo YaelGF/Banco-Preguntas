@@ -1,30 +1,30 @@
 <!DOCTYPE html>
-
 <html>
     <head>
-        <title>Calificar respuestas</title>
         <meta charset="utf-8">
+        <title>Muestra una tabla de materias</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
         <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
-        <script type="text/javascript" src="../js/calificar.js"></script>
-        <link rel="stylesheet" type="text/css" href="../css/calificar_preguntas.css" media="screen"/>
+        <script type="text/javascript" src="../js/mostrar_materias.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href="../css/mostrar_materias.css" media="screen"/>
 
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
 
     <body style="background-color:#191C24">
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
                 <a href="../../index.php" class="navbar-brand">
-                <img src="../imagenes/" height="60" alt="Banco_Preguntas">
+          
                 </a>
                 <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span class="navbar-toggler-icon"></span>
                 </button>
                 <a href="../../index.php" class="nav-item nav-link active"><i class="fa fa-fw fa-home"></i>Home</a>
-                <a href="listar_preguntas.php" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i>Listar preguntas</a>
+                <a href="listar_materias.php" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i>Listar materias</a>
+                <a href="../templates/mostrar_alumnos.html" class="nav-item nav-link"><i class="fa fa-fw fa-list"></i>Listar alumnos</a>
                 <div class="navbar-nav">
                     <a href="#" class="nav-item nav-link">Login</a>
                 </div>
@@ -32,10 +32,16 @@
                 <br>
             </div>
         </nav>
-        <div id="calificaciones">
-            <script>
-                document.body.onload = calificar_preguntas()
-            </script>
+
+        <div class="jumbotron">
+            <div class="container">
+                <center><h1>Materias</h1></center>
+                <table class="table" id="materias" name="materias">
+                    <script>
+                        document.body.onload = mostrar_materias()
+                    </script>
+                </table>
+            </div>
         </div>
     </body>
 
