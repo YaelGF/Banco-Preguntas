@@ -13,7 +13,10 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script type="text/javascript" src="js/mostrar_carreras.js"></script>
+    <script type="text/javascript" src="js/select_profesor.js"></script>
+    <script type="text/javascript" src="js/detalle_materia.js"></script>
+    <script type="text/javascript" src="js/update_materia.js"></script>
+    <script type="text/javascript" src="js/select_grupo.js"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -86,13 +89,41 @@
         </div>
       </nav>
         <div class="main-panel">
-          <h1>Carreras</h1>
-          <a href="guardar_carrera.html">Agregar carrera</a>
-        <div id="carreras">
-          <script>
-              document.body.onload = mostrar_carreras()
-          </script>
-      </div>
+          <h1>Actualizar materia</h1>
+          <form action="">
+            <div class="row"> 
+                <div class="col-md-6">
+                    <label for="materia">Materia</label>
+                    <input type="text" class="form-control" id="materia" name="materia" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="carrera">Carrera</label>
+                    <input type="text" class="form-control" id="carrera" name="carrera" required>
+                </div>
+                <div class="col-md-6">
+                    <label for="grupo">Grupo</label>
+                    <input type="text" hidden class="form-control" id="grupo" name="grupo" required>
+                    <select class="form-control" id="id_grupo" name="id_grupo" required>
+                        <option value="0">Seleccione un grupo </option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label for="nombre_prof">Profesor:</label>
+                    <input type="text" hidden class="form-control" id="nombre" name="nombre" required>
+                   <select class="form-control" id="id_profesor" name="id_profesor" required>
+                        <option value="0">Seleccione un profesor</option>
+                    </select>
+                </div>
+            </div>
+            <br>
+            <br>
+            <input type="button" value="Guardar" onclick="update_materia()" class="btn btn-success btn-block btn-lg">
+        </form>
+        <script>
+            document.body.onload = detalle_materia()
+            document.body.onload = select_profesor()
+            document.body.onload = select_grupo()
+        </script>
           <!-- partial -->
         </div>
       </div>

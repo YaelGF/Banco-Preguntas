@@ -13,7 +13,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script type="text/javascript" src="js/mostrar_carreras.js"></script>
+     <script type="text/javascript" src="js/detalle_carrera.js" charset="utf-8"></script>
+        <script type="text/javascript" src="js/delete_carrera.js" charset="utf-8"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -86,18 +87,50 @@
         </div>
       </nav>
         <div class="main-panel">
-          <h1>Carreras</h1>
-          <a href="guardar_carrera.html">Agregar carrera</a>
-        <div id="carreras">
-          <script>
-              document.body.onload = mostrar_carreras()
-          </script>
-      </div>
+          <h1>Eliminar Carreras</h1>
+           <form id="form" method="POST" action="update_carrera.php">
+                <div class="row">
+                    <div class="col-md-12">
+                        <label for="id">Carrera</label>
+                        <input type="text" class="form-control" id="carrera" name="carrera" placeholder="Carrera" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="nombre">Coordinador</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" placeholder="Coordinador" readonly>
+                        <input type="text" class="form-control" id="id_coordinador" name="id_coordinador" hidden>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="apellidoPaterno">Apellido Paterno</label>
+                        <input type="text" class="form-control" id="apellidoPaterno" name="apellidoPaterno" placeholder="Apellido Paterno" readonly>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="apellidoMaterno">Apellido Materno</label>
+                        <input type="text" class="form-control" id="apellidoMaterno" name="apellidoMaterno" placeholder="Apellido Materno" readonly>
+                    </div>
+                     <div class="col-md-6">
+                        <label for="email">Email</label>
+                        <input type="text" class="form-control" id="email" name="email" placeholder="Email" readonly>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="matricula">Matricula</label>
+                        <input type="text" class="form-control" id="matricula" name="matricula" placeholder="Matricula" readonly>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="ocupacion">Ocupación</label>
+                        <input type="text" class="form-control" id="ocupacion" name="ocupacion" placeholder="Ocupación" readonly>
+                    </div>
+                </div>
+                <br>
+        <br>
+        <input type="button" value="Guardar" onclick="delete_carrera()" class="btn btn-danger btn-block btn-lg">
+            </form>
           <!-- partial -->
         </div>
       </div>
     </div>
-
+    <script>
+            document.body.onload = detalle_carrera()
+        </script>
     <script src="../js/search.js"></script>
     <script src="../assets/js/dashboard.js"></script>
   </body>

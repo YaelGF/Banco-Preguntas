@@ -6,15 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>E-Test</title>
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
-    <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script type="text/javascript" src="js/mostrar_preguntas.js"></script>
-    <script type="text/javascript" src="js/detalle_preguntas.js"></script>
-    <script type="text/javascript" src="js/calificar.js"></script>
+    <script type="text/javascript" src="js/select_carrera.js" charset="utf-8"></script>
+    <script type="text/javascript" src="js/insertar_grupo.js" charset="utf-8"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -28,7 +28,7 @@
             <span class="nav-link">Navigation</span>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="dashboard_Profesor.html">
+            <a class="nav-link" href="dashboard_Admin.html">
               <span class="menu-icon">
                 <i class="mdi mdi-speedometer"></i>
               </span>
@@ -36,19 +36,35 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="preguntas.html">
+            <a class="nav-link" href="usuarios.html">
               <span class="menu-icon">
-                <i class="mdi mdi-help"></i>
+                <i class="mdi mdi-account"></i>
               </span>
-              <span class="menu-title">Preguntas</span>
+              <span class="menu-title">Usuarios</span>
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="examenes.html">
+            <a class="nav-link" href="materias.html">
               <span class="menu-icon">
                 <i class="mdi mdi-file-document-box"></i>
               </span>
-              <span class="menu-title">Examenes</span>
+              <span class="menu-title">Materias</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="carreras.html">
+              <span class="menu-icon">
+                <i class="mdi mdi-file-document-box"></i>
+              </span>
+              <span class="menu-title">Carreras</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="grupos.html">
+              <span class="menu-icon">
+                <i class="mdi mdi-account-group"></i>
+              </span>
+              <span class="menu-title">Grupos</span>
             </a>
           </li>
         </ul>
@@ -71,18 +87,35 @@
         </div>
       </nav>
         <div class="main-panel">
-          <input type="text" id="myInput" onkeyup="myFunction('preguntas')" placeholder="Buscar por materia..." title="Filtra por materia">
-          <h1>Preguntas</h1>
-          <table class="table" id="preguntas" name="preguntas" action="calificar_preguntas.html">
-            <script>
-                document.body.onload = mostrar_preguntas()
-            </script>
-        </table>
+            <input type="text" id="myInput" onkeyup="myFunction('grupos')" placeholder="Buscar por materia..." title="Filtra por materia">
+          <h1>Agregar Grupo</h1>
+          <form action="">
+                <div class="row"> 
+                    <div class="col-md-6">
+                        <label for="grupo">Grupo:</label>
+                        <input type="text" class="form-control" id="grupo" name="grupo" placeholder="Grupo" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="carrera">Carrera:</label>
+                        <select class="form-control" id="carrera" name="carrera" required>
+                            <option value="0">Seleccione una carrera</option>
+                        </select>
+                    </div>
+                    <div class="col-md-12">
+                        <label for="semestre">Semestre:</label>
+                        <input type="text" class="form-control" id="semestre" name="semestre" placeholder="Semestre" required>
+                    </div>
+                </div>
+                <br>
+                <center><button type="button" class="btn btn-primary" onclick="insert_grupo()">Guardar</button></center>
+            </form>
           <!-- partial -->
         </div>
-      </div>
     </div>
-
+    </div>
+<script>
+        document.body.onload = select_carrera()
+    </script>
     <script src="../js/search.js"></script>
     <script src="../assets/js/dashboard.js"></script>
   </body>

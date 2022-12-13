@@ -1,12 +1,105 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    Grupos
-</body>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>E-Test</title>
+    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="shortcut icon" href="../assets/images/favicon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script type="text/javascript" src="js/mostrar_grupo.js"></script>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+          <a class="sidebar-brand brand-logo" href="dashboard_Profesor.html"><img src="../assets/images/logo.png" alt="logo" /></a>
+        </div>
+        <ul class="nav">
+          <li class="nav-item nav-category">
+            <span class="nav-link">Navigation</span>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="dashboard_Admin.html">
+              <span class="menu-icon">
+                <i class="mdi mdi-speedometer"></i>
+              </span>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="usuarios.html">
+              <span class="menu-icon">
+                <i class="mdi mdi-account"></i>
+              </span>
+              <span class="menu-title">Usuarios</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="materias.html">
+              <span class="menu-icon">
+                <i class="mdi mdi-file-document-box"></i>
+              </span>
+              <span class="menu-title">Materias</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="carreras.html">
+              <span class="menu-icon">
+                <i class="mdi mdi-file-document-box"></i>
+              </span>
+              <span class="menu-title">Carreras</span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="grupos.html">
+              <span class="menu-icon">
+                <i class="mdi mdi-account-group"></i>
+              </span>
+              <span class="menu-title">Grupos</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">   
+       <nav class="navbar p-0 fixed-top d-flex flex-row">
+        <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-settings d-none d-lg-block">
+              <a class="nav-link" href="../index.html">
+                <div class="preview-thumbnail">
+                    <div class="preview-icon">
+                      <i class="mdi mdi-logout text-danger"></i>
+                    </div>
+                  </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+        <div class="main-panel">
+          <a href="insertar_grupo.html">agregar grupo</a>
+            <input type="text" id="myInput" onkeyup="myFunction('grupos')" placeholder="Buscar por materia..." title="Filtra por materia">
+          <h1>Grupos</h1>
+          <table class="table" id="grupos" name="grupos">
+                    <script>
+                        document.body.onload = mostrar_grupo()
+                    </script>
+                </table>
+          <!-- partial -->
+        </div>
+      </div>
+    </div>
+
+    <script src="../js/search.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+  </body>
 </html>
