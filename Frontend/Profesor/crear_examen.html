@@ -5,16 +5,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>E-Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script type="text/javascript" src="js/mostrar_preguntas.js"></script>
-    <script type="text/javascript" src="js/detalle_preguntas.js"></script>
-    <script type="text/javascript" src="js/calificar.js"></script>
+     <script type="text/javascript" src="js/select_grupo.js"></script>
+        <script type="text/javascript" src="js/select_materia.js"></script>
+        <script type="text/javascript" src="js/select_profesor.js"></script>
+        <script type="text/javascript" src="js/crear_examen.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
+        <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -71,19 +73,53 @@
         </div>
       </nav>
         <div class="main-panel">
-          <a href="guardar_pregunta.html">agregar Preguntas</a>
-          <input type="text" id="myInput" onkeyup="myFunction('preguntas')" placeholder="Buscar por materia..." title="Filtra por materia">
-          <h1>Preguntas</h1>
-          <table class="table" id="preguntas" name="preguntas" action="calificar_preguntas.html">
-            <script>
-                document.body.onload = mostrar_preguntas()
-            </script>
-        </table>
+          <h1>Examenes</h1>
+          <form action="/crear_examen" method="post">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="id_profesor">Nombre del profesor:</label>
+                    <select class="form-control" id="id_profesor" name="id_profesor">
+                        <option value="0">Seleccione su nombre</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="materia">Materia:</label>
+                    <select class="form-control" id="materia" name="materia">
+                        <option value="0">Seleccione la materia</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="id_grupo">Grupo:</label>
+                    <select class="form-control" id="id_grupo" name="id_grupo">
+                        <option value="0">Seleccione el grupo</option>
+                    </select>
+                </div>
+                <div class="col-md-4">
+                    <label for="fecha">Fecha:</label>
+                    <input type="date" class="form-control" id="fecha" name="fecha">
+                </div>
+                <div class="col-md-4">
+                    <label for="hora_inicio">Hora de inicio:</label>
+                    <input type="time" class="form-control" id="hora_inicio" name="hora_inicio">
+                </div>
+                <div class="col-md-4">
+                    <label for="hora_fin">Hora de fin:</label>
+                    <input type="time" class="form-control" id="hora_fin" name="hora_fin">
+                </div>
+            </div>
+            <br>
+            <br>
+            <input type="button" value="Crear examen" onclick="crear_examen()" class="btn btn-success btn-block btn-lg">
+        </form>
           <!-- partial -->
         </div>
       </div>
     </div>
-
+     <script>
+            document.body.onload = select_materia()
+            document.body.onload = select_profesor()
+            document.body.onload = select_grupo()
+        </script>
     <script src="../js/search.js"></script>
     <script src="../assets/js/dashboard.js"></script>
   </body>

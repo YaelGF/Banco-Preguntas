@@ -1,0 +1,61 @@
+function add_materia(){
+
+    var id = window.location.search.substring(1);
+    console.log(id);
+
+    var request = new XMLHttpRequest();
+    request.open('POST', "http://147.182.172.184/materias/Front/", true);
+    request.setRequestHeader("Accept", "application/json");
+    request.setRequestHeader("content-type", "application/json");
+    //request.setRequestHeader("Authorization", "Bearer " + localStorage.getItem('token'));
+
+    profesor1 = $("#id_profesor").val();
+    materia   = $("#materia").val();
+    grupo1    = $("#id_grupo").val();
+
+    profesor = parseInt(profesor1);
+    grupo    = parseInt(grupo1);
+    
+    //imprime los tipo de datos de las variables
+    console.log(typeof profesor);
+    console.log(typeof materia);
+    console.log(typeof grupo);
+
+    var data = {
+        "profesor": profesor,
+        "id_Grupo": grupo,
+        "materia": materia
+    };
+
+    console.log(data);
+    
+   request.onload = () => {
+        // Almacena la respuesta en una variable, si es 202 es que se obtuvo correctamente
+        const response = request.responseText;
+        const json = JSON.parse(response);
+        if (request.status === 401 || request.status === 403) {
+            Swal.fire({
+                title: "Error al actualizar",
+                text: json.detail,
+                type: "error"
+            });
+        }
+        else if (request.status == 202){
+            Swal.fire({
+                title: json.message,
+                text: "Materia Agregada correctamente",
+                type: "success"
+            }).then(function() {
+                window.location = "materias.html";
+            });
+        }
+        else{
+            Swal.fire({
+                title: "Error al crear",
+                text: json.message,
+                type: "error"
+            });
+        }
+    }
+    request.send(JSON.stringify(data));
+}

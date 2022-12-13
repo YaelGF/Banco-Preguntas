@@ -42,13 +42,13 @@ function getInformation(token){
             sessionStorage.setItem("token",token);
             console.log(json);
             if(json["user"]["rol"] == "Admin"){
-                window.location.replace("Admin/dashboard_Admin.html");
+                getInformationUsuario(1)
             }
             else if(json["user"]["rol"] == "Alumno"){
-                window.location.replace("Alumno/dashboard_Alumno.html");
+                getInformationUsuario(2)
             }
             else if(json["user"]["rol"] == "Profesor"){
-                window.location.replace("Profesor/dashboard_Profesor.html");
+                getInformationUsuario(3)
             }
             else{
                 alert("Error");
@@ -60,4 +60,50 @@ function getInformation(token){
         }
     }
     request.send();
+}
+
+function getInformationUsuario(id){
+    var token = sessionStorage.getItem("token");
+    var request = new XMLHttpRequest();
+    request.open("POST","http://147.182.172.184/usuarios/Login/",true);
+    request.setRequestHeader('Authorization', 'Bearer '+token);
+    request.setRequestHeader('Content-Type', 'application/json');
+    request.setRequestHeader('accept', 'application/json');
+
+    request.onload = function(){
+
+        const status = request.status
+
+        if (status == 202) {
+            json = JSON.parse(request.responseText);
+
+            if(json["message"] == "Success"){
+                
+            
+                if(id == 1){
+                    window.location.replace("Admin/dashboard_Admin.html");
+                }
+                else if(id == 2){
+                    window.location.replace("Alumno/dashboard_Alumno.html");
+                }
+                else if(id == 3){
+                    window.location.replace("Profesor/dashboard_Profesor.html");
+                }
+            }
+            else{
+                if( id == 2){
+                    alert("F Usuario")
+                }else{
+                    alert("Formulario")
+                }
+            }
+            
+        }
+
+        else{
+            alert(json.detail);
+        }
+    }
+    request.send();
+
 }

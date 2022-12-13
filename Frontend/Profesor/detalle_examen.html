@@ -6,15 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>E-Test</title>
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script type="text/javascript" src="js/mostrar_preguntas.js"></script>
-    <script type="text/javascript" src="js/detalle_preguntas.js"></script>
-    <script type="text/javascript" src="js/calificar.js"></script>
+     <script type="text/javascript" src="js/detalle_examen.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
+        <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -71,19 +67,58 @@
         </div>
       </nav>
         <div class="main-panel">
-          <a href="guardar_pregunta.html">agregar Preguntas</a>
-          <input type="text" id="myInput" onkeyup="myFunction('preguntas')" placeholder="Buscar por materia..." title="Filtra por materia">
-          <h1>Preguntas</h1>
-          <table class="table" id="preguntas" name="preguntas" action="calificar_preguntas.html">
-            <script>
-                document.body.onload = mostrar_preguntas()
-            </script>
-        </table>
+          <h1>Examenes</h1>
+          <form action="" method="post">
+            <div class="row">
+                <div class="col-md-12">
+                    <label for="tipoUsuario">Tipo de usuario:</label>
+                    <input type="text" class="form-control" id="tipoUsuario" name="tipoUsuario" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="nombre_profesor">Nombre del profesor:</label>
+                    <input type="text" class="form-control" id="nombre_profesor" name="nombre_profesor" readonly> 
+                </div>
+                <div class="col-md-4">
+                    <label for="apellidoPaterno">Apellido Paterno:</label>
+                    <input type="text" class="form-control" id="apellidoPaterno" name="apellidoPaterno" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="apellidoMaterno">Apellido Materno:</label>
+                    <input type="text" class="form-control" id="apellidoMaterno" name="apellidoMaterno" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="email">email:</label>
+                    <input type="text" class="form-control" id="email" name="email" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="matricula">Matricula:</label>
+                    <input type="text" class="form-control" id="matricula" name="matricula" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="fecha">Fecha:</label>
+                    <input type="text" class="form-control" id="fecha" name="fecha" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="hora">Hora de inició:</label>
+                    <input type="text" class="form-control" id="hora" name="hora" readonly>
+                </div>
+                <div class="col-md-4">
+                    <label for="duracion">Hora de finaliación:</label>
+                    <input type="text" class="form-control" id="duracion" name="duracion" readonly>
+                </div>
+            </div>
+        </form>
+
+        <br>
+            <button type="button" class="btn btn-primary" onclick="location.href='examenes.html'">Regresar</button>
           <!-- partial -->
         </div>
       </div>
     </div>
-
+    <script>
+            document.body.onload = detalle_examen()
+        </script>
+        
     <script src="../js/search.js"></script>
     <script src="../assets/js/dashboard.js"></script>
   </body>
