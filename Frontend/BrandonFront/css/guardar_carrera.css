@@ -26,3 +26,8 @@ a {
 input[type=button].btn-block, input[type=reset].btn-block, input[type=submit].btn-block {
     width: 50%;
 }
+
+.letras {
+    font-size: 36px;
+    color: #fff
+}

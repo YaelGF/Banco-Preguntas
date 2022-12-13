@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html >
+<html>
     <head>
         <title>Detalle de la pregunta</title>
         <meta charset="utf-8">
@@ -12,6 +12,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/detalle_pregunta.css" media="screen"/>
+
     </head>
 
     <body style="background-color:#191C24">
@@ -33,38 +35,38 @@
             </div>
         </nav>
 
-        <div class="jumbotron">
-            <div class="container">
+        <div class="jumbotron letras fondo">
+            <div class="container letras fondo ">
                 <center><h1>Detalle</h1></center>
                 <div class="container-fluid" id="detalle" name="detalle">
                     <!--Se realiza un formulario para mostrar las preguntas-->
                     <form action="" method="POST" id="form_detalle" name="form_detalle">
                         <div class="form-group">
-                            <label for="pregunta">Pregunta</label>
+                            <label for="pregunta">Pregunta:</label>
                             <input type="text" class="form-control" id="pregunta" name="pregunta" placeholder="Pregunta" readonly=»readonly»>
                         </div>
                         <div class="form-group">
-                            <label for="opcion1">Opcion1</label>
+                            <label for="opcion1">Opcion 1:</label>
                             <input type="text" class="form-control" id="opcion1" name="opcion1" placeholder="Opcion1" readonly=»readonly»>
                         </div>
                         <div class="form-group">
-                            <label for="opcion2">Opcion2</label>
+                            <label for="opcion2">Opcion 2:</label>
                             <input type="text" class="form-control" id="opcion2" name="opcion2" placeholder="Opcion2" readonly=»readonly»>
                         </div>
                         <div class="form-group">
-                            <label for="opcion3">Opcion3</label>
+                            <label for="opcion3">Opcion 3:</label>
                             <input type="text" class="form-control" id="opcion3" name="opcion3" placeholder="Opcion3" readonly=»readonly»>
                         </div>
                         <div class="form-group">
-                            <label for="opcion4">Opcion4</label>
+                            <label for="opcion4">Opcion 4:</label>
                             <input type="text" class="form-control" id="opcion4" name="opcion4" placeholder="Opcion4" readonly=»readonly»>
                         </div>
                         <div class="form-group">
-                            <label for="respuesta">Respuesta</label>
+                            <label for="respuesta">Respuesta:</label>
                             <input type="text" class="form-control" id="respuesta" name="respuesta" placeholder="Respuesta" readonly=»readonly»>
                         </div>
                         <div class="form-group">
-                            <label for="materia">Materia</label>
+                            <label for="materia">Materia:</label>
                             <input type="text" class="form-control" id="materia" name="materia" placeholder="Comentario" required>
                         </div>
                     <script>

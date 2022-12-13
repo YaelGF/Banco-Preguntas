@@ -2,12 +2,14 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Insertar Nombre Materia</title>
+    <title>Insertar Nombre de Materia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
         <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
         <script type="text/javascript" src="../js/insertar_nombre_materia.js"></script>
+        <link rel="stylesheet" type="text/css" href="../css/insertar_nombre_materia.css" media="screen"/>
+
 </head>
 <body style="background-color:#191C24">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -24,17 +26,19 @@
                 <a href="#" class="nav-item nav-link">Login</a>
             </div>
             <br>
-            <br>
+            
         </div>
     </nav>
-
-    <div class="jumbotron">
-        <div class="container">
+    <br>
+    <br>
+        <div class="container letras">
+            <div jumbotron>
             <h1>Insertar Nombre Materia</h1>
+            <br>
             <div class="container-fluid" id="detalle" name="detalle"></div>
                 <form action="/insertar_nombre_materia" method="post">
                     <div class="form-group">
-                        <label for="nombre_materia">Nombre Materia</label>
+                        <label for="nombre_materia">Nombre de la materia</label>
                         <input type="text" name="nombre_materia" id="nombre_materia" placeholder="Ingresa el nombre de la materia">
                     </div>
                     <input type="button" value="Insertar Materia" onclick="post_materias()" class="btn btn-success btn-block btn-lg">

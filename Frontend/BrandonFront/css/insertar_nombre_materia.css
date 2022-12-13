@@ -1,0 +1,77 @@
+ 
+.bg-dark {
+    background-color: #4D9D29!important;
+}
+
+.navbar-dark .navbar-brand {
+    color: #024a86;
+}
+
+.navbar-dark .navbar-toggler {
+    color: #024a86;
+    border-color: #024a86;
+}
+
+-link {
+    display: block;
+    padding: 0.5rem 1rem;
+}
+a {
+    color: #024a86;
+    text-decoration: none;
+    background-color: transparent;
+}
+*, ::after, ::before {
+    box-sizing: border-box;
+}
+
+.nav-link {
+    display: block;
+    padding: 0.5rem 1rem;
+}
+a {
+    color: #024a86;
+    text-decoration: none;
+    background-color: transparent;
+}
+a {
+    color: #024a86;
+    text-decoration: none;
+    background-color: transparent;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: #024a86;
+}
+
+.display-4 {
+    font-size: 3.5rem;
+    font-weight: 300;
+    line-height: 1.2;
+    text-align:center;
+}
+
+.btn-success {
+    color: #fff;
+    background-color: #024a86;
+    border-color: #024a86;
+}
+
+.card {
+    position: relative;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #024a86;
+    border-radius: 0.25rem;
+}
+
+.letras {
+    font-size: 20px;
+    color: #fff
+}
