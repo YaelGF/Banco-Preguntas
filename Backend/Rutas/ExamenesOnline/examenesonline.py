@@ -75,6 +75,8 @@ async def get_examenes(credentials: HTTPAuthorizationCredentials = Depends(secur
         uid = user['uid']
         query = select([usuariosModel.c.id_Usuario]).where(usuariosModel.c.uid == uid)
         idUsuario = await database.fetch_one(query)
+        query = select(alumnosModel).where(alumnosModel.c.id_Usuario == idUsuario['id_Usuario'])
+        idAlumno = await database.fetch_one(query)
         query = select([alumnosModel.c.id_Grupo,alumnosModel.c.id_Alumno]).where(alumnosModel.c.id_Usuario == idUsuario['id_Usuario'])
         idGrupo = await database.fetch_one(query)
         print(idGrupo)
@@ -83,6 +85,10 @@ async def get_examenes(credentials: HTTPAuthorizationCredentials = Depends(secur
         print(datetime.datetime.now().strftime("%H %M"))
         if examen != None:
             idExamen = examen['id_Examen']
+            query = select(resultadosModel).where(resultadosModel.c.id_Examen == idExamen).where(resultadosModel.c.id_Alumno == idAlumno['id_Alumno'])
+            resultado = await database.fetch_one(query)
+            if resultado != None:
+                return {"message": "Ya realizaste el examen"}
             query = select([configuracionesModel]).where(configuracionesModel.c.id_Examen == idExamen)
             configuracion = await database.fetch_all(query)
             print("q")
