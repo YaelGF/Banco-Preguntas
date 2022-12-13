@@ -5,10 +5,14 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>E-Test</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="stylesheet" type="text/css" href="../css/sweetalert2.min.css" media="screen"/>
+    <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script src="js/mostrar_materias.js"></script>
+    <script src="js/detalle_usuario.js"></script>
+    <script type="text/javascript" src="js/delete_usuario.js"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -81,16 +85,45 @@
         </div>
       </nav>
         <div class="main-panel">
-          <a href="guardar_materias.html">agregar Materia</a>
-          <h1>Materias</h1>
-
-          <input type="text" id="myInput" onkeyup="myFunction('materias')" placeholder="Search for names.." title="Type in a name">
-
-          <table id="materias" name="materias">
-            <script>
-              document.body.onload = mostrar_materias()
-          </script>
-          </table>
+          <h1>Usuarios</h1>
+          <form action="">
+            <div class="row"> 
+                <div class="col-md-6">
+                    <label for="nombre_prof">Nombre:</label>
+                    <input type="text" class="form-control" id="nombre" name="nombre" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="materia">Apellido Paterno</label>
+                    <input type="text" class="form-control" id="apellidoP" name="apellidoP" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="carrera">Apellido Materno</label>
+                    <input type="text" class="form-control" id="apellidoM" name="apellidoM" readonly>
+                </div>
+                <div class="col-md-6">
+                    <label for="grupo">Correo</label>
+                    <input type="text" class="form-control" id="correo" name="correo" readonly>
+                </div>
+                 <div class="col-md-6">
+                    <label for="grupo">Uid</label>
+                    <input type="text" class="form-control" id="uid" name="uid" readonly>
+                </div>
+                 <div class="col-md-6">
+                    <label for="grupo">Matricula</label>
+                    <input type="text" class="form-control" id="matricula" name="matricula" readonly>
+                </div>
+                 <div class="col-md-6">
+                    <label for="grupo">Rol</label>
+                    <input type="text" class="form-control" id="rol" name="rol" readonly>
+                </div>
+            </div>
+            <!--Boton para regresar a la otra pagína anterior-->
+            <br>
+            <input type="button" value="Eliminar" onclick="delete_usuario()" class="btn btn-danger btn-block btn-lg">
+        </form>
+        <script>
+            document.body.onload = detalle_usuario()
+        </script>
           <!-- partial -->
         </div>
       </div>
