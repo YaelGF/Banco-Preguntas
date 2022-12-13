@@ -8,13 +8,14 @@
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script type="text/javascript" src="js/resultados.js"></script>
   </head>
   <body>
     <div class="container-scroller">
       <!-- partial:partials/_sidebar.html -->
       <nav class="sidebar sidebar-offcanvas" id="sidebar">
         <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
-          <a class="sidebar-brand brand-logo" href="dashboard_Profesor.html"><img src="../assets/images/logo.png" alt="logo" /></a>
+          <a class="sidebar-brand brand-logo" href="dashboard_Alumno.html"><img src="../assets/images/logo.png" alt="logo" /></a>
         </div>
       </nav>
       <!-- partial -->
@@ -37,26 +38,12 @@
         <div class="main-panel">
           <h1>Resultados</h1>
 
-          <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+          <input type="text" id="myInput" onkeyup="myFunction('resultados')" placeholder="Search for names.." title="Type in a name">
 
-          <table id="myTable">
-            <tr class="header">
-              <th style="width:25%;">Fecha</th>
-              <th style="width:25%;">Profesor</th>
-              <th style="width:25%;">Materia</th>
-              <th style="width:25%;">Calificacion</th>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
-            </tr>
-            <tr>
-              <td>a</td>
-              <td>2</td>
-              <td>3</td>
-              <td>4</td>
+          <table id="resultados">
+            <script>
+              document.body.onload = resultados_examen();
+          </script>
           </table>
           <!-- partial -->
         </div>

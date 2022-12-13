@@ -162,6 +162,7 @@ async def put_pregunta(id: int, pregunta: S_Preguntas.PreguntaUpdate):
         query = select(respuestasModel).where(respuestasModel.c.respuesta == pregunta.opcionCorrecta)
         oC = await database.fetch_one(query)
         newPregunta = {
+            "id_Pregunta": id,
             "pregunta": pregunta.pregunta,
             "opcion1": id1["id_Respuesta"],
             "opcion2": id2["id_Respuesta"],

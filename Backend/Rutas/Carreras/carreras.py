@@ -82,7 +82,7 @@ async def put_carreras(id: int, carrera: S_Carreras.CarreraUpdate):
 )
 async def delete_carreras(id: int):
     try:
-        query = delete(carrerasModel).where(carrerasModel.c.id_carrera == id)
+        query = delete(carrerasModel).where(carrerasModel.c.id_Carrera == id)
         await database.execute(query)
         return {"message": "Carrera eliminada correctamente"}
     except Exception as error:

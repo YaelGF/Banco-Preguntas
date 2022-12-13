@@ -12,9 +12,9 @@
     <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script type="text/javascript" src="js/mostrar_preguntas.js"></script>
     <script type="text/javascript" src="js/detalle_preguntas.js"></script>
-    <script type="text/javascript" src="js/calificar.js"></script>
+    <script type="text/javascript" src="js/select_materia.js"></script>
+    <script type="text/javascript" src="js/update_pregunta.js"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -71,13 +71,47 @@
         </div>
       </nav>
         <div class="main-panel">
-          <input type="text" id="myInput" onkeyup="myFunction('preguntas')" placeholder="Buscar por materia..." title="Filtra por materia">
-          <h1>Preguntas</h1>
-          <table class="table" id="preguntas" name="preguntas" action="calificar_preguntas.html">
-            <script>
-                document.body.onload = mostrar_preguntas()
-            </script>
-        </table>
+          <h1>Actualizar Pregunta</h1>
+          <form action="" method="POST" id="form_detalle" name="form_detalle">
+            <div class="form-group">
+                <label for="pregunta">Pregunta</label>
+                <input type="text" class="form-control" id="pregunta" name="pregunta" placeholder="Inserta la pregunta">
+            </div>
+            <div class="form-group">
+                <label for="opcion1">Opcion 1</label>
+                <input type="text" class="form-control" id="opcion1" name="opcion1" placeholder="Inserta la opcion 1">
+            </div>
+            <div class="form-group">
+                <label for="opcion2">Opcion 2</label>
+                <input type="text" class="form-control" id="opcion2" name="opcion2" placeholder="Ingresa la opcion 2">
+            </div>
+            <div class="form-group">
+                <label for="opcion3">Opcion 3</label>
+                <input type="text" class="form-control" id="opcion3" name="opcion3" placeholder="ingresa la opcion 3">
+            </div>
+            <div class="form-group">
+                <label for="opcion4">Opcion 4</label>
+                <input type="text" class="form-control" id="opcion4" name="opcion4" placeholder="ingresa la opcion 4">
+            </div>
+            <div class="form-group">
+                <label for="opcionc">Opcion correcta</label>
+                <input type="text" class="form-control" id="respuesta" name="respuesta" placeholder="Ingresa la opcion correcta">
+            </div>
+            <div class="form-group">
+                <label for="materia">Materia</label>
+                <select class="form-control" id="materia" name="materia">
+                    <option value="0">Selecciona una materia</option>
+                    <script>
+                        document.body.onload = select_materia()
+                    </script>
+                </select>
+            </div>
+            <input type="button" value="Guardar" onclick="update_preg()" class="btn btn-success btn-block btn-lg">
+        </form>
+        <script>
+            document.body.onload = detalle_preguntas()
+        </script>
+        
           <!-- partial -->
         </div>
       </div>

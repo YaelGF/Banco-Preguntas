@@ -1,153 +1,58 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>EXAMEN</h1>
-<form id="examen">
-
-</form>
-<div id="btn">
-
-</div>
-<script>
-var json;
-getExamInfo();
-function getExamInfo(){
-  token = sessionStorage.getItem("token");
-  console.log(token);
-  var request = new XMLHttpRequest();
-    request.open("GET",'http://147.182.172.184/GenerarExamen/',true);
-    request.setRequestHeader('Authorization', 'Bearer '+token);
-    request.setRequestHeader('Content-Type', 'application/json');
-    request.setRequestHeader('accept', 'application/json');
-
-    request.onload = function(){
-
-        const status = request.status
-
-        if (status == 202) {
-            json = JSON.parse(request.responseText);
-            btnn = document.getElementById("btn");
-            for (var i = 0; i < json.length; i++) {
-                fexamen = document.getElementById("examen");
-                var p = document.createElement("p");
-
-                p.innerHTML = json[i]['pregunta'];
-                p.setAttribute("id", "p"+json[i]['id']);
-                fexamen.appendChild(p);
-                var input = document.createElement("input");
-                input.setAttribute("type", "radio");
-                input.setAttribute("id", "epcion1");
-                input.setAttribute("name", "opcion"+i);
-                input.setAttribute("value", json[i]['opcion1']);
-                fexamen.appendChild(input);
-                var label = document.createElement("label");
-                label.setAttribute("for", "opcion1");
-                label.innerHTML = json[i]['opcion1'];
-                fexamen.appendChild(label);
-                var br = document.createElement("br");
-                fexamen.appendChild(br);
-                var input = document.createElement("input");
-                input.setAttribute("type", "radio");
-                input.setAttribute("id", "opcion2");
-                input.setAttribute("name", "opcion"+i);
-                input.setAttribute("value", json[i]['opcion2']);
-                fexamen.appendChild(input);
-                var label = document.createElement("label");
-                label.setAttribute("for", "opcion2");
-                label.innerHTML = json[i]['opcion2'];
-                fexamen.appendChild(label);
-                var br = document.createElement("br");
-                fexamen.appendChild(br);
-                var input = document.createElement("input");
-                input.setAttribute("type", "radio");
-                input.setAttribute("id", "opcion3");
-                input.setAttribute("name", "opcion"+i);
-                input.setAttribute("value", json[i]['opcion3']);
-                fexamen.appendChild(input);
-                var label = document.createElement("label");
-                label.setAttribute("for", "opcion3");
-                label.innerHTML = json[i]['opcion3'];
-                fexamen.appendChild(label);
-                var br = document.createElement("br");
-                fexamen.appendChild(br);
-                var input = document.createElement("input");
-                input.setAttribute("type", "radio");
-                input.setAttribute("id", "opcion4");
-                input.setAttribute("name", "opcion"+i);
-                input.setAttribute("value", json[i]['opcion4']);
-                fexamen.appendChild(input);
-                var label = document.createElement("label");
-                label.setAttribute("for", "opcion4");
-                label.innerHTML = json[i]['opcion4'];
-                fexamen.appendChild(label);
-                var br = document.createElement("br");
-                fexamen.appendChild(br);
-            }
-            var br = document.createElement("br");
-            fexamen.appendChild(br);
-            var button = document.createElement("button");
-            button.setAttribute("onclick", "calificar()");
-            button.innerHTML = "Calificar";
-            btnn.appendChild(button);
-
-        }
-
-        else{
-            alert(json.detail);
-        }
-    }
-    request.send();
-}
-
-function calificar(){
-    console.log(json[0]);
-    console.log(json[1]);
-    console.log(json.length);
-    token = sessionStorage.getItem("token");
-    var lis = [];
-    var data = {};
-    for (var i = 0; i < json.length; i++) {
-        id = json[i]['id_Pregunta'];
-        idE = json[i]['id_Examen'];
-        data['id_Examen'] = idE;
-        data['id_Pregunta'] = id;
-        
-        var radios = document.getElementsByName('opcion'+i);
-        for (var j = 0, length = radios.length; j < length; j++) {
-            if (radios[j].checked) {
-                data['respuesta'] = radios[j].value;
-                lis.push(data);
-                data = {};
-                break;
-            }
-        }
-    }
-    var request = new XMLHttpRequest();
-    request.open("POST",'http://147.182.172.184/CalificarExamen/',true);
-    request.setRequestHeader('Authorization', 'Bearer '+token);
-    request.setRequestHeader('Content-Type', 'application/json');
-    request.setRequestHeader('accept', 'application/json');
-    request.onload = function(){
-        const status = request.status
-        if (status == 202) {
-            json = JSON.parse(request.responseText);
-            alert(json.message);
-            window.location.replace("dashboard_Alumno.html");
-
-        }
-        else{
-            alert(json.detail);
-        }
-    }
-    request.send(JSON.stringify(lis));
-}
-
-</script>
-</body>
+<html lang="es">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>E-Test</title>
+    <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
+    <link rel="shortcut icon" href="../assets/images/favicon.png" />
+    <link rel="stylesheet" href="../assets/css/style.css">
+    <script type="text/javascript" src="js/resultados.js"></script>
+  </head>
+  <body>
+    <div class="container-scroller">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+          <a class="sidebar-brand brand-logo" href="dashboard_Alumno.html"><img src="../assets/images/logo.png" alt="logo" /></a>
+        </div>
+      </nav>
+      <!-- partial -->
+      <div class="container-fluid page-body-wrapper">   
+       <nav class="navbar p-0 fixed-top d-flex flex-row">
+        <div class="navbar-menu-wrapper flex-grow d-flex align-items-stretch">
+          <ul class="navbar-nav navbar-nav-right">
+            <li class="nav-item nav-settings d-none d-lg-block">
+              <a class="nav-link" href="../index.html">
+                <div class="preview-thumbnail">
+                    <div class="preview-icon">
+                      <i class="mdi mdi-logout text-danger"></i>
+                    </div>
+                  </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+        <div class="main-panel">
+          <h1>EXAMEN</h1>
+          <form id="examen">
+          
+          </form>
+          <div id="btn">
+          
+          </div>
+            <script>
+              document.body.onload = getExamInfo();
+          </script>
+          </table>
+          <!-- partial -->
+        </div>
+      </div>
+    </div>
+    <script src="../js/search.js"></script>
+    <script src="../assets/js/dashboard.js"></script>
+    <script src="js/dashboard_Alumno.js"></script>
+  </body>
 </html>

@@ -12,9 +12,7 @@
     <script type="text/javascript" src="../js/sweetalert2.all.min.js" charset="utf-8"></script>
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link rel="stylesheet" href="../assets/css/style.css">
-    <script type="text/javascript" src="js/mostrar_preguntas.js"></script>
     <script type="text/javascript" src="js/detalle_preguntas.js"></script>
-    <script type="text/javascript" src="js/calificar.js"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -71,13 +69,41 @@
         </div>
       </nav>
         <div class="main-panel">
-          <input type="text" id="myInput" onkeyup="myFunction('preguntas')" placeholder="Buscar por materia..." title="Filtra por materia">
-          <h1>Preguntas</h1>
-          <table class="table" id="preguntas" name="preguntas" action="calificar_preguntas.html">
-            <script>
-                document.body.onload = mostrar_preguntas()
-            </script>
-        </table>
+          <h1>Preguntas Detalle</h1>
+          <form action="" method="POST" id="form_detalle" name="form_detalle">
+            <div class="form-group">
+                <label for="pregunta">Pregunta</label>
+                <input type="text" class="form-control" id="pregunta" name="pregunta" placeholder="Pregunta" readonly=»readonly»>
+            </div>
+            <div class="form-group">
+                <label for="opcion1">Opcion1</label>
+                <input type="text" class="form-control" id="opcion1" name="opcion1" placeholder="Opcion1" readonly=»readonly»>
+            </div>
+            <div class="form-group">
+            <label for="opcion2">Opcion2</label>
+            <input type="text" class="form-control" id="opcion2" name="opcion2" placeholder="Opcion2" readonly=»readonly»>
+        </div>
+        <div class="form-group">
+            <label for="opcion3">Opcion3</label>
+            <input type="text" class="form-control" id="opcion3" name="opcion3" placeholder="Opcion3" readonly=»readonly»>
+        </div>
+        <div class="form-group">
+            <label for="opcion4">Opcion4</label>
+            <input type="text" class="form-control" id="opcion4" name="opcion4" placeholder="Opcion4" readonly=»readonly»>
+        </div>      
+        <div class="form-group">
+            <label for="respuesta">Respuesta</label>
+            <input type="text" class="form-control" id="respuesta" name="respuesta" placeholder="Respuesta" readonly=»readonly»>
+        </div>
+        <div class="form-group">
+            <label for="materia">Materia</label>
+            <input type="text" class="form-control" id="materia" name="materia" placeholder="Comentario" required>
+        </div>
+        <br>
+            <button type="button" class="btn btn-primary" onclick="location.href='preguntas.html'">Regresar</button>
+    <script>
+        document.body.onload = detalle_preguntas()
+    </script>
           <!-- partial -->
         </div>
       </div>

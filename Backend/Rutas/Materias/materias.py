@@ -81,7 +81,7 @@ async def put_materias(id: int, materiaM: S_Materias.MateriaNewF):
         await database.execute(query)
         query = select(n_materiasModel).where(n_materiasModel.c.materia == materiaM.materia)
         materia = await database.fetch_one(query)
-        query = insert(materiasModel).values({'id_N_Materia': materia['id_N_Materia'], 'profesor': materiaM.profesor, 'id_Grupo': materiaM.id_Grupo})
+        query = insert(materiasModel).values({'id_Materia':id,'id_N_Materia': materia['id_N_Materia'], 'profesor': materiaM.profesor, 'id_Grupo': materiaM.id_Grupo})
         await database.execute(query)
         return {"message": "Materia insertada correctamente"}
 

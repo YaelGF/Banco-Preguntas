@@ -1,7 +1,9 @@
 from Schemas.Usuarios import S_Usuarios
-from fastapi import APIRouter, status
+from fastapi import APIRouter, status, Depends
 from Config.Conexion import database
 from typing import List
+from Segurity.segurity import get_level
+from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
 from Modelos.BasedeDatos import usuarios  as usuariosModel
 from Modelos.BasedeDatos import alumnos as alumnosModel
 from Modelos.BasedeDatos import tipoUsuarios as tipoUsuariosModel
@@ -10,6 +12,8 @@ from Modelos.BasedeDatos import grupos as gruposModel
 from sqlalchemy import select, insert, update, delete
 
 usuarios = APIRouter()
+
+securityBearer = HTTPBearer()
 
 @usuarios.get(
     "/usuarios/",
@@ -33,13 +37,15 @@ async def get_usuarios():
     description ="Regresa un usuario",
     tags=["Usuarios"]
 )
-async def get_usuario(usuario: S_Usuarios.UserLogin): 
+async def get_usuario(credentials: HTTPAuthorizationCredentials = Depends(securityBearer)): 
     try:
-        query = select([usuariosModel,tipoUsuariosModel.c.tipoUsuario]).where(usuariosModel.c.id_TipoUsuario == tipoUsuariosModel.c.id_TipoUsuario).where(usuariosModel.c.uid == usuario.uid)
+        user = get_level(credentials.credentials)
+        uid = user['uid']
+        query = select([usuariosModel,tipoUsuariosModel.c.tipoUsuario]).where(usuariosModel.c.id_TipoUsuario == tipoUsuariosModel.c.id_TipoUsuario).where(usuariosModel.c.uid == uid)
         result = await database.fetch_one(query)
         if result:
-            return "Success"
-        return "Fail"
+            return {"message": "Success"}
+        return {"message": "Fail"}
     except Exception as error:
         print(f"Error: {error}")
         return {"message": "Error al obtener el usuario"}

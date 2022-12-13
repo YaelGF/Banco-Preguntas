@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../assets/vendors/mdi/css/materialdesignicons.min.css">
     <link rel="shortcut icon" href="../assets/images/favicon.png" />
     <link rel="stylesheet" href="../assets/css/style.css">
+    <script type="text/javascript" src="js/dashboard.js"></script>
   </head>
   <body>
     <div class="container-scroller">
@@ -80,23 +81,13 @@
         </div>
       </nav>
         <div class="main-panel">
-          <h1>Resultados</h1>
+          <h1>Profesores</h1>
+          <input type="text" id="myInput" onkeyup="myFunction('resultados')" placeholder="Buscar por materia..." title="Filtra por materia">
 
-          <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-
-          <table id="myTable">
-            <tr class="header">
-              <th style="width:60%;">Profesores</th>
-              <th style="width:40%;">Matricula</th>
-            </tr>
-            <tr>
-              <td>1</td>
-              <td>2</td>
-            </tr>
-            <tr>
-              <td>a</td>
-              <td>2</td>
-          </table>
+          <table id="resultados">
+            <script>
+              document.body.onload = Dashboard();
+          </script>
           <!-- partial -->
         </div>
       </div>
