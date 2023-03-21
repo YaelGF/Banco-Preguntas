@@ -4,7 +4,7 @@ function login(){
     let password = document.getElementById("password")
 
     var request = new XMLHttpRequest();
-    request.open("GET","http://147.182.172.184/login/validate",true);
+    request.open("GET","http://127.0.0.1:8000/login/validate",true);
     request.setRequestHeader("Authorization", "Basic " + btoa(email.value+":"+password.value));
     request.setRequestHeader('Content-Type', 'application/json');
     request.setRequestHeader('accept', 'application/json');
@@ -27,7 +27,7 @@ function login(){
 function getInformation(token){
 
     var request = new XMLHttpRequest();
-    request.open("GET","http://147.182.172.184/login/validateToken",true);
+    request.open("GET","http://127.0.0.1:8000/login/validateToken",true);
     request.setRequestHeader('Authorization', 'Bearer '+token);
     request.setRequestHeader('Content-Type', 'application/json');
     request.setRequestHeader('accept', 'application/json');
@@ -65,7 +65,7 @@ function getInformation(token){
 function getInformationUsuario(id){
     var token = sessionStorage.getItem("token");
     var request = new XMLHttpRequest();
-    request.open("POST","http://147.182.172.184/usuarios/Login/",true);
+    request.open("POST","http://127.0.0.1:8000/usuarios/Login/",true);
     request.setRequestHeader('Authorization', 'Bearer '+token);
     request.setRequestHeader('Content-Type', 'application/json');
     request.setRequestHeader('accept', 'application/json');
@@ -76,8 +76,6 @@ function getInformationUsuario(id){
 
         if (status == 202) {
             json = JSON.parse(request.responseText);
-
-            if(json["message"] == "Success"){
                 
             
                 if(id == 1){
@@ -89,14 +87,7 @@ function getInformationUsuario(id){
                 else if(id == 3){
                     window.location.replace("Profesor/dashboard_Profesor.html");
                 }
-            }
-            else{
-                if( id == 2){
-                    alert("F Usuario")
-                }else{
-                    alert("Formulario")
-                }
-            }
+            
             
         }
 
